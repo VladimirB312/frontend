@@ -1,0 +1,9 @@
+.slide-list {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid darkgray;
+}
+
+.slide {
+    padding: 5px;
+}
