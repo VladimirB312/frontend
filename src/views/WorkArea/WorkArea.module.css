@@ -1,8 +1,5 @@
 .work-area {
-    display: flex;
-}
-
-.work-area__slide {
     border: 2px solid darkgray;
     border-left: none;
+    padding: 30px;
 }

@@ -44,7 +44,7 @@ export type Slide = {
     objects: Array<TextElement | ImageElement>,
 }
 
-export type Presentation = {
+export type PresentationType = {
     title: string,
     slides: Array<Slide>,
 }
@@ -55,28 +55,28 @@ export type ToolbarItem = {
     icon: string,
 }
 
-export function renamePresentationTitle(presentation: Presentation, newTitle: string) {
+export function renamePresentationTitle(presentation: PresentationType, newTitle: string) {
     return {
         ...presentation,
         title: newTitle,
     }
 }
 
-export function addSlide(presentation: Presentation, slide: Slide) {
+export function addSlide(presentation: PresentationType, slide: Slide) {
     return {
         ...presentation,
         slides: [...presentation.slides, slide],
     }
 }
 
-export function removeSlide(presentation: Presentation, slideId: string) {
+export function removeSlide(presentation: PresentationType, slideId: string) {
     return {
         ...presentation,
         slides: presentation.slides.filter(slide => slide.id !== slideId),
     }
 }
 
-export function changeSlidePosition(presentation: Presentation, slideId: string, newPosition: number) {
+export function changeSlidePosition(presentation: PresentationType, slideId: string, newPosition: number) {
     const slideIndex: number = presentation.slides.findIndex(slide => slide.id === slideId);
     if (slideIndex === -1) {
         return presentation;
@@ -92,7 +92,7 @@ export function changeSlidePosition(presentation: Presentation, slideId: string,
     }
 }
 
-export function addElement(presentation: Presentation, slideId: string, slideElement: ImageElement | TextElement) {
+export function addElement(presentation: PresentationType, slideId: string, slideElement: ImageElement | TextElement) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => {
@@ -108,7 +108,7 @@ export function addElement(presentation: Presentation, slideId: string, slideEle
     }
 }
 
-export function removeElement(presentation: Presentation, slideId: string, slideElementId: string) {
+export function removeElement(presentation: PresentationType, slideId: string, slideElementId: string) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => {
@@ -124,7 +124,7 @@ export function removeElement(presentation: Presentation, slideId: string, slide
     }
 }
 
-export function changeElementPosition(presentation: Presentation, slideId: string, slideElementId: string, newPosition: { //
+export function changeElementPosition(presentation: PresentationType, slideId: string, slideElementId: string, newPosition: { //
     x: number,
     y: number
 }) {
@@ -149,7 +149,7 @@ export function changeElementPosition(presentation: Presentation, slideId: strin
     }
 }
 
-export function changeElementSize(presentation: Presentation, slideId: string, slideElementId: string, newSize: { //
+export function changeElementSize(presentation: PresentationType, slideId: string, slideElementId: string, newSize: { //
     width: number,
     height: number
 }) {
@@ -174,7 +174,7 @@ export function changeElementSize(presentation: Presentation, slideId: string, s
     }
 }
 
-export function changeTextValue(presentation: Presentation, slideId: string, slideElementId: string, newText: string) {
+export function changeTextValue(presentation: PresentationType, slideId: string, slideElementId: string, newText: string) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -195,7 +195,7 @@ export function changeTextValue(presentation: Presentation, slideId: string, sli
     }
 }
 
-export function changeTextSize(presentation: Presentation, slideId: string, slideElementId: string, newSize: number) {
+export function changeTextSize(presentation: PresentationType, slideId: string, slideElementId: string, newSize: number) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -217,7 +217,7 @@ export function changeTextSize(presentation: Presentation, slideId: string, slid
     }
 }
 
-export function changeTextFont(presentation: Presentation, slideId: string, slideElementId: string, newFont: string) {
+export function changeTextFont(presentation: PresentationType, slideId: string, slideElementId: string, newFont: string) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -238,15 +238,15 @@ export function changeTextFont(presentation: Presentation, slideId: string, slid
     }
 }
 
-export function setBackgroundImage(presentation: Presentation, slideId: string, newImageSrc: string) {
+export function setBackgroundImage(presentation: PresentationType, slideId: string, newImageSrc: string) {
     return changeSlideBackground(presentation, slideId, {type: "image", src: newImageSrc});
 }
 
-export function setBackgroundColor(presentation: Presentation, slideId: string, newColor: string) {
+export function setBackgroundColor(presentation: PresentationType, slideId: string, newColor: string) {
     return changeSlideBackground(presentation, slideId, {type: "solid", color: newColor});
 }
 
-export function changeSlideBackground(presentation: Presentation, slideId: string, newBackground: Background) {
+export function changeSlideBackground(presentation: PresentationType, slideId: string, newBackground: Background) {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId

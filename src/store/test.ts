@@ -8,7 +8,7 @@ import {
     changeTextSize,
     changeTextValue,
     ImageElement,
-    Presentation,
+    PresentationType,
     removeElement,
     removeSlide,
     renamePresentationTitle,
@@ -17,12 +17,12 @@ import {
     Slide
 } from './objects.ts'
 
-export const minDataPresentation: Presentation = {
+export const minDataPresentation: PresentationType = {
     title: "min data presentation",
     slides: []
 }
 
-export const maxDataPresentation: Presentation = {
+export const maxDataPresentation: PresentationType = {
     title: "max data presentation",
     slides: [
         {
@@ -78,7 +78,7 @@ export const maxDataPresentation: Presentation = {
     ]
 }
 
-const testPresentation = (presentation: Presentation) => {
+const testPresentation = (presentation: PresentationType) => {
     console.log("title before rename = ", presentation.title);
     presentation = renamePresentationTitle(presentation, "New presentation title");
     console.log("title after rename = ", presentation.title);
@@ -161,9 +161,9 @@ const testPresentation = (presentation: Presentation) => {
     console.log("slides after setBackgroundImage = ", presentation.slides);
 
 
-    console.log("slides before setBackgroundColor = ", presentation.slides);
+    console.log("slides before setBackground = ", presentation.slides);
     presentation = setBackgroundColor(presentation, "1", "red");
-    console.log("slides after setBackgroundColor = ", presentation.slides);
+    console.log("slides after setBackground = ", presentation.slides);
 }
 
 // testPresentation(minDataPresentation);

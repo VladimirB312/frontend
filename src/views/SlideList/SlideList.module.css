@@ -5,5 +5,7 @@
 }
 
 .slide {
-    padding: 5px;
+    margin: 5px;
+    border: 1px solid darkgray;
+    border-radius: 10px;
 }

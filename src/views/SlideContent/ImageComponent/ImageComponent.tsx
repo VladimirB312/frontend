@@ -1,5 +1,5 @@
 import classes from './ImageComponent.module.css'
-import {ImageElement} from "../../../../store/objects.ts";
+import {ImageElement} from "../../../store/objects.ts";
 import {CSSProperties} from "react";
 
 type ImageProps = {
