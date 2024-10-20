@@ -1,27 +1,32 @@
-import {PresentationType} from "./objects.ts";
+import {EditorType} from "./EditorType.ts";
 
-// editor.selection
-//     ? editor.presentation.slides.find(
-//         slide => slide.id == editor.selection?.selectedSlideId)
-//     : null
+type changeTextValueProps = {
+    elementId: string,
+    newText: string,
+}
 
-export function changeTextValue(presentation: PresentationType, slideId: string, slideElementId: string, newText: string) {
+export function changeTextValue(editor: EditorType, props: changeTextValueProps): EditorType {
+    const elementId = props.elementId;
+    const newText = props.newText;
     return {
-        ...presentation,
-        slides: presentation.slides.map(slide => slide.id !== slideId
-            ? slide
-            : {
-                ...slide,
-                objects: slide.objects.map(obj => {
-                    if (obj.id === slideElementId) {
-                        return obj;
-                    }
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.selectedSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != elementId) {
+                            return obj;
+                        }
 
-                    return {
-                        ...obj,
-                        value: newText,
-                    }
+                        return {
+                            ...obj,
+                            value: newText,
+                        }
+                    })
                 })
-            })
+        }
     }
 }

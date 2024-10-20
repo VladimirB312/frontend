@@ -11,7 +11,8 @@ type SlideProps = {
     slide?: Slide | null,
     scale?: number,
     isSelected: boolean,
-    className?: string
+    className?: string,
+    selectedElementId?: string | null,
 }
 
 function SlideContent(props: SlideProps) {
@@ -46,11 +47,15 @@ function SlideContent(props: SlideProps) {
     return (
         <div className={classes.slide + ' ' + props.className} style={slideStyle}>
             {elements.map(el => {
+                const className = el.id == props.selectedElementId
+                    ? classes['slide__element_selected']
+                    : classes['slide__element_not-selected']
+
                 switch (el.type) {
                     case 'text':
-                        return <TextComponent key={el.id} element={el} scale={scale}/>;
+                        return <TextComponent key={el.id} element={el} scale={scale} className={className}/>;
                     case 'image':
-                        return <ImageComponent key={el.id} element={el} scale={scale}/>;
+                        return <ImageComponent key={el.id} element={el} scale={scale} className={className}/>;
                 }
             })}
         </div>

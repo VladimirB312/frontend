@@ -13,11 +13,10 @@ type SlideListProps = {
 }
 
 function SlideList(props: SlideListProps) {
-    const onSideClick = (slideId: string) => {
+    const onSlideClick = (slideId: string) => {
         dispatch(setSelection, {
-            selectedSlideId: slideId,
+            slideId: slideId,
         })
-        console.log('selectedSlideId = ', props.selection)
     }
 
     if (props.slides.length == 0) {
@@ -32,7 +31,7 @@ function SlideList(props: SlideListProps) {
         <div className={classes['slide-list']}>
             {props.slides.map(slide => {
                 return (
-                    <div key={slide.id} onClick={() => onSideClick(slide.id)}>
+                    <div key={slide.id} onClick={() => onSlideClick(slide.id)}>
                         <SlideContent
                             slide={slide}
                             scale={SLIDE_PREVIEW_SCALE}

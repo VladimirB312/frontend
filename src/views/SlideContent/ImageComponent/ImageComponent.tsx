@@ -1,10 +1,13 @@
 import classes from './ImageComponent.module.css'
 import {ImageElement} from "../../../store/objects.ts";
 import {CSSProperties} from "react";
+import {dispatch} from "../../../store/editor.ts";
+import {setSelectionElement} from "../../../store/setSelection.ts";
 
 type ImageProps = {
     element: ImageElement,
-    scale: number
+    scale: number,
+    className?: string
 }
 
 function ImageComponent(props: ImageProps) {
@@ -18,8 +21,14 @@ function ImageComponent(props: ImageProps) {
         height: `${scale * element.size.height}px`,
     }
 
+    const onImageClick = () => {
+        dispatch(setSelectionElement, {
+            elementId: props.element.id
+        })
+    }
+
     return (
-        <img className={classes.image} src={element.src} style={imageStyle}/>
+        <img className={classes.image + ' ' + props.className} src={element.src} style={imageStyle} onClick={onImageClick}/>
     )
 }
 

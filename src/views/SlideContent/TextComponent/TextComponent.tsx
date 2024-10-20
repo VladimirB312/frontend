@@ -2,12 +2,13 @@ import classes from './TextComponent.module.css'
 import {TextElement} from "../../../store/objects.ts";
 import React, {CSSProperties} from "react";
 import {dispatch} from "../../../store/editor.ts";
-import {renamePresentationTitle} from "../../../store/renamePresentationTitle.ts";
 import {changeTextValue} from "../../../store/changeTextValue.ts";
+import {setSelectionElement} from "../../../store/setSelection.ts";
 
 type TextProps = {
     element: TextElement,
-    scale: number
+    scale: number,
+    className?: string
 }
 
 function TextComponent(props: TextProps) {
@@ -24,15 +25,25 @@ function TextComponent(props: TextProps) {
     }
 
     const onTextValueChange: React.ChangeEventHandler = (event) => {
-        dispatch(changeTextValue, (event.target as HTMLInputElement).value);
+        dispatch(changeTextValue, {
+            elementId: props.element.id,
+            newText: (event.target as HTMLInputElement).value
+        });
+    }
+
+    const onTextClick = () => {
+        dispatch(setSelectionElement, {
+            elementId: props.element.id
+        })
     }
 
     return (
         <input type='text'
-               className={classes.text}
+               className={classes.text + ' ' + props.className}
                style={textStyle}
                value={props.element.value}
                onChange={onTextValueChange}
+               onClick={onTextClick}
         />
     )
 }

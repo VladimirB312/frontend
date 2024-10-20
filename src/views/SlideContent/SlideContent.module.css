@@ -2,3 +2,12 @@
     position: relative;
     background-size: cover;
 }
+
+.slide__element_selected {
+    border: 2px solid #5F5F7CFF;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.slide__element_not-selected {
+    border: none
+}

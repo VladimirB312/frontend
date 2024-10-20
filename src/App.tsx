@@ -9,23 +9,26 @@ type AppProps = {
 }
 
 function App({editor}: AppProps) {
+
+
     const slide =
-        editor.selection
-            ? editor.presentation.slides.find(
-                slide => slide.id == editor.selection?.selectedSlideId)
-            : null
+        editor.presentation.slides.find(slide => slide.id == editor.selection?.selectedSlideId) ?? null
+
+    const selectedElementId = editor.selection?.selectedElementId ?? null
 
     return (
-        <>
+        <div>
             <TopPanel title={editor.presentation.title}
                       slide={slide}
             />
             <div className={classes['wrapper']}>
                 <SlideList slides={editor.presentation.slides}
                            selection={editor.selection}/>
-                <WorkArea slide={slide}/>
+                <WorkArea slide={slide}
+                          selectedElementId={selectedElementId}
+                />
             </div>
-        </>
+        </div>
     )
 }
 

@@ -21,6 +21,7 @@ export function removeSlide(editor: EditorType): EditorType {
             slides: newSlides,
         },
         selection: {
+            ...editor.selection,
             selectedSlideId: newSelectedSlideId
         }
     }
