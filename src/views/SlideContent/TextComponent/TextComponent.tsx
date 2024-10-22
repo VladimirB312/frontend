@@ -8,7 +8,8 @@ import {setSelectionElement} from "../../../store/setSelection.ts";
 type TextProps = {
     element: TextElement,
     scale: number,
-    className?: string
+    className?: string,
+    elementStyle?: string,
 }
 
 function TextComponent(props: TextProps) {
@@ -39,7 +40,7 @@ function TextComponent(props: TextProps) {
 
     return (
         <input type='text'
-               className={classes.text + ' ' + props.className}
+               className={classes.text + ' ' + props.className + ' ' + props.elementStyle}
                style={textStyle}
                value={props.element.value}
                onChange={onTextValueChange}

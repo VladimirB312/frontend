@@ -10,7 +10,10 @@ type WorkAreaProps = {
 function WorkArea(props: WorkAreaProps) {
     return (
         <div className={classes['work-area']}>
-            <SlideContent slide={props.slide} scale={1} isSelected={false} selectedElementId={props.selectedElementId}/>
+            <SlideContent slide={props.slide}
+                          scale={1} isSelected={false}
+                          selectedElementId={props.selectedElementId}
+                          elementStyle={classes.slide}/>
         </div>
     )
 }

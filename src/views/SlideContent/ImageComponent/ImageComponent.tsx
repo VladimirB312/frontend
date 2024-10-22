@@ -7,7 +7,8 @@ import {setSelectionElement} from "../../../store/setSelection.ts";
 type ImageProps = {
     element: ImageElement,
     scale: number,
-    className?: string
+    className?: string,
+    elementStyle?: string,
 }
 
 function ImageComponent(props: ImageProps) {
@@ -28,7 +29,10 @@ function ImageComponent(props: ImageProps) {
     }
 
     return (
-        <img className={classes.image + ' ' + props.className} src={element.src} style={imageStyle} onClick={onImageClick}/>
+        <img className={classes.image + ' ' + props.className + ' ' + props.elementStyle}
+             src={element.src}
+             style={imageStyle}
+             onClick={onImageClick}/>
     )
 }
 
