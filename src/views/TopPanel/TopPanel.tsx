@@ -10,11 +10,11 @@ import React from "react";
 import {removeElement} from "../../store/removeElement.ts";
 import {addTextElement} from "../../store/addElement.ts";
 import {DownloadImage} from "./DownloadImage.tsx";
+import {Title} from "./Title.tsx";
 
 type TopPanelProps = {
     title: string,
     slide: Slide | null
-
 }
 
 function TopPanel(props: TopPanelProps) {
@@ -51,18 +51,17 @@ function TopPanel(props: TopPanelProps) {
         dispatch(addTextElement)
     }
 
-
     return (
         <div className={classes['top-panel']}>
             {showModal && <BackgroundChangeModal slide={props.slide} onClick={onCloseModal}/>}
-            <input className={classes['title']} type='text' defaultValue={props.title} onChange={onTitleChange}/>
+            <Title value={props.title} onChange={onTitleChange}/>
             <div className={classes['toolbar']}>
                 <Button text={'Добавить слайд'} onClick={onAddSlide}/>
                 <Button text={'Удалить слайд'} onClick={onRemoveSlide}/>
                 <Button text={'Изменить фон'} onClick={onShowModal}/>
                 <Button text={'Удалить элемент'} onClick={onRemoveElement}/>
                 <Button text={'Добавить текст'} onClick={onAddTextElement}/>
-                <DownloadImage />
+                <DownloadImage/>
             </div>
         </div>
     )

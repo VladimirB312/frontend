@@ -31,12 +31,17 @@ function SlideList(props: SlideListProps) {
         <div className={classes['slide-list']}>
             {props.slides.map(slide => {
                 return (
-                    <div key={slide.id} onClick={() => onSlideClick(slide.id)}>
+                    <div key={slide.id} onClick={(event) => {
+                        console.log('event', event)
+                        onSlideClick(slide.id)
+                    }}>
+
                         <SlideContent
                             slide={slide}
                             scale={SLIDE_PREVIEW_SCALE}
                             isSelected={slide.id == props.selection?.selectedSlideId}
-                            className={classes.slide}/>
+                            className={classes.slide}
+                        />
                     </div>
                 )
             })}

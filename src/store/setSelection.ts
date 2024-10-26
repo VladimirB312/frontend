@@ -13,8 +13,6 @@ export function setSelection(editor: EditorType, payload: { slideId: string }): 
 }
 
 export function setSelectionElement(editor: EditorType, payload: {elementId: string} ): EditorType {
-    console.log(payload.elementId)
-
     const elementId = payload.elementId
     return {
         ...editor,

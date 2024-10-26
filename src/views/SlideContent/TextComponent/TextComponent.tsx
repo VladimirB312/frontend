@@ -39,6 +39,7 @@ function TextComponent(props: TextProps) {
     }
 
     return (
+
         <input type='text'
                className={classes.text + ' ' + props.className + ' ' + props.elementStyle}
                style={textStyle}
@@ -46,6 +47,7 @@ function TextComponent(props: TextProps) {
                onChange={onTextValueChange}
                onClick={onTextClick}
         />
+
     )
 }
 

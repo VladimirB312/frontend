@@ -16,10 +16,15 @@ type SlideProps = {
     selectedElementId?: string | null,
 }
 
-function SlideContent(props: SlideProps) {
-    const scale = props.scale ? props.scale : 1;
-
-    if (!props.slide) {
+function SlideContent({
+    scale = 1,
+    slide,
+    className = '',
+    isSelected,
+    elementStyle,
+    selectedElementId,
+}: SlideProps) {
+    if (!slide) {
         const emptyStyle: CSSProperties = {
             width: `${SLIDE_WIDTH * scale}px`,
             height: `${SLIDE_HEIGHT * scale}px`,
@@ -28,43 +33,47 @@ function SlideContent(props: SlideProps) {
     }
 
     const slideStyle: CSSProperties = {
-        backgroundColor: props.slide.background.type == 'solid'
-            ? props.slide.background.color
+        backgroundColor: slide.background.type == 'solid'
+            ? slide.background.color
             : '',
-        backgroundImage: props.slide.background.type == 'image'
-            ? `url(${props.slide.background.src}`
+        backgroundImage: slide.background.type == 'image'
+            ? `url(${slide.background.src}`
             : '',
         width: `${SLIDE_WIDTH * scale}px`,
         height: `${SLIDE_HEIGHT * scale}px`,
         border: `1px solid #d3d3d3`
     }
 
-    if (props.isSelected) {
+    if (isSelected) {
         slideStyle.border = '3px solid #0b57d0';
     }
 
-    const elements: Array<TextElement | ImageElement> = props.slide.objects
+    const elements: Array<TextElement | ImageElement> = slide.objects
 
     return (
-        <div className={classes.slide + ' ' + props.className} style={slideStyle}>
+        <div className={classes.slide + ' ' + className} style={slideStyle}>
             {elements.map(el => {
-                const styles = el.id == props.selectedElementId
+                const styles = el.id == selectedElementId
                     ? classes['slide__element_selected']
                     : classes['slide__element_not-selected']
 
                 switch (el.type) {
                     case 'text':
-                        return <TextComponent key={el.id}
-                                              element={el}
-                                              scale={scale}
-                                              className={styles}
-                                              elementStyle={props.elementStyle}/>;
+                        return <TextComponent
+                            key={el.id}
+                            element={el}
+                            scale={scale}
+                            className={styles}
+                            elementStyle={elementStyle}
+                        />;
                     case 'image':
-                        return <ImageComponent key={el.id}
-                                               element={el}
-                                               scale={scale}
-                                               className={styles}
-                                               elementStyle={props.elementStyle}/>;
+                        return <ImageComponent
+                            key={el.id}
+                            element={el}
+                            scale={scale}
+                            className={styles}
+                            elementStyle={elementStyle}
+                        />;
                 }
             })}
         </div>
