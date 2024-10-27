@@ -1,15 +1,23 @@
 import classes from './BackgroundChangeModal.module.css'
-import {ColorBackground, ImageBackground, Slide} from "../../store/objects.ts";
+import {Background, ColorBackground, ImageBackground, Slide} from "../../store/objects.ts";
 import {dispatch} from "../../store/editor.ts";
-import {setBackgroundColor, setBackgroundImage} from "../../store/setBackgroundColor.ts";
+import {setBackground} from "../../store/setBackgroundColor.ts";
 import Button from "../../components/Button/Button.tsx";
+import React, {SetStateAction} from "react";
 
 type BackgroundChangeModalProps = {
     slide: Slide | null,
     onClick: () => void,
+    previewUserBackground: null | Background,
+    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>
 }
 
-export function BackgroundChangeModal({slide, onClick}: BackgroundChangeModalProps) {
+export function BackgroundChangeModal({
+                                          slide,
+                                          onClick,
+                                          previewUserBackground,
+                                          setPreviewUserBackground,
+                                      }: BackgroundChangeModalProps) {
     if (!slide) {
         return <p>Цвет фона</p>
     }
@@ -24,8 +32,7 @@ export function BackgroundChangeModal({slide, onClick}: BackgroundChangeModalPro
             type: 'solid',
             color: (event.target as HTMLInputElement).value,
         }
-
-        dispatch(setBackgroundColor, newBackgroundColor)
+        setPreviewUserBackground(newBackgroundColor)
     }
 
     function convertToBase64(file: File, onSuccess: (base64: string) => void) {
@@ -46,9 +53,15 @@ export function BackgroundChangeModal({slide, onClick}: BackgroundChangeModalPro
                 type: 'image',
                 src: base64,
             }
-            dispatch(setBackgroundImage, newBackgroundImage)
+            setPreviewUserBackground(newBackgroundImage)
         })
 
+    }
+
+    const onSave = () => {
+        if (previewUserBackground) {
+            dispatch(setBackground, previewUserBackground)
+        }
     }
 
     return (
@@ -64,6 +77,7 @@ export function BackgroundChangeModal({slide, onClick}: BackgroundChangeModalPro
                     <input type='file' onChange={handleImageChange}/>
                 </div>
                 <Button text='Закрыть' onClick={onClick}/>
+                <Button text='Применить' onClick={onSave}/>
             </div>
         </div>
     )

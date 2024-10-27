@@ -1,7 +1,7 @@
 import {EditorType} from "./EditorType.ts";
 import {Background, ColorBackground, ImageBackground} from "./objects.ts";
 
-function setBackground(editor: EditorType, newBackground: Background): EditorType {
+export function setBackground(editor: EditorType, newBackground: Background): EditorType {
     return {
         presentation: {
             ...editor.presentation,

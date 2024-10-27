@@ -4,9 +4,9 @@ import {renamePresentationTitle} from "../../store/renamePresentationTitle.ts";
 import {dispatch} from "../../store/editor.ts";
 import {removeSlide} from "../../store/removeSlide.ts";
 import {addSlide} from "../../store/addSlide.ts";
-import { Slide} from "../../store/objects.ts";
+import {Background, Slide} from "../../store/objects.ts";
 import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx";
-import React from "react";
+import React, {SetStateAction} from "react";
 import {removeElement} from "../../store/removeElement.ts";
 import {addTextElement} from "../../store/addElement.ts";
 import {DownloadImage} from "./DownloadImage.tsx";
@@ -16,9 +16,17 @@ type TopPanelProps = {
     title: string,
     slide: Slide | null,
     selectedElementId: string | null,
+    previewUserBackground: null | Background,
+    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>
 }
 
-function TopPanel({title, slide,selectedElementId}: TopPanelProps) {
+function TopPanel({
+                      title,
+                      slide,
+                      selectedElementId,
+                      previewUserBackground,
+                      setPreviewUserBackground,
+                  }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
 
@@ -42,6 +50,7 @@ function TopPanel({title, slide,selectedElementId}: TopPanelProps) {
 
     const onCloseModal = () => {
         setShowModal(false)
+        setPreviewUserBackground(null)
     }
 
     const onRemoveElement = () => {
@@ -58,7 +67,10 @@ function TopPanel({title, slide,selectedElementId}: TopPanelProps) {
 
     return (
         <div className={classes['top-panel']}>
-            {showModal && <BackgroundChangeModal slide={slide} onClick={onCloseModal}/>}
+            {showModal && <BackgroundChangeModal slide={slide}
+                                                 previewUserBackground={previewUserBackground}
+                                                 setPreviewUserBackground={setPreviewUserBackground}
+                                                 onClick={onCloseModal}/>}
             <Title value={title} onChange={onTitleChange}/>
             <div className={classes['toolbar']}>
                 <Button text={'Добавить слайд'} onClick={onAddSlide}/>

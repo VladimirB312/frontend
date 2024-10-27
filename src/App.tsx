@@ -14,6 +14,7 @@ function App({editor}: AppProps) {
     const activeSlide = editor.presentation.slides.find(
         slide => slide.id == editor.selection?.activeSlideId
     ) ?? null ///
+
     const [previewUserBackground, setPreviewUserBackground] = useState<null | Background>(null)
 
     const selectedElementId = editor.selection?.selectedElementId ?? null
@@ -23,6 +24,8 @@ function App({editor}: AppProps) {
             <TopPanel title={editor.presentation.title}
                       slide={activeSlide}
                       selectedElementId={selectedElementId}
+                      previewUserBackground={previewUserBackground}
+                      setPreviewUserBackground={setPreviewUserBackground}
             />
             <div className={classes['wrapper']}>
                 <SlideList slides={editor.presentation.slides}
