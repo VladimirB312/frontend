@@ -9,14 +9,14 @@ type BackgroundChangeModalProps = {
     onClick: () => void,
 }
 
-export function BackgroundChangeModal(props: BackgroundChangeModalProps) {
-    if (!props.slide) {
+export function BackgroundChangeModal({slide, onClick}: BackgroundChangeModalProps) {
+    if (!slide) {
         return <p>Цвет фона</p>
     }
-    let selectedColor = props.slide.background.type == 'solid' ? props.slide.background.color : '#ffffff'
+    let selectedColor = slide.background.type == 'solid' ? slide.background.color : '#ffffff'
 
-    if (props.slide.background.type == 'solid') {
-        selectedColor = props.slide.background.color
+    if (slide.background.type == 'solid') {
+        selectedColor = slide.background.color
     }
 
     const handleColorChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -63,7 +63,7 @@ export function BackgroundChangeModal(props: BackgroundChangeModalProps) {
                     <span>Выберите фоновое изображение</span>
                     <input type='file' onChange={handleImageChange}/>
                 </div>
-                <Button text='Закрыть' onClick={props.onClick}/>
+                <Button text='Закрыть' onClick={onClick}/>
             </div>
         </div>
     )

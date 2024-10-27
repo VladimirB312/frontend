@@ -6,7 +6,7 @@ function addElement(editor: EditorType, newElement: ImageElement | TextElement) 
         presentation : {
             ...editor.presentation,
             slides: editor.presentation.slides.map(slide => {
-                if (slide.id !== editor.selection?.selectedSlideId) {
+                if (slide.id !== editor.selection?.activeSlideId) {
                     return slide;
                 }
 

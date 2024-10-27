@@ -3,7 +3,7 @@ import {Slide} from "../../store/objects.ts";
 import SlideContent from "../SlideContent/SlideContent.tsx";
 import {SelectionType} from "../../store/EditorType.ts";
 import {dispatch} from "../../store/editor.ts";
-import {setSelection} from "../../store/setSelection.ts";
+import {setActiveSlide, setSelectionSlide} from "../../store/setActiveSlide.ts";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
 
@@ -12,14 +12,22 @@ type SlideListProps = {
     selection: SelectionType | null,
 }
 
-function SlideList(props: SlideListProps) {
-    const onSlideClick = (slideId: string) => {
-        dispatch(setSelection, {
+function SlideList({slides, selection}: SlideListProps) {
+    const onSlideClick = (event: React.MouseEvent<HTMLDivElement>, slideId: string) => {
+        if (event.ctrlKey) {
+            dispatch(setSelectionSlide, {
+                slideId: slideId,
+            })
+            return;
+        }
+
+        dispatch(setActiveSlide, {
             slideId: slideId,
         })
     }
 
-    if (props.slides.length == 0) {
+
+    if (slides.length == 0) {
         return (
             <div className={classes['slide-list']}>
                 <SlideContent scale={SLIDE_PREVIEW_SCALE} isSelected={false}/>
@@ -29,17 +37,16 @@ function SlideList(props: SlideListProps) {
 
     return (
         <div className={classes['slide-list']}>
-            {props.slides.map(slide => {
+            {slides.map(slide => {
                 return (
                     <div key={slide.id} onClick={(event) => {
-                        console.log('event', event)
-                        onSlideClick(slide.id)
+                        onSlideClick(event, slide.id)
                     }}>
 
                         <SlideContent
                             slide={slide}
                             scale={SLIDE_PREVIEW_SCALE}
-                            isSelected={slide.id == props.selection?.selectedSlideId}
+                            isSelected={selection?.selectedSlidesId?.includes(slide.id) ?? false}
                             className={classes.slide}
                         />
                     </div>

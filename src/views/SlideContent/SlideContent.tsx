@@ -17,13 +17,13 @@ type SlideProps = {
 }
 
 function SlideContent({
-    scale = 1,
-    slide,
-    className = '',
-    isSelected,
-    elementStyle,
-    selectedElementId,
-}: SlideProps) {
+                          scale = 1,
+                          slide,
+                          className = '',
+                          isSelected,
+                          elementStyle,
+                          selectedElementId,
+                      }: SlideProps) {
     if (!slide) {
         const emptyStyle: CSSProperties = {
             width: `${SLIDE_WIDTH * scale}px`,

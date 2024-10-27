@@ -4,7 +4,7 @@ export function clearSelection(editor: EditorType): EditorType {
     return {
         ...editor,
         selection: {
-            selectedSlideId: null,
+            activeSlideId: null,
             selectedElementId: null,
         }
     }

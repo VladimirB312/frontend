@@ -14,6 +14,10 @@ export function addSlide(editor: EditorType): EditorType {
             ...editor.presentation,
             slides: [...editor.presentation.slides, newSlide],
         },
-        selection: editor.selection,
+        selection: {
+            ...editor.selection,
+            activeSlideId: newSlide.id,
+            selectedSlidesId: [newSlide.id],
+        },
     }
 }

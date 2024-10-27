@@ -2,7 +2,7 @@ import classes from './ImageComponent.module.css'
 import {ImageElement} from "../../../store/objects.ts";
 import {CSSProperties} from "react";
 import {dispatch} from "../../../store/editor.ts";
-import {setSelectionElement} from "../../../store/setSelection.ts";
+import {setSelectionElement} from "../../../store/setActiveSlide.ts";
 
 type ImageProps = {
     element: ImageElement,
@@ -11,9 +11,12 @@ type ImageProps = {
     elementStyle?: string,
 }
 
-function ImageComponent(props: ImageProps) {
-    const element = props.element;
-    const scale = props.scale;
+function ImageComponent({
+                            element,
+                            scale,
+                            className = '',
+                            elementStyle = ''
+                        }: ImageProps) {
 
     const imageStyle: CSSProperties = {
         top: `${scale * element.position.x}px`,
@@ -24,12 +27,12 @@ function ImageComponent(props: ImageProps) {
 
     const onImageClick = () => {
         dispatch(setSelectionElement, {
-            elementId: props.element.id
+            elementId: element.id
         })
     }
 
     return (
-        <img className={classes.image + ' ' + props.className + ' ' + props.elementStyle}
+        <img className={classes.image + ' ' + className + ' ' + elementStyle}
              src={element.src}
              style={imageStyle}
              onClick={onImageClick}/>

@@ -3,12 +3,15 @@ import classes from "./Button.module.css";
 type ButtonProps = {
     text: string,
     onClick?: () => void,
+    disabled?: boolean,
 }
 
-function Button(props: ButtonProps) {
+function Button({text, onClick, disabled = false}: ButtonProps) {
     return (
-        <button className={classes['button']} onClick={props.onClick}>
-            {props.text}
+        <button className={classes['button']}
+                onClick={onClick}
+                disabled={disabled}>
+            {text}
         </button>
     )
 }

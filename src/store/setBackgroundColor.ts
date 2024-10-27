@@ -7,7 +7,7 @@ function setBackground(editor: EditorType, newBackground: Background): EditorTyp
             ...editor.presentation,
             slides:
                 editor.presentation.slides.map(slide =>
-                    slide.id != editor.selection.selectedSlideId
+                    slide.id != editor.selection?.activeSlideId
                         ? slide
                         : {
                             ...slide,

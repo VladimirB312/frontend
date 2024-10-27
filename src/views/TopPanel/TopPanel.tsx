@@ -14,10 +14,11 @@ import {Title} from "./Title.tsx";
 
 type TopPanelProps = {
     title: string,
-    slide: Slide | null
+    slide: Slide | null,
+    selectedElementId: string | null,
 }
 
-function TopPanel(props: TopPanelProps) {
+function TopPanel({title, slide,selectedElementId}: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
 
@@ -34,7 +35,7 @@ function TopPanel(props: TopPanelProps) {
     }
 
     const onShowModal = () => {
-        if (props.slide) {
+        if (slide) {
             setShowModal(true)
         }
     }
@@ -51,17 +52,21 @@ function TopPanel(props: TopPanelProps) {
         dispatch(addTextElement)
     }
 
+    const disabledSlideButton: boolean = !slide;
+
+    const disabledElementButton: boolean = !selectedElementId;
+
     return (
         <div className={classes['top-panel']}>
-            {showModal && <BackgroundChangeModal slide={props.slide} onClick={onCloseModal}/>}
-            <Title value={props.title} onChange={onTitleChange}/>
+            {showModal && <BackgroundChangeModal slide={slide} onClick={onCloseModal}/>}
+            <Title value={title} onChange={onTitleChange}/>
             <div className={classes['toolbar']}>
                 <Button text={'Добавить слайд'} onClick={onAddSlide}/>
-                <Button text={'Удалить слайд'} onClick={onRemoveSlide}/>
-                <Button text={'Изменить фон'} onClick={onShowModal}/>
-                <Button text={'Удалить элемент'} onClick={onRemoveElement}/>
-                <Button text={'Добавить текст'} onClick={onAddTextElement}/>
-                <DownloadImage/>
+                <Button text={'Удалить слайд'} onClick={onRemoveSlide} disabled={disabledSlideButton}/>
+                <Button text={'Изменить фон'} onClick={onShowModal} disabled={disabledSlideButton}/>
+                <Button text={'Удалить элемент'} onClick={onRemoveElement} disabled={disabledElementButton}/>
+                <Button text={'Добавить текст'} onClick={onAddTextElement} disabled={disabledSlideButton}/>
+                <DownloadImage disabled={disabledSlideButton}/>
             </div>
         </div>
     )

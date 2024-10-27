@@ -3,7 +3,7 @@ import {TextElement} from "../../../store/objects.ts";
 import React, {CSSProperties} from "react";
 import {dispatch} from "../../../store/editor.ts";
 import {changeTextValue} from "../../../store/changeTextValue.ts";
-import {setSelectionElement} from "../../../store/setSelection.ts";
+import {setSelectionElement} from "../../../store/setActiveSlide.ts";
 
 type TextProps = {
     element: TextElement,
@@ -12,9 +12,12 @@ type TextProps = {
     elementStyle?: string,
 }
 
-function TextComponent(props: TextProps) {
-    const element = props.element;
-    const scale = props.scale;
+function TextComponent({
+                           element,
+                           scale,
+                           className = '',
+                           elementStyle = ''
+                       }: TextProps) {
 
     const textStyle: CSSProperties = {
         top: `${scale * element.position.x}px`,
@@ -27,25 +30,26 @@ function TextComponent(props: TextProps) {
 
     const onTextValueChange: React.ChangeEventHandler = (event) => {
         dispatch(changeTextValue, {
-            elementId: props.element.id,
+            elementId: element.id,
             newText: (event.target as HTMLInputElement).value
         });
     }
 
     const onTextClick = () => {
         dispatch(setSelectionElement, {
-            elementId: props.element.id
+            elementId: element.id
         })
     }
 
     return (
 
-        <input type='text'
-               className={classes.text + ' ' + props.className + ' ' + props.elementStyle}
+        <textarea
+               className={classes.text + ' ' + className + ' ' + elementStyle}
                style={textStyle}
-               value={props.element.value}
+               value={element.value}
                onChange={onTextValueChange}
                onClick={onTextClick}
+               onDrop={(e) => e.preventDefault()}
         />
 
     )

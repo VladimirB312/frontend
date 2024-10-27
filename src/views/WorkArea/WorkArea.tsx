@@ -7,12 +7,12 @@ type WorkAreaProps = {
     selectedElementId: string | null;
 }
 
-function WorkArea(props: WorkAreaProps) {
+function WorkArea({slide, selectedElementId}: WorkAreaProps) {
     return (
         <div className={classes['work-area']}>
-            <SlideContent slide={props.slide}
+            <SlideContent slide={slide}
                           scale={1} isSelected={false}
-                          selectedElementId={props.selectedElementId}
+                          selectedElementId={selectedElementId}
                           elementStyle={classes.slide}/>
         </div>
     )

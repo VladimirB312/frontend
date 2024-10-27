@@ -11,8 +11,8 @@ type AppProps = {
 }
 
 function App({editor}: AppProps) {
-    const slide = editor.presentation.slides.find(
-        slide => slide.id == editor.selection?.selectedSlideId
+    const activeSlide = editor.presentation.slides.find(
+        slide => slide.id == editor.selection?.activeSlideId
     ) ?? null ///
     const [previewUserBackground, setPreviewUserBackground] = useState<null | Background>(null)
 
@@ -21,18 +21,19 @@ function App({editor}: AppProps) {
     return (
         <div>
             <TopPanel title={editor.presentation.title}
-                      slide={slide}
+                      slide={activeSlide}
+                      selectedElementId={selectedElementId}
             />
             <div className={classes['wrapper']}>
                 <SlideList slides={editor.presentation.slides}
                            selection={editor.selection}/>
                 <WorkArea
-                    slide={slide
+                    slide={activeSlide
                         ? {
-                            ...slide,
-                            background: previewUserBackground || slide.background
+                            ...activeSlide,
+                            background: previewUserBackground || activeSlide.background
                         }
-                        : slide
+                        : activeSlide
                     }
                     selectedElementId={selectedElementId}
                 />

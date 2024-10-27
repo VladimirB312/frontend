@@ -12,7 +12,7 @@ export function changeTextValue(editor: EditorType, props: changeTextValueProps)
         ...editor,
         presentation: {
             ...editor.presentation,
-            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.selectedSlideId
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
                 ? slide
                 : {
                     ...slide,

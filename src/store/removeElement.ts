@@ -1,12 +1,12 @@
 import {EditorType} from "./EditorType.ts";
 
 export function removeElement(editor: EditorType) : EditorType {
-    if (!editor.selection?.selectedSlideId || !editor.selection.selectedElementId) {
+    if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
         return editor
     }
 
     const elementId = editor.selection.selectedElementId
-    const selectedSlideId = editor.selection.selectedSlideId
+    const selectedSlideId = editor.selection.activeSlideId
     return {
         ...editor,
         presentation: {
