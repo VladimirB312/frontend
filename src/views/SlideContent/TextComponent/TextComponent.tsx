@@ -3,7 +3,6 @@ import {TextElement} from "../../../store/objects.ts";
 import React, {CSSProperties} from "react";
 import {dispatch} from "../../../store/editor.ts";
 import {changeTextValue} from "../../../store/changeTextValue.ts";
-import {setSelectionElement} from "../../../store/setActiveSlide.ts";
 
 type TextProps = {
     element: TextElement,
@@ -20,8 +19,8 @@ function TextComponent({
                        }: TextProps) {
 
     const textStyle: CSSProperties = {
-        top: `${scale * element.position.x}px`,
-        left: `${scale * element.position.y}px`,
+        top: `${scale * element.position.y}px`,
+        left: `${scale * element.position.x}px`,
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
         fontFamily: `${element.font}`,
@@ -35,23 +34,15 @@ function TextComponent({
         });
     }
 
-    const onTextClick = () => {
-        dispatch(setSelectionElement, {
-            elementId: element.id
-        })
-    }
-
     return (
-
         <textarea
                className={classes.text + ' ' + className + ' ' + elementStyle}
                style={textStyle}
                value={element.value}
+               draggable={false}
                onChange={onTextValueChange}
-               onClick={onTextClick}
                onDrop={(e) => e.preventDefault()}
         />
-
     )
 }
 

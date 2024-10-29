@@ -1,8 +1,7 @@
 import classes from './SlideContent.module.css';
 import {ImageElement, Slide, TextElement} from "../../store/objects.ts";
-import TextComponent from "./TextComponent/TextComponent.tsx";
-import ImageComponent from "./ImageComponent/ImageComponent.tsx";
 import {CSSProperties} from "react";
+import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
 
 const SLIDE_WIDTH: number = 935;
 const SLIDE_HEIGHT: number = 525;
@@ -53,28 +52,12 @@ function SlideContent({
     return (
         <div className={classes.slide + ' ' + className} style={slideStyle}>
             {elements.map(el => {
-                const styles = el.id == selectedElementId
-                    ? classes['slide__element_selected']
-                    : classes['slide__element_not-selected']
-
-                switch (el.type) {
-                    case 'text':
-                        return <TextComponent
-                            key={el.id}
-                            element={el}
-                            scale={scale}
-                            className={styles}
-                            elementStyle={elementStyle}
-                        />;
-                    case 'image':
-                        return <ImageComponent
-                            key={el.id}
-                            element={el}
-                            scale={scale}
-                            className={styles}
-                            elementStyle={elementStyle}
-                        />;
-                }
+                return <SelectableElement key={el.id}
+                                          element={el}
+                                          selectedElementId={selectedElementId}
+                                          scale={scale}
+                                          elementStyle={elementStyle}
+                />
             })}
         </div>
     )
