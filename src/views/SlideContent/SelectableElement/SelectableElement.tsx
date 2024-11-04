@@ -14,6 +14,11 @@ type SelectableElementProps = {
     elementStyle?: string,
 }
 
+type Position = {
+    x: number,
+    y: number
+}
+
 export function SelectableElement({
                                       element,
                                       scale = 1,
@@ -22,11 +27,13 @@ export function SelectableElement({
                                   }: SelectableElementProps) {
 
     const elementRef = useRef<HTMLDivElement>(null)
-    const [position, setPosition] = useState(element.position)
+    const [position, setPosition] = useState<Position>(element.position)
+    const [dndPosition, setDndPosition] = useState<Position>(null)
 
-    let startPos = position
+let pos = dndPosition ? dndPosition : element.position
 
     useEffect(() => {
+
         if (elementRef.current) {
             elementRef.current.addEventListener('mousedown', onMouseDown)
         }
@@ -36,14 +43,16 @@ export function SelectableElement({
             }
         }
 
-    }, [position]);
+    },[position, dndPosition]);
+
+    let startPos: Position = {x: 0, y: 0}
 
     const onMouseDown = (e: MouseEvent) => {
         dispatch(setSelectionElement, {
             elementId: element.id
         })
         startPos = {x: e.pageX, y: e.pageY}
-        document.addEventListener('mousemove', onMouseMove)
+        document.addEventListener('mousemove',onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
 
     }
@@ -52,18 +61,25 @@ export function SelectableElement({
         const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
         const newPos = {x: position.x + delta.x, y: position.y + delta.y}
         setPosition(newPos)
+        setDndPosition(newPos)
     }
 
     const onMouseUp = () => {
-        dispatch(changePosition, position)
+        // setPosition(dndPosition)
+if (dndPosition) {
+    dispatch(changePosition, dndPosition)
+    setPosition(dndPosition)
+    setDndPosition(null)
+}
+
         document.removeEventListener('mousemove', onMouseMove)
         document.removeEventListener('mouseup', onMouseUp)
 
     }
 
     const borderStyle: CSSProperties = {
-        top: `${scale * position.y}px`,
-        left: `${scale * position.x}px`,
+        top: `${scale * pos.y}px`,
+        left: `${scale * pos.x}px`,
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
     }

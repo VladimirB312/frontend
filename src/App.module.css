@@ -1,8 +1,3 @@
-:root {
-    --topPanelHeight: 85px;
-    --paddingApp: 10px;
-}
-
 .wrapper {
     display: flex;
     height: calc(100vh - var(--topPanelHeight) - var(--paddingApp) * 2);

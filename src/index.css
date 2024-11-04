@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+:root {
+  --topPanelHeight: 85px;
+  --paddingApp: 10px;
+}
+
 #root {
   padding: var(--paddingApp);
+  height: calc(100vh - var(--paddingApp) * 2);
 }
