@@ -12,4 +12,5 @@
     border: 1px solid darkgray;
     border-radius: 10px;
     pointer-events: none;
+    user-select: none;
 }

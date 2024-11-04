@@ -9,7 +9,7 @@ const slide1: Slide = {
     },
     objects: [
         {
-            id: '1',
+            id: '311',
             position: {x: 40, y: 40},
             size: {width: 200, height: 200},
             type: "text",
@@ -18,7 +18,7 @@ const slide1: Slide = {
             font: "sans-serif"
         },
         {
-            id: "2",
+            id: "241",
             position: {x: 160, y: 160},
             size: {width: 150, height: 150},
             type: "image",
@@ -35,7 +35,7 @@ const slide2: Slide = {
     },
     objects: [
         {
-            id: "1",
+            id: "15",
             position: {x: 50, y: 150},
             size: {width: 200, height: 50},
             type: "text",
@@ -44,7 +44,7 @@ const slide2: Slide = {
             font: "sans-serif"
         },
         {
-            id: "2",
+            id: "182",
             position: {x: 150, y: 150},
             size: {width: 150, height: 150},
             type: "image",

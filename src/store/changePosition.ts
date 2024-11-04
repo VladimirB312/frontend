@@ -11,6 +11,6 @@ export function changePosition(editor: EditorType, newPosition: { x: number, y: 
 
     return {
         ...editor,
-        presentation: changeElementPosition(editor.presentation, slideId, slideElementId, newPosition)
+        presentation: changeElementPosition(editor.presentation, slideId, slideElementId, newPosition),
     }
 }

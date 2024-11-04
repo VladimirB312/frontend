@@ -38,22 +38,27 @@ export function SelectableElement({
 
     }, [position]);
 
-    const onMouseDown = (e) => {
+    const onMouseDown = (e: MouseEvent) => {
+        dispatch(setSelectionElement, {
+            elementId: element.id
+        })
         startPos = {x: e.pageX, y: e.pageY}
         document.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
+
     }
 
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
         const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
         const newPos = {x: position.x + delta.x, y: position.y + delta.y}
         setPosition(newPos)
     }
 
     const onMouseUp = () => {
+        dispatch(changePosition, position)
         document.removeEventListener('mousemove', onMouseMove)
         document.removeEventListener('mouseup', onMouseUp)
-        dispatch(changePosition, position)
+
     }
 
     const borderStyle: CSSProperties = {

@@ -141,7 +141,7 @@ export function changeElementPosition(presentation: PresentationType, slideId: s
 
                     return {
                         ...obj,
-                        pos: newPosition,
+                        position: newPosition,
                     }
                 })
             },

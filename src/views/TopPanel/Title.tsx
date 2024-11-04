@@ -1,10 +1,14 @@
-import React from "react";
 import classes from "./TopPanel.module.css";
 
-export function Title(props: { value: string, onChange: React.ChangeEventHandler }) {
+type TitleProps = {
+    value: string;
+    onChange: () => void;
+}
+
+export function Title({ value, onChange}: TitleProps): JSX.Element {
     return (
         <input className={classes["title"]}
-               type="text" value={props.value}
-               onChange={props.onChange}/>
+               type="text" value={value}
+               onChange={onChange}/>
     );
 }
