@@ -10,6 +10,10 @@ export type ImageBackground = {
 
 export type Background = ColorBackground | ImageBackground
 
+export type Position = {
+    x: number,
+    y: number
+}
 
 export type SlideElement = {
     id: string;
