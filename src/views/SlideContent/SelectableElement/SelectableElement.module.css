@@ -3,3 +3,29 @@
     box-sizing: content-box;
 }
 
+.dot1, .dot2, .dot3, .dot4 {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+}
+
+.dot1 {
+    top: 0;
+    left: 0;
+}
+
+.dot2 {
+    right: 0;
+    top: 0;
+}
+
+.dot3 {
+    bottom: 0;
+    left: 0;
+}
+
+.dot4 {
+    bottom: 0;
+    right: 0;
+}

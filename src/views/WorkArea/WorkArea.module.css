@@ -2,6 +2,7 @@
     border: 2px solid darkgray;
     border-left: none;
     padding: 30px;
+    overflow: hidden;
 }
 
 .slide {

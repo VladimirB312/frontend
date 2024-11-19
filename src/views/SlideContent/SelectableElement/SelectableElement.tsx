@@ -3,9 +3,7 @@ import {ImageElement, TextElement} from "../../../store/objects.ts";
 import TextComponent from "../TextComponent/TextComponent.tsx";
 import ImageComponent from "../ImageComponent/ImageComponent.tsx";
 import {CSSProperties, useRef} from "react";
-import {dispatch} from "../../../store/editor.ts";
-import {setSelectionElement} from "../../../store/setActiveSlide.ts";
-import {useDragAndDropHook} from "../../../hooks/dragAndDropHook.ts";
+import {useDragAndDrop} from "../../../hooks/useDragAndDropElement.tsx";
 
 type SelectableElementProps = {
     element: TextElement | ImageElement,
@@ -13,6 +11,7 @@ type SelectableElementProps = {
     scale: number,
     elementStyle?: string,
 }
+
 
 export function SelectableElement({
                                       element,
@@ -23,36 +22,27 @@ export function SelectableElement({
 
     const elementRef = useRef<HTMLDivElement>(null)
 
-    const position = useDragAndDropHook(elementRef, element)
-    // const position = element.position
+    const pos = useDragAndDrop(elementRef, element)
 
-    console.warn('SelectableElement', position)
 
     const borderStyle: CSSProperties = {
-        top: `${scale * position.y}px`,
-        left: `${scale * position.x}px`,
+        top: `${scale * pos.y}px`,
+        left: `${scale * pos.x}px`,
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
     }
 
-    // if (element.id == selectedElementId) {
-    //     borderStyle.border = '2px solid #5F5F7CFF'
-    //     borderStyle.backgroundColor = 'rgba(0, 0, 0, 0.1)'
-    // } else {
-    //     borderStyle.border = 'none'
-    // }
-
-    const onElementClick = () => {
-        dispatch(setSelectionElement, {
-            elementId: element.id
-        })
+    if (element.id == selectedElementId) {
+        borderStyle.border = '2px solid #5F5F7CFF'
+        borderStyle.backgroundColor = 'rgba(0, 0, 0, 0.1)'
+    } else {
+        borderStyle.border = 'none'
     }
 
     return (
         <div ref={elementRef}
              className={classes.element}
              style={borderStyle}
-             onClick={onElementClick}
         >
             {element.type == 'text'
                 ? <TextComponent
@@ -66,6 +56,10 @@ export function SelectableElement({
                     elementStyle={elementStyle}
                 />
             }
+            <div className={classes.dot1}></div>
+            <div className={classes.dot2}></div>
+            <div className={classes.dot3}></div>
+            <div className={classes.dot4}></div>
         </div>
     )
 
