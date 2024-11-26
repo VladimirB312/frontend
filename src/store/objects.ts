@@ -15,13 +15,15 @@ export type Position = {
     y: number
 }
 
+export type Size = {
+    width: number;
+    height: number;
+}
+
 export type SlideElement = {
     id: string;
     position: Position,
-    size: {
-        width: number;
-        height: number;
-    }
+    size: Size
 }
 
 export type TextElement = SlideElement & {
@@ -105,7 +107,7 @@ export function changeAllSlidePos(presentation: PresentationType, slidesId: stri
     const movedSlides = newSlides.filter(slide => slidesId.includes(slide.id));
     newSlides = newSlides.filter(slide => !slidesId.includes(slide.id));
     const newPosition = newSlides.findIndex(slide => slide.id === newSlideId)
-    newSlides.splice(newPosition + shift , 0, ...movedSlides);
+    newSlides.splice(newPosition + shift, 0, ...movedSlides);
 
     return {
         ...presentation,

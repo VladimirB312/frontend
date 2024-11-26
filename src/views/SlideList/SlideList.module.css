@@ -5,6 +5,7 @@
     overflow-y: scroll;
     flex-shrink: 0;
     width: 220px;
+    /*position: relative;*/
 }
 
 .slide {

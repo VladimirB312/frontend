@@ -1,71 +1,49 @@
 import React, {useEffect, useState} from "react";
 import {dispatch} from "../store/editor.ts";
-import {changePosition} from "../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../store/objects.ts";
-import {setSelectionElement} from "../store/setActiveSlide.ts";
+import { changeSize} from "../store/changePosition.ts";
+import {ImageElement, Size, TextElement} from "../store/objects.ts";
 
-export function useDragAndDropResize(elementRef: React.RefObject<HTMLDivElement>, dotRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
-    const [dndPosition, setDndPosition] = useState<Position | null>(null)
+export function useDragAndDropResize(dotRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): number {
+    const [dndSize, setDndSize] = useState<Size | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState(element.position)
 
-    let currentDndPosition = dndPosition || element.position
+    let currentDndWidth = dndSize?.width || element.size.width
 
 
     useEffect(() => {
+
         const onMouseDown = (e: MouseEvent) => {
-            // e.preventDefault()
-
-            if (elementRef.current && elementRef.current.contains(e.target as Node)) {
-                setIsDragging(true)
-                setDndPosition(startPos)
+            if (dotRef.current && dotRef.current.contains(e.target as Node)) {
+                e.stopPropagation()
+                e.preventDefault()
                 setStartPos({x: e.pageX, y: e.pageY})
-
-                dispatch(setSelectionElement, {
-                    elementId: element.id
-                })
+                setDndSize(element.size)
             }
         }
 
         const onMouseMove = (e: MouseEvent) => {
             e.preventDefault()
-
-            if (!isDragging || !elementRef.current?.offsetParent) {
+            setIsDragging(true)
+            if (!dndSize || !dotRef.current?.offsetParent) {
                 return;
             }
 
-            // const width = elementRef.current.offsetParent.getBoundingClientRect().width
-            // const height = elementRef.current.offsetParent.getBoundingClientRect().height
-
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            const newPosition = {x: element.position.x + delta.x, y: element.position.y + delta.y}
+            const newWidth = element.size.width + delta.x
 
-            // if (newPosition.x < 0) {
-            //     newPosition.x = 0;
-            // }
-            // if (newPosition.x + element.size.width > width) {
-            //     newPosition.x = width - element.size.width
-            // }
-            // if (newPosition.y < 0) {
-            //     newPosition.y = 0
-            // }
-            // if (newPosition.y + element.size.height > height) {
-            //     newPosition.y = height - element.size.height
-            // }
-
-
-            currentDndPosition = newPosition;
-            setDndPosition(currentDndPosition)
+            currentDndWidth = newWidth;
+            setDndSize({width: newWidth, height: dndSize.height })
 
         }
 
         const onMouseUp = () => {
-            if (isDragging && currentDndPosition) {
+            if (isDragging && currentDndWidth && dndSize) {
                 setIsDragging(false)
 
-                dispatch(changePosition, currentDndPosition);
-                setStartPos(currentDndPosition)
-                setDndPosition(null)
+                dispatch(changeSize, dndSize);
+                // setStartPos(currentDndWidth)
+                setDndSize(null)
             }
         }
 
@@ -79,8 +57,8 @@ export function useDragAndDropResize(elementRef: React.RefObject<HTMLDivElement>
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [dndPosition, isDragging, startPos, currentDndPosition]);
+    }, [dndSize, isDragging, startPos, currentDndWidth]);
 
-    return currentDndPosition;
+    return currentDndWidth;
 }
 

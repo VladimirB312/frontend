@@ -2,9 +2,7 @@ import {EditorType} from "./EditorType.ts";
 import {changeAllSlidePos} from "./objects.ts";
 
 export function changeSlidePos(editor: EditorType, payload: { slideId: string, newSlideId: string }): EditorType {
-    console.log('selection slides id = ', editor.selection?.selectedSlidesId)
-    console.log('newslideId = ', payload.newSlideId)
-    console.log('slideId on mouse down = ', payload.slideId)
+
 
     if (!editor.selection?.selectedSlidesId || editor.selection?.selectedSlidesId.includes(payload.newSlideId)) {
         return editor

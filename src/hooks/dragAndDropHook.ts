@@ -1,6 +1,5 @@
 import {RefObject, useCallback, useEffect, useState} from "react";
 import {dispatch} from "../store/editor.ts";
-import {setSelectionElement} from "../store/setActiveSlide.ts";
 import {changePosition} from "../store/changePosition.ts";
 import {Position, SlideElement} from "../store/objects.ts";
 
@@ -13,14 +12,11 @@ export function useDragAndDropHook(elementRef: RefObject<HTMLDivElement>, elemen
         const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
         const newPos = {x: element.position.x + delta.x, y: element.position.y + delta.y}
 
-        console.log('newPosition', newPos)
         setDndPosition(newPos)
-        console.log('dndPosition', dndPosition)
 
     }, [dndPosition, element.position.x, element.position.y, startPos.x, startPos.y])
 
     const onMouseUp = useCallback(() => {
-        console.log('sadfasdfasf', dndPosition)
         if (dndPosition) {
             dispatch(changePosition, dndPosition)
             setDndPosition(null)
