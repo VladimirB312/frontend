@@ -34,12 +34,17 @@ function TextComponent({
         });
     }
 
+    const onMD = () => {
+        console.log('textarea click')
+    }
+
     return (
         <textarea
                className={classes.text + ' ' + className + ' ' + elementStyle}
                style={textStyle}
                value={element.value}
                draggable={false}
+               onMouseDown={onMD}
                onChange={onTextValueChange}
                onDrop={(e) => e.preventDefault()}
         />

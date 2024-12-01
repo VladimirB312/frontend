@@ -183,7 +183,7 @@ export function changeElementSize(presentation: PresentationType, slideId: strin
             : {
                 ...slide,
                 objects: slide.objects.map(obj => {
-                    if (obj.id === slideElementId) {
+                    if (obj.id != slideElementId) {
                         return obj;
                     }
 

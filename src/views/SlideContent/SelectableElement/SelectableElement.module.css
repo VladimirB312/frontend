@@ -1,33 +1,75 @@
 .element {
     position: absolute;
     box-sizing: content-box;
+    user-select: none;
 }
 
-.resizerL, .resizerT, .resizerR, .resizerB {
+.resizeableElement {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    background-color: red;
+    box-sizing: content-box;
+    user-select: none;
+}
+
+.resizerL, .resizerT, .resizerR, .resizerB, .resizerRB, .resizerLB, .resizerLT, .resizerRT {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #4285f4;
+    z-index: 2;
 }
 
 .resizerL{
     top: 50%;
     left: 0;
+    transform: translateX(-70%);
+    cursor: w-resize;
 }
 
 .resizerT {
     left: 50%;
     top: 0;
-    cursor: row-resize;
+    transform: translateY(-70%);
+    cursor: n-resize;
 }
 
 .resizerR {
     right: 0;
     top: 50%;
-    cursor: col-resize;
+    transform: translateX(70%);
+    cursor: e-resize;
 }
 
 .resizerB {
     bottom: 0;
     left: 50%;
+    transform: translateY(70%);
+    cursor: s-resize;
+}
+
+.resizerRB {
+    bottom: 0;
+    right: 0;
+    transform: translateX(70%) translateY(70%);
+    cursor: nwse-resize;
+}
+
+.resizerLB {
+    bottom: 0;
+    left: 0;
+    transform: translateX(-70%) translateY(70%);
+    cursor: nesw-resize;
+}
+
+.resizerLT {
+    top: 0;
+    left: 0;
+    transform: translateX(-70%) translateY(-70%);
+    cursor: nwse-resize;
+}
+
+.resizerRT {
+    top: 0;
+    right: 0;
+    transform: translateX(70%) translateY(-70%);
+    cursor: nesw-resize;
 }

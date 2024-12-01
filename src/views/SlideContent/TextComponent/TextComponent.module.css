@@ -4,3 +4,7 @@
     background: transparent;
     border: none;
 }
+
+.text:focus{
+    outline: none;
+}

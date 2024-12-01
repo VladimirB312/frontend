@@ -7,18 +7,17 @@ import {setSelectionElement} from "../store/setActiveSlide.ts";
 export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
-    const [startPos, setStartPos] = useState(element.position)
-
-    let currentDndPosition = dndPosition || element.position
-
+    const [startPos, setStartPos] = useState<Position | null>(null)
 
     useEffect(() => {
         const onMouseDown = (e: MouseEvent) => {
             // e.preventDefault()
 
             if (elementRef.current && elementRef.current.contains(e.target as Node)) {
+                elementRef.current.style.userSelect = `none`
+
                 setIsDragging(true)
-                setDndPosition(startPos)
+                setDndPosition(element.position)
                 setStartPos({x: e.pageX, y: e.pageY})
 
                 dispatch(setSelectionElement, {
@@ -30,7 +29,7 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
         const onMouseMove = (e: MouseEvent) => {
             e.preventDefault()
 
-            if (!isDragging || !elementRef.current?.offsetParent) {
+            if (!isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition) {
                 return;
             }
 
@@ -38,7 +37,7 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
             // const height = elementRef.current.offsetParent.getBoundingClientRect().height
 
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            const newPosition = {x: element.position.x + delta.x, y: element.position.y + delta.y}
+            const newPosition = {x: dndPosition.x + delta.x, y: dndPosition.y + delta.y}
 
             // if (newPosition.x < 0) {
             //     newPosition.x = 0;
@@ -54,33 +53,41 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
             // }
 
 
-            currentDndPosition = newPosition;
-            setDndPosition(currentDndPosition)
+            setDndPosition(newPosition)
+            setStartPos({x: e.pageX, y: e.pageY})
 
         }
 
         const onMouseUp = () => {
-            if (isDragging && currentDndPosition) {
-                setIsDragging(false)
 
-                dispatch(changePosition, currentDndPosition);
-                setStartPos(currentDndPosition)
-                setDndPosition(null)
+            if (!isDragging || !dndPosition) {
+                return
             }
-        }
 
-        document.addEventListener('mousedown', onMouseDown)
-        document.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseup', onMouseUp)
-
-        return () => {
-            document.removeEventListener('mousedown', onMouseDown);
+            dispatch(changePosition, dndPosition);
+            setIsDragging(false)
+            setStartPos(null)
+            setDndPosition(null)
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [dndPosition, isDragging, startPos, currentDndPosition]);
+        if (!elementRef.current) {
+            return;
+        }
+        const tempElementRef = elementRef
+        elementRef.current.addEventListener('mousedown', onMouseDown)
+        document.addEventListener('mousemove', onMouseMove)
+        document.addEventListener('mouseup', onMouseUp)
 
-    return currentDndPosition;
+        return () => {
+            tempElementRef?.current?.removeEventListener('mousedown', onMouseDown);
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+    }, [dndPosition, isDragging, startPos, elementRef, element.position, element.id]);
+
+    return dndPosition ?? element.position;
 }
 

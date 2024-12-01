@@ -28,13 +28,6 @@ function getSlideId(node: Element): string | null {
 }
 
 function SlideList({slides, selection}: SlideListProps) {
-    const slideListRef = useRef<HTMLDivElement>(null)
-
-    const [dndPosition, setDndPosition] = useState<Position | null>(null)
-    const [isDragging, setIsDragging] = useState(false)
-    const [startPos, setStartPos] = useState<Position | null>(null)
-    const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
-
     if (slides.length == 0) {
         return (
             <div className={classes['slide-list']}>
@@ -42,6 +35,15 @@ function SlideList({slides, selection}: SlideListProps) {
             </div>
         )
     }
+
+    const slideListRef = useRef<HTMLDivElement>(null)
+
+    const [dndPosition, setDndPosition] = useState<Position | null>(null)
+    const [isDragging, setIsDragging] = useState(false)
+    const [startPos, setStartPos] = useState<Position | null>(null)
+    const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
+
+
 
     const draggingStyle: CSSProperties = {
         position: 'absolute',
@@ -83,6 +85,7 @@ function SlideList({slides, selection}: SlideListProps) {
             if (!draggedSlideId || !startPos || !dndPosition) {
                 return
             }
+
             if (!selection?.selectedSlidesId?.includes(draggedSlideId)) {
                 dispatch(setActiveSlide, {
                     slideId: draggedSlideId,
@@ -132,7 +135,7 @@ function SlideList({slides, selection}: SlideListProps) {
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [dndPosition, isDragging, startPos, draggedSlideId]);
+    }, [dndPosition, isDragging, startPos, draggedSlideId, selection?.selectedSlidesId]);
 
 
     return (
