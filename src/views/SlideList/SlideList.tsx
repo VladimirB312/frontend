@@ -160,7 +160,7 @@ function SlideList({slides, selection}: SlideListProps) {
                                     slide={slide}
                                     scale={SLIDE_PREVIEW_SCALE}
                                     isSelected={selection?.selectedSlidesId?.includes(slide.id) ?? false}
-                                    className={classes.slide}
+                                    className={classes.slide + ' ' + classes.draggedSlide}
                                     // newPosition={dndPosition}
                                 />
                             )

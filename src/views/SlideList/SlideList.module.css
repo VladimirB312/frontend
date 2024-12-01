@@ -16,3 +16,7 @@
     user-select: none;
     overflow: hidden;
 }
+
+.draggedSlide {
+    opacity: 0.7;
+}

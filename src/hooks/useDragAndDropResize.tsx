@@ -10,9 +10,7 @@ export function useDragAndDropResize(dotRef: React.RefObject<HTMLDivElement>, el
 
     let currentDndWidth = dndSize?.width || element.size.width
 
-
     useEffect(() => {
-
         const onMouseDown = (e: MouseEvent) => {
             if (dotRef.current && dotRef.current.contains(e.target as Node)) {
                 e.stopPropagation()
@@ -34,7 +32,6 @@ export function useDragAndDropResize(dotRef: React.RefObject<HTMLDivElement>, el
 
             currentDndWidth = newWidth;
             setDndSize({width: newWidth, height: dndSize.height })
-
         }
 
         const onMouseUp = () => {
