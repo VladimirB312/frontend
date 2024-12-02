@@ -50,9 +50,13 @@ function SlideContent({
     const elements: Array<TextElement | ImageElement> = slide.objects
 
     return (
-        <div className={classes.slide + ' ' + className} style={slideStyle}>
+        <div className={classes.slide + ' ' + className}
+             style={slideStyle}
+             data-slide-content-id={'slideContent'}
+        >
             {elements.map(el => {
                 return <SelectableElement key={el.id}
+                                          id={el.id}
                                           element={el}
                                           selectedElementId={selectedElementId}
                                           scale={scale}

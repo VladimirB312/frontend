@@ -8,6 +8,7 @@
     position: absolute;
     box-sizing: content-box;
     user-select: none;
+    pointer-events: none
 }
 
 .resizerL, .resizerT, .resizerR, .resizerB, .resizerRB, .resizerLB, .resizerLT, .resizerRT {
@@ -16,6 +17,7 @@
     height: 6px;
     background-color: #4285f4;
     z-index: 2;
+    pointer-events: auto;
 }
 
 .resizerL{

@@ -11,25 +11,15 @@ type SelectableElementProps = {
     selectedElementId?: string | null,
     scale: number,
     elementStyle?: string,
+    id: string,
 }
-
-// function getSlideId(node: Element): string | null {
-//     const element: Element | null = node;
-//
-//     // while (element != null) {
-//     if (element.getAttribute('data-slide-id')) {
-//         return element.getAttribute('data-slide-id');
-//     }
-//     // element = element.parentNode as Element;
-//     // }
-//     return null;
-// }
 
 export function SelectableElement({
                                       element,
                                       scale = 1,
                                       elementStyle,
-                                      selectedElementId
+                                      selectedElementId,
+                                      id
                                   }: SelectableElementProps) {
 
 
@@ -38,24 +28,12 @@ export function SelectableElement({
     const elementRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
     const elementPosition = useDragAndDrop(elementRef, element)
 
-    // const borderStyle: CSSProperties = {
-    //     top: `${scale * elementPosition.y}px`,
-    //     left: `${scale * elementPosition.x}px`,
-    //     width: `${scale * element.size.width}px`,
-    //     height: `${scale * element.size.height}px`,
-    // }
-
     const borderStyle: CSSProperties = {
         top: `${scale * element.position.y}px`,
         left: `${scale * element.position.x}px`,
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
     }
-
-    // let resizeWidth = element.size.width
-    // let resizeHeight = element.size.height
-    // let resizeTop = element.position.y
-    // let resizeLeft = element.position.x
 
     let resizeWidth = element.size.width
     let resizeHeight = element.size.height
@@ -70,50 +48,29 @@ export function SelectableElement({
     }
 
     const resizeMaskStyle: CSSProperties = {
-        top: `${scale * resizeTop + 1}px`,
-        left: `${scale * resizeLeft + 1}px`,
-        width: `${scale * resizeWidth}px`,
-        height: `${scale * resizeHeight}px`,
+        top: `${scale * resizeTop}px`,
+        left: `${scale * resizeLeft}px`,
+        width: `${scale * resizeWidth - 1}px`,
+        height: `${scale * resizeHeight - 1}px`,
     }
 
-    if (dndRect != null) {
-        resizeMaskStyle.zIndex = 2
-    }
+    // if (dndRect != null) {
+    //     resizeMaskStyle.zIndex = 2
+    // }
 
     if (element.id == selectedElementId) {
-        borderStyle.zIndex = 1
-        borderStyle.border = '2px solid #4285f4'
+        resizeMaskStyle.zIndex = 1
+        // borderStyle.zIndex = 1
+        // borderStyle.border = '2px solid #4285f4'
         resizeMaskStyle.border = '1px solid #5f6368'
         resizeMaskStyle.backgroundColor = 'rgba(0, 0, 0, 0.1)'
     }
 
     return (
         <div>
-            <div style={resizeMaskStyle}
-                 className={classes.resizeableElement}>
-
-                {element.id == selectedElementId && (
-                    <>
-                        <div onMouseDown={(e) => onResize(e, element, "left")}
-                             className={classes.resizerL}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "top")}
-                             className={classes.resizerT}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "right")}
-                             className={classes.resizerR}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "bottom")}
-                             className={classes.resizerB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "rightBottom")}
-                             className={classes.resizerRB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "leftBottom")}
-                             className={classes.resizerLB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "leftTop")}
-                             className={classes.resizerLT}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "rightTop")}
-                             className={classes.resizerRT}></div>
-                    </>)}
-            </div>
 
             <div ref={elementRef}
+                 data-element-id={id}
                  className={classes.element}
                  style={borderStyle}
             >
@@ -128,10 +85,37 @@ export function SelectableElement({
                         scale={scale}
                         elementStyle={elementStyle}
                     />}
-
             </div>
-
-
+            <div style={resizeMaskStyle}
+                 className={classes.resizeableElement}>
+                {element.id == selectedElementId && (
+                    <>
+                        <div onMouseDown={(e) => onResize(e, element, "left")}
+                             data-resizer-id={'L'}
+                             className={classes.resizerL}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "top")}
+                             data-resizer-id={'T'}
+                             className={classes.resizerT}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "right")}
+                             data-resizer-id={'R'}
+                             className={classes.resizerR}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "bottom")}
+                             data-resizer-id={'B'}
+                             className={classes.resizerB}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "rightBottom")}
+                             data-resizer-id={'RB'}
+                             className={classes.resizerRB}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "leftBottom")}
+                             data-resizer-id={'LB'}
+                             className={classes.resizerLB}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "leftTop")}
+                             data-resizer-id={'LT'}
+                             className={classes.resizerLT}></div>
+                        <div onMouseDown={(e) => onResize(e, element, "rightTop")}
+                             data-resizer-id={'RT'}
+                             className={classes.resizerRT}></div>
+                    </>)}
+            </div>
         </div>
     )
 }

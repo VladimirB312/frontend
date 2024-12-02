@@ -19,8 +19,6 @@ export function useResize() {
     const [direction, setDirection] = useState<Direction>(null)
 
     const onResize = (e: React.MouseEvent<HTMLDivElement>, element: TextElement | ImageElement, dir: Direction,) => {
-        // e.stopPropagation()
-        // e.preventDefault()
         if (!element) {
             return
         }

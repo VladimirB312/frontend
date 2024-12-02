@@ -28,30 +28,12 @@ function getSlideId(node: Element): string | null {
 }
 
 function SlideList({slides, selection}: SlideListProps) {
-    if (slides.length == 0) {
-        return (
-            <div className={classes['slide-list']}>
-                <SlideContent scale={SLIDE_PREVIEW_SCALE} isSelected={false}/>
-            </div>
-        )
-    }
-
     const slideListRef = useRef<HTMLDivElement>(null)
 
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
-
-
-
-    const draggingStyle: CSSProperties = {
-        position: 'absolute',
-        top: dndPosition ? `${dndPosition.y}px` : `0`,
-        left: dndPosition ? `${dndPosition.x}px` : `0`,
-        pointerEvents: `none`,
-        userSelect: `none`,
-    }
 
     const handleClick = (event, slideId: string) => {
         if (event.ctrlKey) {
@@ -68,7 +50,6 @@ function SlideList({slides, selection}: SlideListProps) {
 
     useEffect(() => {
         const onMouseDown = (event) => {
-
             const slideId = getSlideId(event.target as Element)
             setIsDragging(false)
             if (slideId) {
@@ -79,8 +60,8 @@ function SlideList({slides, selection}: SlideListProps) {
             }
         }
 
-        const onMouseMove = (e) => {
-            e.preventDefault()
+        const onMouseMove = (event) => {
+            event.preventDefault()
 
             if (!draggedSlideId || !startPos || !dndPosition) {
                 return
@@ -92,8 +73,8 @@ function SlideList({slides, selection}: SlideListProps) {
                 })
             }
             setIsDragging(true)
-            const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            setStartPos({x: e.pageX, y: e.pageY})
+            const delta = {x: event.pageX - startPos.x, y: event.pageY - startPos.y}
+            setStartPos({x: event.pageX, y: event.pageY})
             const newPos = {x: dndPosition.x + delta.x, y: dndPosition.y + delta.y}
             setDndPosition(newPos)
 
@@ -123,6 +104,10 @@ function SlideList({slides, selection}: SlideListProps) {
             setIsDragging(false)
             setDndPosition(null)
             setStartPos(null)
+
+            document.removeEventListener('mousedown', onMouseDown);
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
         }
 
         document.addEventListener('mousedown', onMouseDown)
@@ -137,6 +122,21 @@ function SlideList({slides, selection}: SlideListProps) {
 
     }, [dndPosition, isDragging, startPos, draggedSlideId, selection?.selectedSlidesId]);
 
+    if (slides.length == 0) {
+        return (
+            <div className={classes['slide-list']}>
+                <SlideContent scale={SLIDE_PREVIEW_SCALE} isSelected={false}/>
+            </div>
+        )
+    }
+
+    const draggingStyle: CSSProperties = {
+        position: 'absolute',
+        top: dndPosition ? `${dndPosition.y}px` : `0`,
+        left: dndPosition ? `${dndPosition.x}px` : `0`,
+        pointerEvents: `none`,
+        userSelect: `none`,
+    }
 
     return (
         <div ref={slideListRef}
@@ -164,7 +164,6 @@ function SlideList({slides, selection}: SlideListProps) {
                                     scale={SLIDE_PREVIEW_SCALE}
                                     isSelected={selection?.selectedSlidesId?.includes(slide.id) ?? false}
                                     className={classes.slide + ' ' + classes.draggedSlide}
-                                    // newPosition={dndPosition}
                                 />
                             )
 

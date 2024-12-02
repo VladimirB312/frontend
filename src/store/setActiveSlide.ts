@@ -57,3 +57,13 @@ export function setSelectionElement(editor: EditorType, payload: { elementId: st
         }
     }
 }
+
+export function resetSelectionElement(editor: EditorType): EditorType {
+    return {
+        ...editor,
+        selection: {
+            ...editor.selection,
+            selectedElementId: null,
+        }
+    }
+}

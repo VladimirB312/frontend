@@ -1,21 +1,53 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {dispatch} from "../store/editor.ts";
 import {changePosition} from "../store/changePosition.ts";
 import {ImageElement, Position, TextElement} from "../store/objects.ts";
-import {setSelectionElement} from "../store/setActiveSlide.ts";
+import {resetSelectionElement, setSelectionElement} from "../store/setActiveSlide.ts";
 
 export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
+    const [isTextEditing, setIsTextEditing] = useState(false)
+    const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
+
+    const clearTextArea = () => {
+        setIsTextEditing(false)
+        if (textAreaRef.current) {
+            textAreaRef.current.style.cursor = ''
+            textAreaRef.current.setSelectionRange(textAreaRef.current.selectionStart, textAreaRef.current.selectionStart);
+            textAreaRef.current.readOnly = true;
+            textAreaRef.current = null
+        }
+    }
 
     useEffect(() => {
+        const onDoubleClick = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const textAreaElement = target.closest('textarea')
+
+            if (elementRef.current && elementRef.current.contains(e.target as Node) && textAreaElement) {
+                setIsTextEditing(true)
+                textAreaRef.current = textAreaElement
+                textAreaRef.current.readOnly = false;
+                textAreaRef.current.style.cursor = 'text'
+                console.log("textarea tag = ", textAreaElement.tagName)
+            }
+        }
+
         const onMouseDown = (e: MouseEvent) => {
-            // e.preventDefault()
+            const target = e.target as HTMLElement;
+            const elementId = target.closest('[data-element-id]');
+            const resizerId = target.closest('[data-resizer-id]')
+            const slideContentId = target.closest('[data-slide-content-id]')
+            const selectedTextArea = target.closest('textarea')
 
-            if (elementRef.current && elementRef.current.contains(e.target as Node)) {
-                elementRef.current.style.userSelect = `none`
+            if (textAreaRef.current != selectedTextArea) {
+                console.log("clear")
+                clearTextArea()
+            }
 
+            if (!isTextEditing && elementRef.current && elementRef.current.contains(e.target as Node)) {
                 setIsDragging(true)
                 setDndPosition(element.position)
                 setStartPos({x: e.pageX, y: e.pageY})
@@ -23,15 +55,21 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
                 dispatch(setSelectionElement, {
                     elementId: element.id
                 })
+            } else if (!elementId && !resizerId && slideContentId) {
+                clearTextArea()
+                dispatch(resetSelectionElement)
             }
         }
 
         const onMouseMove = (e: MouseEvent) => {
             e.preventDefault()
 
-            if (!isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition) {
+            if (isTextEditing || !isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition) {
                 return;
             }
+
+            elementRef.current.style.userSelect = 'none'
+            elementRef.current.style.pointerEvents = 'none'
 
             // const width = elementRef.current.offsetParent.getBoundingClientRect().width
             // const height = elementRef.current.offsetParent.getBoundingClientRect().height
@@ -60,33 +98,44 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
 
         const onMouseUp = () => {
 
-            if (!isDragging || !dndPosition) {
+            if (isTextEditing || !isDragging || !dndPosition || !elementRef.current) {
                 return
             }
+
+            elementRef.current.style.userSelect = ''
+            elementRef.current.style.pointerEvents = ''
 
             dispatch(changePosition, dndPosition);
             setIsDragging(false)
             setStartPos(null)
             setDndPosition(null)
+
+            document.removeEventListener('mousedown', onMouseDown);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('dblclick', onDoubleClick)
         }
 
-        if (!elementRef.current) {
-            return;
-        }
-        const tempElementRef = elementRef
-        elementRef.current.addEventListener('mousedown', onMouseDown)
+        // if (!elementRef.current) {
+        //     return;
+        // }
+        // const tempElementRef = elementRef
+        // elementRef.current.addEventListener('mousedown', onMouseDown)
+        document.addEventListener('mousedown', onMouseDown)
+        document.addEventListener('dblclick', onDoubleClick)
         document.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
 
         return () => {
-            tempElementRef?.current?.removeEventListener('mousedown', onMouseDown);
+            // tempElementRef?.current?.removeEventListener('mousedown', onMouseDown);
+
+            document.removeEventListener('mousedown', onMouseDown);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('dblclick', onDoubleClick)
         }
 
-    }, [dndPosition, isDragging, startPos, elementRef, element.position, element.id]);
+    }, [dndPosition, isDragging, startPos, elementRef, element.position, element.id, isTextEditing, textAreaRef]);
 
     return dndPosition ?? element.position;
 }

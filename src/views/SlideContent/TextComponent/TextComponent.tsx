@@ -40,6 +40,7 @@ function TextComponent({
 
     return (
         <textarea
+            readOnly={true}
                className={classes.text + ' ' + className + ' ' + elementStyle}
                style={textStyle}
                value={element.value}
