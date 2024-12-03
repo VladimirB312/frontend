@@ -3,8 +3,8 @@ import {ImageElement, TextElement} from "../../../store/objects.ts";
 import TextComponent from "../TextComponent/TextComponent.tsx";
 import ImageComponent from "../ImageComponent/ImageComponent.tsx";
 import {CSSProperties, RefObject, useRef} from "react";
-import {useDragAndDrop} from "../../../hooks/useDragAndDropElement.tsx";
-import {useResize} from "../../../hooks/useResize.tsx";
+import {useDragAndDrop} from "../../hooks/useDragAndDropElement.tsx";
+import {useResize} from "../../hooks/useResize.tsx";
 
 type SelectableElementProps = {
     element: TextElement | ImageElement,

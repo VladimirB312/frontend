@@ -1,7 +1,8 @@
 import {EditorType} from "./EditorType.ts";
-import {changeElementPosition, changeElementSize, Position, Size} from "./objects.ts";
+import {changeElementPosition, changeElementSize} from "./objects.ts";
+import {ChangeElementPosition, ChangeElementSize} from "./redux/actions.ts";
 
-export function changePosition(editor: EditorType, newPosition: Position): EditorType {
+export function changePosition(editor: EditorType, action: ChangeElementPosition): EditorType {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -11,11 +12,11 @@ export function changePosition(editor: EditorType, newPosition: Position): Edito
 
     return {
         ...editor,
-        presentation: changeElementPosition(editor.presentation, slideId, slideElementId, newPosition),
+        presentation: changeElementPosition(editor.presentation, slideId, slideElementId, action.payload),
     }
 }
 
-export function changeSize(editor: EditorType, newSize: Size): EditorType {
+export function changeSize(editor: EditorType, action: ChangeElementSize): EditorType {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -25,6 +26,6 @@ export function changeSize(editor: EditorType, newSize: Size): EditorType {
 
     return {
         ...editor,
-        presentation: changeElementSize(editor.presentation, slideId, slideElementId, newSize),
+        presentation: changeElementSize(editor.presentation, slideId, slideElementId, action.payload),
     }
 }

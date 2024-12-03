@@ -35,7 +35,7 @@ export type TextElement = SlideElement & {
 
 export type ImageElement = SlideElement & { type: 'image', src: string };
 
-export type Slide = {
+export type SlideType = {
     id: string,
     background: Background,
     objects: Array<TextElement | ImageElement>,
@@ -43,7 +43,7 @@ export type Slide = {
 
 export type PresentationType = {
     title: string,
-    slides: Array<Slide>,
+    slides: Array<SlideType>,
 }
 
 // export type SelectionSlides = {
@@ -65,7 +65,7 @@ export function renamePresentationTitle(presentation: PresentationType, newTitle
     }
 }
 
-export function addSlide(presentation: PresentationType, slide: Slide) {
+export function addSlide(presentation: PresentationType, slide: SlideType) {
     return {
         ...presentation,
         slides: [...presentation.slides, slide],
@@ -85,7 +85,7 @@ export function changeSlidePosition(presentation: PresentationType, slideId: str
         return presentation;
     }
 
-    const newSlides: Slide[] = [...presentation.slides];
+    const newSlides: SlideType[] = [...presentation.slides];
     const [movedSlide] = newSlides.splice(slideIndex, 1);
     newSlides.splice(newPosition, 0, movedSlide);
 
@@ -103,7 +103,7 @@ export function changeAllSlidePos(presentation: PresentationType, slidesId: stri
 
     const shift = slideIndex < presentation.slides.findIndex(slide => slide.id === newSlideId) ? 1 : 0;
 
-    let newSlides: Slide[] = [...presentation.slides];
+    let newSlides: SlideType[] = [...presentation.slides];
     const movedSlides = newSlides.filter(slide => slidesId.includes(slide.id));
     newSlides = newSlides.filter(slide => !slidesId.includes(slide.id));
     const newPosition = newSlides.findIndex(slide => slide.id === newSlideId)

@@ -1,5 +1,5 @@
 import classes from './SlideContent.module.css';
-import {ImageElement, Slide, TextElement} from "../../store/objects.ts";
+import {ImageElement, SlideType, TextElement} from "../../store/objects.ts";
 import {CSSProperties} from "react";
 import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
 
@@ -7,7 +7,7 @@ const SLIDE_WIDTH: number = 935;
 const SLIDE_HEIGHT: number = 525;
 
 type SlideProps = {
-    slide?: Slide | null,
+    slide?: SlideType | null,
     scale?: number,
     isSelected: boolean,
     className?: string,

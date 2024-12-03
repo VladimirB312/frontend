@@ -2,15 +2,17 @@ import classes from './App.module.css'
 import TopPanel from "./views/TopPanel/TopPanel.tsx";
 import SlideList from "./views/SlideList/SlideList.tsx";
 import WorkArea from "./views/WorkArea/WorkArea.tsx";
-import {EditorType} from "./store/EditorType.ts";
 import {Background} from "./store/objects.ts";
 import {useState} from "react";
+import {useAppSelector} from "./views/hooks/useAppSelector.ts";
 
-type AppProps = {
-    editor: EditorType,
-}
+// type AppProps = {
+//     editor: EditorType,
+// }
 
-function App({editor}: AppProps) {
+function App() {
+
+    const editor = useAppSelector((editor => editor))
 
     const activeSlide = editor.presentation.slides.find(
         slide => slide.id == editor.selection?.activeSlideId
@@ -30,8 +32,7 @@ function App({editor}: AppProps) {
                       editor={editor}
             />
             <div className={classes['wrapper']}>
-                <SlideList slides={editor.presentation.slides}
-                           selection={editor.selection}/>
+                <SlideList />
                 <WorkArea
                     slide={activeSlide
                         ? {

@@ -1,5 +1,6 @@
 import {ImageElement, TextElement} from "./objects.ts";
 import {EditorType} from "./EditorType.ts";
+import {AddImageElement} from "./redux/actions.ts";
 
 function addElement(editor: EditorType, newElement: ImageElement | TextElement) {
     return {
@@ -40,7 +41,7 @@ export function addTextElement(editor: EditorType) {
     return addElement(editor, newTextElement);
 }
 
-export function addImageElement(editor: EditorType, payload: {src: string}) {
+export function addImageElement(editor: EditorType, action: AddImageElement) {
     const uniqueId: string = crypto.randomUUID()
 
     const newImageElement: ImageElement =
@@ -49,7 +50,7 @@ export function addImageElement(editor: EditorType, payload: {src: string}) {
             position: {x: 350, y: 350},
             size: {width: 150, height: 150},
             type: "image",
-            src: payload.src
+            src: action.payload
         }
 
         return addElement(editor, newImageElement);

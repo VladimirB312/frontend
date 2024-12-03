@@ -1,7 +1,7 @@
 import {RefObject, useCallback, useEffect, useState} from "react";
-import {dispatch} from "../store/editor.ts";
-import {changePosition} from "../store/changePosition.ts";
-import {Position, SlideElement} from "../store/objects.ts";
+import {dispatch} from "../../store/editor.ts";
+import {changePosition} from "../../store/changePosition.ts";
+import {Position, SlideElement} from "../../store/objects.ts";
 
 export function useDragAndDropHook(elementRef: RefObject<HTMLDivElement>, element: SlideElement): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)

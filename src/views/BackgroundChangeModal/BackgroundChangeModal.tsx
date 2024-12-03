@@ -1,12 +1,12 @@
 import classes from './BackgroundChangeModal.module.css'
-import {Background, ColorBackground, ImageBackground, Slide} from "../../store/objects.ts";
+import {Background, ColorBackground, ImageBackground, SlideType} from "../../store/objects.ts";
 import {dispatch} from "../../store/editor.ts";
 import {setBackground} from "../../store/setBackgroundColor.ts";
 import Button from "../../components/Button/Button.tsx";
 import React, {SetStateAction} from "react";
 
 type BackgroundChangeModalProps = {
-    slide: Slide | null,
+    slide: SlideType | null,
     onClick: () => void,
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>

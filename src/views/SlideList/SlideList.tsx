@@ -1,19 +1,14 @@
 import classes from './SlideList.module.css'
-import {Position, Slide} from "../../store/objects.ts";
+import {Position} from "../../store/objects.ts";
 import SlideContent from "../SlideContent/SlideContent.tsx";
-import {SelectionType} from "../../store/EditorType.ts";
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useEffect, useRef, useState} from "react";
 import {dispatch} from "../../store/editor.ts";
 import {changeSlidePos} from "../../store/changePosSlide.ts";
-import {setActiveSlide, setSelectionSlide} from "../../store/setActiveSlide.ts";
+import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {useAppActions} from "../hooks/useAppAction.ts";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
-
-type SlideListProps = {
-    slides: Array<Slide>,
-    selection: SelectionType | null,
-}
 
 function getSlideId(node: Element): string | null {
     const element: Element | null = node;
@@ -27,7 +22,7 @@ function getSlideId(node: Element): string | null {
     return null;
 }
 
-function SlideList({slides, selection}: SlideListProps) {
+function SlideList() {
     const slideListRef = useRef<HTMLDivElement>(null)
 
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
@@ -35,17 +30,19 @@ function SlideList({slides, selection}: SlideListProps) {
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
 
+    const editor = useAppSelector((editor => editor))
+    const slides = editor.presentation.slides
+    const selection = editor.selection
+
+    const {setSelectionSlide, setActiveSlide} = useAppActions()
+
     const handleClick = (event: MouseEvent, slideId: string) => {
         if (event.ctrlKey) {
-            dispatch(setSelectionSlide, {
-                slideId: slideId,
-            })
+            setSelectionSlide(slideId)
             return;
         }
 
-        dispatch(setActiveSlide, {
-            slideId: slideId,
-        })
+        setActiveSlide(slideId)
     }
 
     useEffect(() => {
@@ -68,9 +65,7 @@ function SlideList({slides, selection}: SlideListProps) {
             }
 
             if (!selection?.selectedSlidesId?.includes(draggedSlideId)) {
-                dispatch(setActiveSlide, {
-                    slideId: draggedSlideId,
-                })
+                setActiveSlide(draggedSlideId)
             }
 
             setIsDragging(true)

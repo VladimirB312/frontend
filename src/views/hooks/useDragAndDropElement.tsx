@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
-import {dispatch} from "../store/editor.ts";
-import {changePosition} from "../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../store/objects.ts";
-import {resetSelectionElement, setSelectionElement} from "../store/setActiveSlide.ts";
+import {dispatch} from "../../store/editor.ts";
+import {changePosition} from "../../store/changePosition.ts";
+import {ImageElement, Position, TextElement} from "../../store/objects.ts";
+import {resetSelectionElement, setSelectionElement} from "../../store/setActiveSlide.ts";
 
 export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)

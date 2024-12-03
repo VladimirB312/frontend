@@ -1,9 +1,9 @@
 import {EditorType} from "./EditorType.ts";
-import {Slide} from "./objects.ts";
+import {SlideType} from "./objects.ts";
 
 export function addSlide(editor: EditorType): EditorType {
     const uniqueId: string = crypto.randomUUID()
-    const newSlide: Slide = {
+    const newSlide: SlideType = {
         id: uniqueId,
         background: {color: 'transparent', type: 'solid'},
         objects: []

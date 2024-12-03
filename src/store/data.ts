@@ -1,7 +1,7 @@
-import {PresentationType, Slide} from "./objects.ts";
+import {PresentationType, SlideType} from "./objects.ts";
 import {EditorType} from "./EditorType.ts";
 
-const slide1: Slide = {
+const slide1: SlideType = {
     id: "1",
     background: {
         color: "#64e6ac",
@@ -27,7 +27,7 @@ const slide1: Slide = {
     ]
 }
 
-const slide2: Slide = {
+const slide2: SlideType = {
     id: "2",
     background: {
         src: "./src/assets/testBackground.jpg",

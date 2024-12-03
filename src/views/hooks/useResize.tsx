@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {dispatch} from "../store/editor.ts";
-import {changePosition, changeSize} from "../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../store/objects.ts";
+import {dispatch} from "../../store/editor.ts";
+import {changePosition, changeSize} from "../../store/changePosition.ts";
+import {ImageElement, Position, TextElement} from "../../store/objects.ts";
 
 type Direction = null | "right" | "left" | "top" | "bottom" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom"
 

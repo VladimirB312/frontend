@@ -1,9 +1,9 @@
 import SlideContent from "../SlideContent/SlideContent.tsx";
-import {Slide} from "../../store/objects.ts";
+import {SlideType} from "../../store/objects.ts";
 import {useRef} from "react";
 
 type SlideProps = {
-    slide: Slide,
+    slide: SlideType,
     scale: number,
     isSelected: boolean,
     className?: string,

@@ -3,8 +3,7 @@ import Button from "../../components/Button/Button.tsx";
 import {renamePresentationTitle} from "../../store/renamePresentationTitle.ts";
 import {dispatch} from "../../store/editor.ts";
 import {removeSlide} from "../../store/removeSlide.ts";
-import {addSlide} from "../../store/addSlide.ts";
-import {Background, Slide} from "../../store/objects.ts";
+import {Background, SlideType} from "../../store/objects.ts";
 import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx";
 import React, {SetStateAction} from "react";
 import {removeElement} from "../../store/removeElement.ts";
@@ -13,10 +12,11 @@ import {DownloadImage} from "./DownloadImage.tsx";
 import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./LoadPresentation.tsx";
 import {EditorType} from "../../store/EditorType.ts";
+import {useAppActions} from "../hooks/useAppAction.ts";
 
 type TopPanelProps = {
     title: string,
-    slide: Slide | null,
+    slide: SlideType | null,
     selectedElementId: string | null,
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
@@ -34,12 +34,14 @@ function TopPanel({
 
     const [showModal, setShowModal] = React.useState(false);
 
+    const {addSlide, removeSlide} = useAppActions()
+
     function onAddSlide() {
-        dispatch(addSlide)
+        addSlide()
     }
 
     function onRemoveSlide() {
-        dispatch(removeSlide)
+        removeSlide()
     }
 
     const onTitleChange: React.ChangeEventHandler = (event) => {

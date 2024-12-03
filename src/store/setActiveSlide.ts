@@ -1,7 +1,8 @@
 import {EditorType} from "./EditorType.ts";
+import {SetSelectionSlideAction, SetActiveSlideAction, SetSelectionElement} from "./redux/actions.ts";
 
-export function setActiveSlide(editor: EditorType, payload: { slideId: string }): EditorType {
-    const slideId = payload.slideId
+export function setActiveSlide(editor: EditorType, action: SetActiveSlideAction): EditorType {
+    const slideId = action.payload
 
     return {
         ...editor,
@@ -14,8 +15,8 @@ export function setActiveSlide(editor: EditorType, payload: { slideId: string })
     }
 }
 
-export function setSelectionSlide(editor: EditorType, payload: { slideId: string }): EditorType {
-    const slideId = payload.slideId
+export function setSelectionSlide(editor: EditorType, action: SetSelectionSlideAction): EditorType {
+    const slideId = action.payload
 
     if (slideId == editor.selection?.activeSlideId) {
         return editor;
@@ -46,8 +47,8 @@ export function setSelectionSlide(editor: EditorType, payload: { slideId: string
     }
 }
 
-export function setSelectionElement(editor: EditorType, payload: { elementId: string }): EditorType {
-    const elementId = payload.elementId
+export function setSelectionElement(editor: EditorType, action: SetSelectionElement): EditorType {
+    const elementId = action.payload
     return {
         ...editor,
         selection: {

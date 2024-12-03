@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {dispatch} from "../store/editor.ts";
-import {setActiveSlide, setSelectionElement, setSelectionSlide} from "../store/setActiveSlide.ts";
-import {changePosition} from "../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../store/objects.ts";
+import {dispatch} from "../../store/editor.ts";
+import {setActiveSlide, setSelectionElement, setSelectionSlide} from "../../store/setActiveSlide.ts";
+import {changePosition} from "../../store/changePosition.ts";
+import {ImageElement, Position, TextElement} from "../../store/objects.ts";
 
 export function useDNDSlides(elementRef: React.RefObject<HTMLDivElement>, event, slideId: string) {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
