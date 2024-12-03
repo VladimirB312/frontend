@@ -35,12 +35,6 @@ export type TextElement = SlideElement & {
 
 export type ImageElement = SlideElement & { type: 'image', src: string };
 
-export type SelectionSlides = {
-    selectedSlidesId: string[];
-}
-
-export type ActiveSlide = string;
-
 export type Slide = {
     id: string,
     background: Background,
@@ -52,11 +46,17 @@ export type PresentationType = {
     slides: Array<Slide>,
 }
 
-export type ToolbarItem = {
-    id: string,
-    text: string,
-    icon: string,
-}
+// export type SelectionSlides = {
+//     selectedSlidesId: string[];
+// }
+
+// export type ActiveSlide = string;
+
+// export type ToolbarItem = {
+//     id: string,
+//     text: string,
+//     icon: string,
+// }
 
 export function renamePresentationTitle(presentation: PresentationType, newTitle: string) {
     return {

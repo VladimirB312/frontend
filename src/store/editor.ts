@@ -1,5 +1,6 @@
 import {editor} from './data.ts'
 import {EditorType} from "./EditorType.ts";
+import {validate} from "../ajvValidator.ts";
 
 
 let _editor: EditorType = editor;
@@ -8,8 +9,12 @@ _editor = editor;
 const localEditor  = localStorage.getItem('editor')
 if (localEditor){
     const localEditorObj : EditorType | null = JSON.parse(localEditor)
-    if (localEditorObj) {
+    const valid = validate(localEditorObj)
+    if (localEditorObj && valid) {
+        console.log("valid json scheme from local storage")
         _editor = localEditorObj
+    } else {
+        console.log("invalid json scheme from local storage", validate.errors)
     }
 }
 

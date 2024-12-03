@@ -35,7 +35,7 @@ function SlideList({slides, selection}: SlideListProps) {
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
 
-    const handleClick = (event, slideId: string) => {
+    const handleClick = (event: MouseEvent, slideId: string) => {
         if (event.ctrlKey) {
             dispatch(setSelectionSlide, {
                 slideId: slideId,
@@ -49,18 +49,18 @@ function SlideList({slides, selection}: SlideListProps) {
     }
 
     useEffect(() => {
-        const onMouseDown = (event) => {
+        const onMouseDown = (event: MouseEvent) => {
+            const target = event.target as HTMLElement
             const slideId = getSlideId(event.target as Element)
             setIsDragging(false)
             if (slideId) {
                 setDraggedSlideId(slideId)
                 setStartPos({x: event.pageX, y: event.pageY})
-                setDndPosition({x: event.target.getBoundingClientRect().x, y: event.target.getBoundingClientRect().y})
-                console.log('cord = ', event.target.getBoundingClientRect())
+                setDndPosition({x: target.getBoundingClientRect().x, y: target.getBoundingClientRect().y})
             }
         }
 
-        const onMouseMove = (event) => {
+        const onMouseMove = (event: MouseEvent) => {
             event.preventDefault()
 
             if (!draggedSlideId || !startPos || !dndPosition) {
@@ -72,7 +72,17 @@ function SlideList({slides, selection}: SlideListProps) {
                     slideId: draggedSlideId,
                 })
             }
+
             setIsDragging(true)
+
+            if (slideListRef.current && event.pageY < slideListRef.current.getBoundingClientRect().y + 50) {
+                slideListRef.current.scrollTop = slideListRef.current.scrollTop - 10
+            }
+
+            if (slideListRef.current && event.pageY > slideListRef.current.clientHeight + slideListRef.current.getBoundingClientRect().y - 50) {
+                slideListRef.current.scrollTop = slideListRef.current.scrollTop + 10
+            }
+
             const delta = {x: event.pageX - startPos.x, y: event.pageY - startPos.y}
             setStartPos({x: event.pageX, y: event.pageY})
             const newPos = {x: dndPosition.x + delta.x, y: dndPosition.y + delta.y}
@@ -80,7 +90,7 @@ function SlideList({slides, selection}: SlideListProps) {
 
         }
 
-        const onMouseUp = (event) => {
+        const onMouseUp = (event: MouseEvent) => {
             if (!draggedSlideId) {
                 setIsDragging(false)
                 setDndPosition(null)
@@ -91,7 +101,6 @@ function SlideList({slides, selection}: SlideListProps) {
             const newSlideId = getSlideId(event.target as Element)
 
             if (!isDragging && newSlideId) {
-                console.log('click')
                 handleClick(event, newSlideId)
             } else if (newSlideId && draggedSlideId != newSlideId) {
                 dispatch(changeSlidePos, {

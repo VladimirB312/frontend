@@ -11,6 +11,7 @@ type AppProps = {
 }
 
 function App({editor}: AppProps) {
+
     const activeSlide = editor.presentation.slides.find(
         slide => slide.id == editor.selection?.activeSlideId
     ) ?? null ///
