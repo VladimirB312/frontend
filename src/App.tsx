@@ -26,6 +26,7 @@ function App({editor}: AppProps) {
                       selectedElementId={selectedElementId}
                       previewUserBackground={previewUserBackground}
                       setPreviewUserBackground={setPreviewUserBackground}
+                      editor={editor}
             />
             <div className={classes['wrapper']}>
                 <SlideList slides={editor.presentation.slides}

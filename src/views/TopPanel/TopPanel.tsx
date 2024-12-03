@@ -11,13 +11,16 @@ import {removeElement} from "../../store/removeElement.ts";
 import {addTextElement} from "../../store/addElement.ts";
 import {DownloadImage} from "./DownloadImage.tsx";
 import {Title} from "./Title.tsx";
+import {LoadPresentation} from "./LoadPresentation.tsx";
+import {EditorType} from "../../store/EditorType.ts";
 
 type TopPanelProps = {
     title: string,
     slide: Slide | null,
     selectedElementId: string | null,
     previewUserBackground: null | Background,
-    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>
+    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
+    editor: EditorType
 }
 
 function TopPanel({
@@ -26,6 +29,7 @@ function TopPanel({
                       selectedElementId,
                       previewUserBackground,
                       setPreviewUserBackground,
+                      editor
                   }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
@@ -61,6 +65,16 @@ function TopPanel({
         dispatch(addTextElement)
     }
 
+    const onSavePresentation = () => {
+        const jsonEditor = JSON.stringify(editor)
+        const file = new Blob([jsonEditor], {type: "application/json"})
+        const a = document.createElement('a')
+        a.href = URL.createObjectURL(file)
+        a.download = `${title}.json`
+        a.click()
+        URL.revokeObjectURL(a.href);
+    }
+
     const disabledSlideButton: boolean = !slide;
 
     const disabledElementButton: boolean = !selectedElementId;
@@ -79,6 +93,8 @@ function TopPanel({
                 <Button text={'Удалить элемент'} onClick={onRemoveElement} disabled={disabledElementButton}/>
                 <Button text={'Добавить текст'} onClick={onAddTextElement} disabled={disabledSlideButton}/>
                 <DownloadImage disabled={disabledSlideButton}/>
+                <Button text={'Сохранить'} onClick={onSavePresentation}/>
+                <LoadPresentation/>
             </div>
         </div>
     )

@@ -134,6 +134,20 @@ export function useResize() {
                 }))
             }
 
+            if (dndRect.width < 15) {
+                setDndRect(prevState => ({
+                    ...prevState,
+                    width: 15
+                }))
+            }
+
+            if (dndRect.height < 15) {
+                setDndRect(prevState => ({
+                    ...prevState,
+                    height: 15
+                }))
+            }
+
             setStartPos({x: e.pageX, y: e.pageY})
         }
 

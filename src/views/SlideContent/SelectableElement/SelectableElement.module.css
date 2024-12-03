@@ -8,7 +8,7 @@
     position: absolute;
     box-sizing: content-box;
     user-select: none;
-    pointer-events: none
+    pointer-events: none;
 }
 
 .resizerL, .resizerT, .resizerR, .resizerB, .resizerRB, .resizerLB, .resizerLT, .resizerRT {

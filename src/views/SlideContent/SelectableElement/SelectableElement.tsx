@@ -55,7 +55,7 @@ export function SelectableElement({
     }
 
     // if (dndRect != null) {
-    //     resizeMaskStyle.zIndex = 2
+    //     // resizeMaskStyle.zIndex = 2
     // }
 
     if (element.id == selectedElementId) {
