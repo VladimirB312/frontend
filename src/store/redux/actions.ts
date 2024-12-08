@@ -1,10 +1,15 @@
-import {EditorType} from "../EditorType"
-import {Position, Size} from "../types.ts";
+import {EditorType} from "../types.ts"
+import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
+    RENAME_PRESENTATION = 'renamePresentation',
+    LOAD_PRESENTATION = 'loadPresentation',
+
     ADD_SLIDE = 'addSlide',
     REMOVE_SLIDE = 'removeSlide',
-
+    CHANGE_SLIDE_POSITION = 'changeSlidePosition',
+    SET_BACKGROUND_COLOR = 'setBackgroundColor',
+    SET_BACKGROUND_IMAGE = 'setBackgroundImage',
     SET_SELECTION_SLIDE = 'setSelectionSlide',
     SET_ACTIVE_SLIDE = 'setActiveSlide',
 
@@ -14,8 +19,20 @@ enum ActionType {
     ADD_IMAGE_ELEMENT = 'addImageElement',
     CHANGE_ELEMENT_POSITION = 'changeElementPosition',
     CHANGE_ELEMENT_SIZE = 'changeElementSize',
+    CHANGE_TEXT_VALUE = 'changeTextValue',
+    REMOVE_ELEMENT = 'removeElement',
 
     SET_EDITOR = 'setEditor',
+}
+
+type RenamePresentation = {
+    type: ActionType.RENAME_PRESENTATION,
+    payload: string,
+}
+
+type LoadPresentation = {
+    type: ActionType.LOAD_PRESENTATION,
+    payload: PresentationType
 }
 
 type AddSlideAction = {
@@ -24,6 +41,21 @@ type AddSlideAction = {
 
 type RemoveSlideAction = {
     type: ActionType.REMOVE_SLIDE
+}
+
+type ChangeSlidePosition = {
+    type: ActionType.CHANGE_SLIDE_POSITION,
+    payload: string
+}
+
+type SetBackgroundColor = {
+    type: ActionType.SET_BACKGROUND_COLOR,
+    payload: ColorBackground,
+}
+
+type SetBackgroundImage = {
+    type: ActionType.SET_BACKGROUND_IMAGE,
+    payload: ImageBackground,
 }
 
 type SetSelectionSlideAction = {
@@ -64,6 +96,15 @@ type ChangeElementSize = {
     payload: Size,
 }
 
+type ChangeTextValue = {
+    type: ActionType.CHANGE_TEXT_VALUE,
+    payload: string,
+}
+
+type RemoveElement = {
+    type: ActionType.REMOVE_ELEMENT
+}
+
 type SetEditorAction = {
     type: ActionType.SET_EDITOR,
     payload: EditorType,
@@ -81,6 +122,14 @@ type EditorAction =
     | AddImageElement
     | ChangeElementPosition
     | ChangeElementSize
+    | ChangeTextValue
+    | RenamePresentation
+    | SetBackgroundColor
+    | SetBackgroundImage
+    | RemoveElement
+    | ChangeSlidePosition
+    | LoadPresentation
+
 
 export {
     ActionType,
@@ -92,4 +141,11 @@ export {
     type AddImageElement,
     type ChangeElementPosition,
     type ChangeElementSize,
+    type ChangeTextValue,
+    type RenamePresentation,
+    type SetBackgroundColor,
+    type SetBackgroundImage,
+    type RemoveElement,
+    type ChangeSlidePosition,
+    type LoadPresentation
 }

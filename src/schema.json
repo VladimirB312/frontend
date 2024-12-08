@@ -1,264 +1,218 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "Background": {
-      "anyOf": [
-        {
-          "properties": {
-            "color": {
-              "type": "string"
-            },
-            "type": {
-              "const": "solid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "color",
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "src": {
-              "type": "string"
-            },
-            "type": {
-              "const": "image",
-              "type": "string"
-            }
-          },
-          "required": [
-            "src",
-            "type"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    "ImageElement": {
-      "allOf": [
-        {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "position": {
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y"
-              ],
-              "type": "object"
-            },
-            "size": {
-              "properties": {
-                "height": {
-                  "type": "number"
-                },
-                "width": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "height",
-                "width"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "id",
-            "position",
-            "size"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "src": {
-              "type": "string"
-            },
-            "type": {
-              "const": "image",
-              "type": "string"
-            }
-          },
-          "required": [
-            "src",
-            "type"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    "TextElement": {
-      "allOf": [
-        {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "position": {
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y"
-              ],
-              "type": "object"
-            },
-            "size": {
-              "properties": {
-                "height": {
-                  "type": "number"
-                },
-                "width": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "height",
-                "width"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "id",
-            "position",
-            "size"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "font": {
-              "type": "string"
-            },
-            "textSize": {
-              "type": "number"
-            },
-            "type": {
-              "const": "text",
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "font",
-            "textSize",
-            "type",
-            "value"
-          ],
-          "type": "object"
-        }
-      ]
-    }
-  },
-  "properties": {
-    "presentation": {
-      "properties": {
-        "slides": {
-          "items": {
-            "properties": {
-              "background": {
-                "$ref": "#/definitions/Background"
-              },
-              "id": {
-                "type": "string"
-              },
-              "objects": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/definitions/TextElement"
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Background": {
+            "anyOf": [
+                {
+                    "properties": {
+                        "color": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "solid",
+                            "type": "string"
+                        }
                     },
-                    {
-                      "$ref": "#/definitions/ImageElement"
-                    }
-                  ]
+                    "required": [
+                        "color",
+                        "type"
+                    ],
+                    "type": "object"
                 },
-                "type": "array"
-              }
+                {
+                    "properties": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "image",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "src",
+                        "type"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "ImageElement": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "position": {
+                            "properties": {
+                                "x": {
+                                    "type": "number"
+                                },
+                                "y": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y"
+                            ],
+                            "type": "object"
+                        },
+                        "size": {
+                            "properties": {
+                                "height": {
+                                    "type": "number"
+                                },
+                                "width": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "height",
+                                "width"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "position",
+                        "size"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "image",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "src",
+                        "type"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "TextElement": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "position": {
+                            "properties": {
+                                "x": {
+                                    "type": "number"
+                                },
+                                "y": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y"
+                            ],
+                            "type": "object"
+                        },
+                        "size": {
+                            "properties": {
+                                "height": {
+                                    "type": "number"
+                                },
+                                "width": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "height",
+                                "width"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "position",
+                        "size"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "font": {
+                            "type": "string"
+                        },
+                        "textSize": {
+                            "type": "number"
+                        },
+                        "type": {
+                            "const": "text",
+                            "type": "string"
+                        },
+                        "value": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "font",
+                        "textSize",
+                        "type",
+                        "value"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    },
+    "properties": {
+        "slides": {
+            "items": {
+                "properties": {
+                    "background": {
+                        "$ref": "#/definitions/Background"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "objects": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/TextElement"
+                                },
+                                {
+                                    "$ref": "#/definitions/ImageElement"
+                                }
+                            ]
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "background",
+                    "id",
+                    "objects"
+                ],
+                "type": "object"
             },
-            "required": [
-              "background",
-              "id",
-              "objects"
-            ],
-            "type": "object"
-          },
-          "type": "array"
+            "type": "array"
         },
         "title": {
-          "type": "string"
+            "type": "string"
         }
-      },
-      "required": [
+    },
+    "required": [
         "slides",
         "title"
-      ],
-      "type": "object"
-    },
-    "selection": {
-      "anyOf": [
-        {
-          "properties": {
-            "activeSlideId": {
-              "type": [
-                "null",
-                "string"
-              ]
-            },
-            "selectedElementId": {
-              "type": [
-                "null",
-                "string"
-              ]
-            },
-            "selectedSlidesId": {
-              "anyOf": [
-                {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "presentation",
-    "selection"
-  ],
-  "type": "object"
+    ],
+    "type": "object"
 }
 

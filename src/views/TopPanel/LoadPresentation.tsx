@@ -1,14 +1,13 @@
 import classes from './LoadPresentation.module.css'
 import {useRef} from "react";
-import {dispatch} from "../../store/editor.ts";
-import {loadPresentation} from "../../store/loadPresentation.ts";
-import {EditorType} from "../../store/EditorType.ts";
+import {useAppActions} from "../hooks/useAppAction.ts";
+import {PresentationType} from "../../store/types.ts";
 
 export function LoadPresentation() {
     const inputRef = useRef<HTMLInputElement>(null)
+    const {loadPresentation} = useAppActions()
 
     const handlePresentationChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-
         const file = event.target.files?.[0]
         if (inputRef.current) {
             inputRef.current.value = ''
@@ -22,12 +21,12 @@ export function LoadPresentation() {
 
         reader.onload = e => {
             if (typeof e.target?.result === "string") {
-                const data: EditorType | null = JSON.parse(e.target.result)
+                const data: PresentationType | null = JSON.parse(e.target.result)
                 if (!data) {
                     return
                 }
 
-                dispatch(loadPresentation,  data)
+                loadPresentation(data)
             }
         }
 

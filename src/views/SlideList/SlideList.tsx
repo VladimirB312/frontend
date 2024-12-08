@@ -1,10 +1,8 @@
 import classes from './SlideList.module.css'
-import {Position} from "../../store/objects.ts";
+import {Position} from "../../store/types.ts";
 import SlideContent from "../SlideContent/SlideContent.tsx";
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useEffect, useRef, useState} from "react";
-import {dispatch} from "../../store/editor.ts";
-import {changeSlidePos} from "../../store/changePosSlide.ts";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
 import {useAppActions} from "../hooks/useAppAction.ts";
 
@@ -34,7 +32,7 @@ function SlideList() {
     const slides = editor.presentation.slides
     const selection = editor.selection
 
-    const {setSelectionSlide, setActiveSlide} = useAppActions()
+    const {setSelectionSlide, setActiveSlide, changeSlidePosition} = useAppActions()
 
     const handleClick = (event: MouseEvent, slideId: string) => {
         if (event.ctrlKey) {
@@ -93,15 +91,12 @@ function SlideList() {
                 return
             }
 
-            const newSlideId = getSlideId(event.target as Element)
+            const targetSlide = getSlideId(event.target as Element)
 
-            if (!isDragging && newSlideId) {
-                handleClick(event, newSlideId)
-            } else if (newSlideId && draggedSlideId != newSlideId) {
-                dispatch(changeSlidePos, {
-                    slideId: draggedSlideId,
-                    newSlideId: newSlideId
-                })
+            if (!isDragging && targetSlide) {
+                handleClick(event, targetSlide)
+            } else if (targetSlide && draggedSlideId != targetSlide) {
+                changeSlidePosition(targetSlide)
             }
 
             setDraggedSlideId(null)

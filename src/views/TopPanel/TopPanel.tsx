@@ -1,40 +1,33 @@
 import classes from './TopPanel.module.css'
 import Button from "../../components/Button/Button.tsx";
-import {renamePresentationTitle} from "../../store/renamePresentationTitle.ts";
-import {dispatch} from "../../store/editor.ts";
-import {removeSlide} from "../../store/removeSlide.ts";
-import {Background, SlideType} from "../../store/objects.ts";
+import {Background, SlideType} from "../../store/types.ts";
 import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx";
 import React, {SetStateAction} from "react";
-import {removeElement} from "../../store/removeElement.ts";
-import {addTextElement} from "../../store/addElement.ts";
 import {DownloadImage} from "./DownloadImage.tsx";
 import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./LoadPresentation.tsx";
-import {EditorType} from "../../store/EditorType.ts";
 import {useAppActions} from "../hooks/useAppAction.ts";
+import {useAppSelector} from "../hooks/useAppSelector.ts";
 
 type TopPanelProps = {
-    title: string,
     slide: SlideType | null,
     selectedElementId: string | null,
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
-    editor: EditorType
 }
 
 function TopPanel({
-                      title,
                       slide,
                       selectedElementId,
                       previewUserBackground,
                       setPreviewUserBackground,
-                      editor
                   }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
 
-    const {addSlide, removeSlide} = useAppActions()
+    const editor = useAppSelector(editor => editor)
+    const title = editor.presentation.title
+    const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement} = useAppActions()
 
     function onAddSlide() {
         addSlide()
@@ -45,7 +38,7 @@ function TopPanel({
     }
 
     const onTitleChange: React.ChangeEventHandler = (event) => {
-        dispatch(renamePresentationTitle, (event.target as HTMLInputElement).value);
+        renamePresentation((event.target as HTMLInputElement).value);
     }
 
     const onShowModal = () => {
@@ -60,26 +53,26 @@ function TopPanel({
     }
 
     const onRemoveElement = () => {
-        dispatch(removeElement)
+        removeElement()
     }
 
     const onAddTextElement = () => {
-        dispatch(addTextElement)
+        addTextElement()
     }
 
     const onSavePresentation = () => {
-        const jsonEditor = JSON.stringify(editor)
+        const jsonEditor = JSON.stringify(editor.presentation)
         const file = new Blob([jsonEditor], {type: "application/json"})
         const a = document.createElement('a')
         a.href = URL.createObjectURL(file)
         a.download = `${title}.json`
         a.click()
-        URL.revokeObjectURL(a.href);
+        URL.revokeObjectURL(a.href)
     }
 
-    const disabledSlideButton: boolean = !slide;
+    const disabledSlideButton: boolean = !slide
 
-    const disabledElementButton: boolean = !selectedElementId;
+    const disabledElementButton: boolean = !selectedElementId
 
     return (
         <div className={classes['top-panel']}>

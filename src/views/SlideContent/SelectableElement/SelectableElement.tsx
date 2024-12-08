@@ -1,9 +1,9 @@
 import classes from './SelectableElement.module.css'
-import {ImageElement, TextElement} from "../../../store/objects.ts";
+import {ImageElement, TextElement} from "../../../store/types.ts";
 import TextComponent from "../TextComponent/TextComponent.tsx";
 import ImageComponent from "../ImageComponent/ImageComponent.tsx";
 import {CSSProperties, RefObject, useRef} from "react";
-import {useDragAndDrop} from "../../hooks/useDragAndDropElement.tsx";
+import {useDragAndDropElement} from "../../hooks/useDragAndDropElement.tsx";
 import {useResize} from "../../hooks/useResize.tsx";
 
 type SelectableElementProps = {
@@ -26,7 +26,7 @@ export function SelectableElement({
     const {onResize, dndRect: dndRect} = useResize()
 
     const elementRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
-    const elementPosition = useDragAndDrop(elementRef, element)
+    const elementPosition = useDragAndDropElement(elementRef, element)
 
     const borderStyle: CSSProperties = {
         top: `${scale * element.position.y}px`,

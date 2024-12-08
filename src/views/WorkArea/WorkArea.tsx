@@ -1,4 +1,4 @@
-import {SlideType} from "../../store/objects.ts";
+import {SlideType} from "../../store/types.ts";
 import classes from './WorkArea.module.css'
 import SlideContent from "../SlideContent/SlideContent.tsx";
 

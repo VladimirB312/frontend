@@ -35,7 +35,7 @@ export type TextElement = SlideElement & {
 
 export type ImageElement = SlideElement & { type: 'image', src: string };
 
-export type Slide = {
+export type SlideType = {
     id: string,
     background: Background,
     objects: Array<TextElement | ImageElement>,
@@ -43,7 +43,7 @@ export type Slide = {
 
 export type PresentationType = {
     title: string,
-    slides: Array<Slide>,
+    slides: Array<SlideType>,
 }
 
 export type SelectionType = {

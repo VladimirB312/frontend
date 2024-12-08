@@ -1,8 +1,7 @@
 import classes from './TextComponent.module.css'
-import {TextElement} from "../../../store/objects.ts";
+import {TextElement} from "../../../store/types.ts";
 import React, {CSSProperties} from "react";
-import {dispatch} from "../../../store/editor.ts";
-import {changeTextValue} from "../../../store/changeTextValue.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
 
 type TextProps = {
     element: TextElement,
@@ -18,6 +17,8 @@ function TextComponent({
                            elementStyle = ''
                        }: TextProps) {
 
+    const {changeTextValue} = useAppActions()
+
     const textStyle: CSSProperties = {
         top: `${scale * element.position.y}px`,
         left: `${scale * element.position.x}px`,
@@ -28,10 +29,7 @@ function TextComponent({
     }
 
     const onTextValueChange: React.ChangeEventHandler = (event) => {
-        dispatch(changeTextValue, {
-            elementId: element.id,
-            newText: (event.target as HTMLInputElement).value
-        });
+        changeTextValue((event.target as HTMLInputElement).value)
     }
 
     const onMD = () => {
@@ -41,13 +39,13 @@ function TextComponent({
     return (
         <textarea
             readOnly={true}
-               className={classes.text + ' ' + className + ' ' + elementStyle}
-               style={textStyle}
-               value={element.value}
-               draggable={false}
-               onMouseDown={onMD}
-               onChange={onTextValueChange}
-               onDrop={(e) => e.preventDefault()}
+            className={classes.text + ' ' + className + ' ' + elementStyle}
+            style={textStyle}
+            value={element.value}
+            draggable={false}
+            onMouseDown={onMD}
+            onChange={onTextValueChange}
+            onDrop={(e) => e.preventDefault()}
         />
     )
 }

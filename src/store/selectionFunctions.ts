@@ -1,4 +1,4 @@
-import {EditorType} from "./EditorType.ts";
+import {EditorType} from "./types.ts";
 import {SetSelectionSlideAction, SetActiveSlideAction, SetSelectionElement} from "./redux/actions.ts";
 
 export function setActiveSlide(editor: EditorType, action: SetActiveSlideAction): EditorType {

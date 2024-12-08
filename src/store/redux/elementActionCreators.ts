@@ -28,9 +28,24 @@ function changeElementSize(newSize: Size) {
     }
 }
 
+function changeTextValue(newText: string) {
+    return {
+        type: ActionType.CHANGE_TEXT_VALUE,
+        payload: newText,
+    }
+}
+
+function removeElement() {
+    return {
+        type: ActionType.REMOVE_ELEMENT,
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
     changeElementPosition,
-    changeElementSize
+    changeElementSize,
+    changeTextValue,
+    removeElement
 }

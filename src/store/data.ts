@@ -1,5 +1,6 @@
-import {PresentationType, SlideType} from "./objects.ts";
-import {EditorType} from "./EditorType.ts";
+import {PresentationType, SlideType} from "./types.ts";
+import {EditorType} from "./types.ts";
+import {validate} from "../ajvValidator.ts";
 
 const slide1: SlideType = {
     id: "1",
@@ -61,7 +62,7 @@ const presentation: PresentationType = {
     ]
 }
 
-const editor: EditorType = {
+const defaultEditor: EditorType = {
     presentation,
     selection: {
         activeSlideId: null,
@@ -69,6 +70,29 @@ const editor: EditorType = {
     }
 }
 
+const getLocalEditor = () => {
+    const localPresentation = localStorage.getItem('editor')
+    if (!localPresentation) {
+        return defaultEditor
+    }
+
+    const localPresentationObj: PresentationType | null = JSON.parse(localPresentation)
+    const valid = validate(localPresentationObj)
+    if (localPresentationObj && valid) {
+        console.log("valid json scheme from local storage")
+        return {
+            presentation: localPresentationObj,
+            selection: null,
+        }
+    } else {
+        console.log("invalid json scheme from local storage", validate.errors)
+        return defaultEditor
+    }
+
+}
+
 export {
-    editor
+    getLocalEditor,
+    defaultEditor
+
 }

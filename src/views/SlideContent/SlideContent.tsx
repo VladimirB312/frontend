@@ -1,5 +1,5 @@
 import classes from './SlideContent.module.css';
-import {ImageElement, SlideType, TextElement} from "../../store/objects.ts";
+import {ImageElement, SlideType, TextElement} from "../../store/types.ts";
 import {CSSProperties} from "react";
 import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
 

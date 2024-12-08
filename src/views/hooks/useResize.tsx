@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {dispatch} from "../../store/editor.ts";
-import {changePosition, changeSize} from "../../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../../store/objects.ts";
+import {ImageElement, Position, TextElement} from "../../store/types.ts";
+import {useAppActions} from "./useAppAction.ts";
 
 type Direction = null | "right" | "left" | "top" | "bottom" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom"
 
@@ -17,6 +16,8 @@ export function useResize() {
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [direction, setDirection] = useState<Direction>(null)
+
+    const {changeElementPosition, changeElementSize} = useAppActions()
 
     const onResize = (e: React.MouseEvent<HTMLDivElement>, element: TextElement | ImageElement, dir: Direction,) => {
         if (!element) {
@@ -90,6 +91,7 @@ export function useResize() {
             if (direction == "left") {
                 const newLeft = dndRect.left + delta.x
                 const newWidth = dndRect.width - delta.x
+                if (newWidth < 20) return
                 setDndRect(prevState => ({
                     ...prevState,
                     left: newLeft,
@@ -98,9 +100,16 @@ export function useResize() {
             }
 
             if (direction == "leftBottom") {
-                const newLeft = dndRect.left + delta.x
-                const newWidth = dndRect.width - delta.x
-                const newHeight = dndRect.height + delta.y
+                let newLeft = dndRect.left + delta.x
+                let newWidth = dndRect.width - delta.x
+                let newHeight = dndRect.height + delta.y
+                if (newWidth < 20) {
+                    newLeft = dndRect.left
+                    newWidth = dndRect.width
+                }
+                if (newHeight < 20) {
+                    newHeight = dndRect.height
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     left: newLeft,
@@ -114,6 +123,7 @@ export function useResize() {
                 const newLeft = dndRect.left + delta.x
                 const newWidth = dndRect.width - delta.x
                 const newHeight = dndRect.height - delta.y
+                if (newWidth < 20 || newHeight < 20) return
                 setDndRect({
                     top: newTop,
                     left: newLeft,
@@ -134,34 +144,35 @@ export function useResize() {
                 }))
             }
 
-            if (dndRect.width < 15) {
-                setDndRect(prevState => ({
-                    ...prevState,
-                    width: 15
-                }))
-            }
-
-            if (dndRect.height < 15) {
-                setDndRect(prevState => ({
-                    ...prevState,
-                    height: 15
-                }))
-            }
+            // if (dndRect.width < 15) {
+            //     setDndRect(prevState => ({
+            //         ...prevState,
+            //         width: 15
+            //     }))
+            // }
+            //
+            // if (dndRect.height < 15) {
+            //     setDndRect(prevState => ({
+            //         ...prevState,
+            //         height: 15
+            //     }))
+            // }
 
             setStartPos({x: e.pageX, y: e.pageY})
         }
 
         const onMouseUp = () => {
-            if (!isDragging || !dndRect) {
+            if (!isDragging || !dndRect || !dndRect.width || !dndRect.height || !dndRect.top || !dndRect.left) {
                 return
             }
 
 
-            dispatch(changeSize, {
+            changeElementSize({
                 width: dndRect.width,
                 height: dndRect.height
-            });
-            dispatch(changePosition, {
+            })
+
+            changeElementPosition({
                 x: dndRect.left,
                 y: dndRect.top
             })
@@ -183,7 +194,7 @@ export function useResize() {
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [direction, dndRect, isDragging, startPos]);
+    }, [changeElementPosition, changeElementSize, direction, dndRect, isDragging, startPos]);
 
     return {onResize, dndRect}
 }

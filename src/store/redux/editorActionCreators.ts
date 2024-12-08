@@ -1,4 +1,4 @@
-import { EditorType } from "../EditorType";
+import { EditorType } from "../types.ts";
 import { ActionType } from "./actions";
 
 function setEditor(newEditor: EditorType) {

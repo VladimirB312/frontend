@@ -1,15 +1,14 @@
 import classes from './BackgroundChangeModal.module.css'
-import {Background, ColorBackground, ImageBackground, SlideType} from "../../store/objects.ts";
-import {dispatch} from "../../store/editor.ts";
-import {setBackground} from "../../store/setBackgroundColor.ts";
+import {Background, ColorBackground, ImageBackground, SlideType} from "../../store/types.ts";
 import Button from "../../components/Button/Button.tsx";
 import React, {SetStateAction} from "react";
+import {useAppActions} from "../hooks/useAppAction.ts";
 
 type BackgroundChangeModalProps = {
     slide: SlideType | null,
     onClick: () => void,
     previewUserBackground: null | Background,
-    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>
+    setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
 }
 
 export function BackgroundChangeModal({
@@ -18,6 +17,9 @@ export function BackgroundChangeModal({
                                           previewUserBackground,
                                           setPreviewUserBackground,
                                       }: BackgroundChangeModalProps) {
+
+    const {setBackgroundColor, setBackgroundImage} = useAppActions()
+
     if (!slide) {
         return <p>Цвет фона</p>
     }
@@ -59,9 +61,16 @@ export function BackgroundChangeModal({
     }
 
     const onSave = () => {
-        if (previewUserBackground) {
-            dispatch(setBackground, previewUserBackground)
+        if (!previewUserBackground) {
+            return
         }
+        if (previewUserBackground.type == "solid") {
+            setBackgroundColor(previewUserBackground)
+        }
+        if (previewUserBackground.type == "image") {
+            setBackgroundImage(previewUserBackground)
+        }
+
     }
 
     return (

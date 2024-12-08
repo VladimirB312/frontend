@@ -1,5 +1,5 @@
 import SlideContent from "../SlideContent/SlideContent.tsx";
-import {SlideType} from "../../store/objects.ts";
+import {SlideType} from "../../store/types.ts";
 import {useRef} from "react";
 
 type SlideProps = {

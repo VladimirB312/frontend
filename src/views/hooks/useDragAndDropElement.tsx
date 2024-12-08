@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import {dispatch} from "../../store/editor.ts";
-import {changePosition} from "../../store/changePosition.ts";
-import {ImageElement, Position, TextElement} from "../../store/objects.ts";
-import {resetSelectionElement, setSelectionElement} from "../../store/setActiveSlide.ts";
+import {ImageElement, Position, TextElement} from "../../store/types.ts";
+import {useAppActions} from "./useAppAction.ts";
 
-export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
+export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [isTextEditing, setIsTextEditing] = useState(false)
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
+
+    const {setSelectionElement,resetSelectionElement, changeElementPosition} = useAppActions()
 
     const clearTextArea = () => {
         setIsTextEditing(false)
@@ -52,12 +52,10 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
                 setDndPosition(element.position)
                 setStartPos({x: e.pageX, y: e.pageY})
 
-                dispatch(setSelectionElement, {
-                    elementId: element.id
-                })
+                setSelectionElement(element.id)
             } else if (!elementId && !resizerId && slideContentId) {
                 clearTextArea()
-                dispatch(resetSelectionElement)
+                resetSelectionElement()
             }
         }
 
@@ -105,7 +103,7 @@ export function useDragAndDrop(elementRef: React.RefObject<HTMLDivElement>, elem
             elementRef.current.style.userSelect = ''
             elementRef.current.style.pointerEvents = ''
 
-            dispatch(changePosition, dndPosition);
+            changeElementPosition(dndPosition);
             setIsDragging(false)
             setStartPos(null)
             setDndPosition(null)
