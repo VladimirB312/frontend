@@ -1,125 +1,19 @@
 import classes from './SlideList.module.css'
-import {Position} from "../../store/types.ts";
 import SlideContent from "../SlideContent/SlideContent.tsx";
 import {SelectableSlide} from "./SelectableSlide.tsx";
-import {CSSProperties, useEffect, useRef, useState} from "react";
+import {CSSProperties, useRef, } from "react";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
-import {useAppActions} from "../hooks/useAppAction.ts";
+import {useSlideListDnd} from "../hooks/useSlideListDnd.tsx";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
 
-function getSlideId(node: Element): string | null {
-    const element: Element | null = node;
-
-    // while (element != null) {
-    if (element.getAttribute('data-slide-id')) {
-        return element.getAttribute('data-slide-id');
-    }
-    // element = element.parentNode as Element;
-    // }
-    return null;
-}
-
 function SlideList() {
-    const slideListRef = useRef<HTMLDivElement>(null)
-
-    const [dndPosition, setDndPosition] = useState<Position | null>(null)
-    const [isDragging, setIsDragging] = useState(false)
-    const [startPos, setStartPos] = useState<Position | null>(null)
-    const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
-
     const editor = useAppSelector((editor => editor))
     const slides = editor.presentation.slides
     const selection = editor.selection
 
-    const {setSelectionSlide, setActiveSlide, changeSlidePosition} = useAppActions()
-
-    const handleClick = (event: MouseEvent, slideId: string) => {
-        if (event.ctrlKey) {
-            setSelectionSlide(slideId)
-            return;
-        }
-
-        setActiveSlide(slideId)
-    }
-
-    useEffect(() => {
-        const onMouseDown = (event: MouseEvent) => {
-            const target = event.target as HTMLElement
-            const slideId = getSlideId(event.target as Element)
-            setIsDragging(false)
-            if (slideId) {
-                setDraggedSlideId(slideId)
-                setStartPos({x: event.pageX, y: event.pageY})
-                setDndPosition({x: target.getBoundingClientRect().x, y: target.getBoundingClientRect().y})
-            }
-        }
-
-        const onMouseMove = (event: MouseEvent) => {
-            event.preventDefault()
-
-            if (!draggedSlideId || !startPos || !dndPosition) {
-                return
-            }
-
-            if (!selection?.selectedSlidesId?.includes(draggedSlideId)) {
-                setActiveSlide(draggedSlideId)
-            }
-
-            setIsDragging(true)
-
-            if (slideListRef.current && event.pageY < slideListRef.current.getBoundingClientRect().y + 50) {
-                slideListRef.current.scrollTop = slideListRef.current.scrollTop - 10
-            }
-
-            if (slideListRef.current && event.pageY > slideListRef.current.clientHeight + slideListRef.current.getBoundingClientRect().y - 50) {
-                slideListRef.current.scrollTop = slideListRef.current.scrollTop + 10
-            }
-
-            const delta = {x: event.pageX - startPos.x, y: event.pageY - startPos.y}
-            setStartPos({x: event.pageX, y: event.pageY})
-            const newPos = {x: dndPosition.x + delta.x, y: dndPosition.y + delta.y}
-            setDndPosition(newPos)
-
-        }
-
-        const onMouseUp = (event: MouseEvent) => {
-            if (!draggedSlideId) {
-                setIsDragging(false)
-                setDndPosition(null)
-                setStartPos(null)
-                return
-            }
-
-            const targetSlide = getSlideId(event.target as Element)
-
-            if (!isDragging && targetSlide) {
-                handleClick(event, targetSlide)
-            } else if (targetSlide && draggedSlideId != targetSlide) {
-                changeSlidePosition(targetSlide)
-            }
-
-            setDraggedSlideId(null)
-            setIsDragging(false)
-            setDndPosition(null)
-            setStartPos(null)
-
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-
-        document.addEventListener('mousedown', onMouseDown)
-        document.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseup', onMouseUp)
-
-        return () => {
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-
-    }, [dndPosition, isDragging, startPos, draggedSlideId, selection?.selectedSlidesId]);
+    const slideListRef = useRef<HTMLDivElement>(null)
+    const {isDragging, dndPosition} = useSlideListDnd(slideListRef, selection)
 
     if (slides.length == 0) {
         return (
@@ -130,7 +24,7 @@ function SlideList() {
     }
 
     const draggingStyle: CSSProperties = {
-        position: 'absolute',
+        position: 'fixed',
         top: dndPosition ? `${dndPosition.y}px` : `0`,
         left: dndPosition ? `${dndPosition.x}px` : `0`,
         pointerEvents: `none`,

@@ -54,6 +54,9 @@ export function useResize() {
 
             if (direction == "right") {
                 const newWidth = dndRect.width + delta.x
+                if (newWidth < 20) {
+                    return
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     width: newWidth
@@ -62,6 +65,9 @@ export function useResize() {
 
             if (direction == "bottom") {
                 const newHeight = dndRect.height + delta.y
+                if (newHeight < 20) {
+                    return
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     height: newHeight
@@ -69,8 +75,12 @@ export function useResize() {
             }
 
             if (direction == "rightBottom") {
+                const ratio = dndRect.width / (dndRect.width + delta.x)
                 const newWidth = dndRect.width + delta.x
-                const newHeight = dndRect.height + delta.y
+                const newHeight = dndRect.height / ratio
+                if (newWidth < 20 || newHeight < 20) {
+                    return
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     width: newWidth,
@@ -81,6 +91,9 @@ export function useResize() {
             if (direction == "top") {
                 const newTop = dndRect.top + delta.y
                 const newHeight = dndRect.height - delta.y
+                if (newHeight < 20) {
+                    return
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     top: newTop,
@@ -100,15 +113,12 @@ export function useResize() {
             }
 
             if (direction == "leftBottom") {
-                let newLeft = dndRect.left + delta.x
-                let newWidth = dndRect.width - delta.x
-                let newHeight = dndRect.height + delta.y
-                if (newWidth < 20) {
-                    newLeft = dndRect.left
-                    newWidth = dndRect.width
-                }
-                if (newHeight < 20) {
-                    newHeight = dndRect.height
+                const ratio = dndRect.width / (dndRect.width - delta.x)
+                const newLeft = dndRect.left + delta.x
+                const newWidth = dndRect.width - delta.x
+                const newHeight = dndRect.height / ratio
+                if (newWidth < 20 || newHeight < 20) {
+                    return
                 }
                 setDndRect(prevState => ({
                     ...prevState,
@@ -119,11 +129,18 @@ export function useResize() {
             }
 
             if (direction == "leftTop") {
-                const newTop = dndRect.top + delta.y
-                const newLeft = dndRect.left + delta.x
-                const newWidth = dndRect.width - delta.x
-                const newHeight = dndRect.height - delta.y
-                if (newWidth < 20 || newHeight < 20) return
+                let newTop = dndRect.top + delta.y
+                let newLeft = dndRect.left + delta.x
+                let newWidth = dndRect.width - delta.x
+                let newHeight = dndRect.height - delta.y
+                if (newWidth < 20) {
+                    newWidth = dndRect.width
+                    newLeft = dndRect.left
+                }
+                if(newHeight < 20) {
+                    newTop = dndRect.top
+                    newHeight = dndRect.height
+                }
                 setDndRect({
                     top: newTop,
                     left: newLeft,
@@ -133,9 +150,16 @@ export function useResize() {
             }
 
             if (direction == "rightTop") {
-                const newTop = dndRect.top + delta.y
-                const newHeight = dndRect.height - delta.y
-                const newWidth = dndRect.width + delta.x
+                let newTop = dndRect.top + delta.y
+                let newHeight = dndRect.height - delta.y
+                let newWidth = dndRect.width + delta.x
+                if (newWidth < 20) {
+                    newWidth = dndRect.width
+                }
+                if(newHeight < 20) {
+                    newTop = dndRect.top
+                    newHeight = dndRect.height
+                }
                 setDndRect(prevState => ({
                     ...prevState,
                     top: newTop,
