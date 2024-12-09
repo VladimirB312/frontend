@@ -17,7 +17,7 @@ export function useResize() {
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [direction, setDirection] = useState<Direction>(null)
 
-    const {changeElementPosition, changeElementSize} = useAppActions()
+    const {changeElementPosition, changeElementSize, changeElementRect} = useAppActions()
 
     const onResize = (e: React.MouseEvent<HTMLDivElement>, element: TextElement | ImageElement, dir: Direction,) => {
         if (!element) {
@@ -50,7 +50,7 @@ export function useResize() {
 
             e.preventDefault()
 
-            const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
+            const delta = {x: Math.round(e.pageX - startPos.x), y: Math.round(e.pageY - startPos.y)}
 
             if (direction == "right") {
                 const newWidth = dndRect.width + delta.x
@@ -137,7 +137,7 @@ export function useResize() {
                     newWidth = dndRect.width
                     newLeft = dndRect.left
                 }
-                if(newHeight < 20) {
+                if (newHeight < 20) {
                     newTop = dndRect.top
                     newHeight = dndRect.height
                 }
@@ -156,7 +156,7 @@ export function useResize() {
                 if (newWidth < 20) {
                     newWidth = dndRect.width
                 }
-                if(newHeight < 20) {
+                if (newHeight < 20) {
                     newTop = dndRect.top
                     newHeight = dndRect.height
                 }
@@ -191,15 +191,27 @@ export function useResize() {
             }
 
 
-            changeElementSize({
-                width: dndRect.width,
-                height: dndRect.height
+            changeElementRect({
+                position: {
+                    x: dndRect.left,
+                    y: dndRect.top
+                },
+                size: {
+                    width: dndRect.width,
+                    height: dndRect.height
+                }
             })
 
-            changeElementPosition({
-                x: dndRect.left,
-                y: dndRect.top
-            })
+            // changeElementSize({
+            //     width: dndRect.width,
+            //     height: dndRect.height
+            // })
+            //
+            // changeElementPosition({
+            //     x: dndRect.left,
+            //     y: dndRect.top
+            // })
+
             setStartPos(null)
             setIsDragging(false)
             setDndRect(null)

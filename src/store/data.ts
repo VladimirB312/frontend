@@ -70,8 +70,8 @@ const defaultEditor: EditorType = {
     }
 }
 
-const getLocalEditor = () => {
-    const localPresentation = localStorage.getItem('editor')
+const getLocalEditor = () : EditorType => {
+    const localPresentation = localStorage.getItem('presentationData')
     if (!localPresentation) {
         return defaultEditor
     }
@@ -92,7 +92,5 @@ const getLocalEditor = () => {
 }
 
 export {
-    getLocalEditor,
-    defaultEditor
-
+    getLocalEditor
 }

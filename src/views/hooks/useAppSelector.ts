@@ -1,10 +1,11 @@
 import { TypedUseSelectorHook, useSelector } from "react-redux"
-import { editorReducer } from "../../store/redux/editorReducer"
+import {undoableEditorReducer} from "../../store/redux/unduableEditor.ts";
 
 // Выведение типа `RootState` из хранилища
-type RootState = ReturnType<typeof editorReducer>
+type RootState = ReturnType<typeof undoableEditorReducer>
 
 // Используйте во всем приложении вместо `useSelector`
+
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export {

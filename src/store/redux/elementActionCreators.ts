@@ -28,6 +28,13 @@ function changeElementSize(newSize: Size) {
     }
 }
 
+function changeElementRect(newRect: { position: Position, size: Size }) {
+    return {
+        type: ActionType.CHANGE_ELEMENT_RECT,
+        payload: newRect,
+    }
+}
+
 function changeTextValue(newText: string) {
     return {
         type: ActionType.CHANGE_TEXT_VALUE,
@@ -47,5 +54,6 @@ export {
     changeElementPosition,
     changeElementSize,
     changeTextValue,
-    removeElement
+    removeElement,
+    changeElementRect
 }

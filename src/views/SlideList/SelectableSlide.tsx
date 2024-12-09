@@ -1,6 +1,6 @@
 import SlideContent from "../SlideContent/SlideContent.tsx";
 import {SlideType} from "../../store/types.ts";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 
 type SlideProps = {
     slide: SlideType,
@@ -8,7 +8,7 @@ type SlideProps = {
     isSelected: boolean,
     className?: string,
     id: string,
-    // newPosition?: null | Position,
+    isActive: boolean
 }
 
 export function SelectableSlide({
@@ -16,10 +16,27 @@ export function SelectableSlide({
                                     slide,
                                     className,
                                     isSelected,
+                                    isActive,
                                     id,
                                 }: SlideProps) {
 
     const elementRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (isActive) {
+            elementRef?.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+            })
+        }
+    }, [isActive])
+
+    // if (isActive) {
+    //     elementRef?.current?.scrollIntoView({
+    //         behavior: "smooth",
+    //         block: "nearest",
+    //     })
+    // }
 
     return (
         <div ref={elementRef}

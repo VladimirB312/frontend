@@ -1,0 +1,45 @@
+import {useAppSelector} from "./useAppSelector.ts";
+import {useEffect} from "react";
+import {useAppActions} from "./useAppAction.ts";
+
+export function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
+    const undoDisabled = !useAppSelector(state => state.past.length)
+    const redoDisabled = !useAppSelector(state => state.future.length)
+
+    const {undo, redo} = useAppActions()
+
+    useEffect(() => {
+        const onUndo = () => {
+            if (!undoDisabled) {
+                undo()
+            }
+        }
+
+        const onRedo = () => {
+            console.log()
+            if (!redoDisabled) {
+                redo()
+            }
+        }
+
+        const handleKeydown = (e: KeyboardEvent) => {
+            if (e.code == 'KeyZ' && (e.ctrlKey || e.metaKey)) {
+                onUndo()
+            }
+            if (e.code == 'KeyY' && (e.ctrlKey || e.metaKey)) {
+                onRedo()
+            }
+        }
+
+        document.addEventListener('keydown', handleKeydown)
+
+        return () => {
+            document.removeEventListener('keydown', handleKeydown)
+        }
+    }, [redo, redoDisabled, undo, undoDisabled])
+
+    return {
+        undoDisabled,
+        redoDisabled,
+    }
+}

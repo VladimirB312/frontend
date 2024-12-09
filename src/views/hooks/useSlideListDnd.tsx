@@ -14,11 +14,14 @@ function getSlideId(node: Element): string | null {
     return null;
 }
 
-export function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null) : {isDragging: boolean, dndPosition: Position | null} {
+export function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
+    isDragging: boolean,
+    dndPosition: Position | null
+} {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPosition, setStartPosition] = useState<Position | null>(null)
-    const [slideRect, setSlideRect] = useState<Position | null >(null)
+    const [slideRect, setSlideRect] = useState<Position | null>(null)
     const [draggedSlideId, setDraggedSlideId] = useState<null | string>(null)
 
     const {setSelectionSlide, setActiveSlide, changeSlidePosition} = useAppActions()
@@ -66,7 +69,7 @@ export function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selecti
             }
 
             const delta = {x: event.pageX - startPosition.x, y: event.pageY - startPosition.y}
-            const newPosition = {x: slideRect.x + delta.x, y: delta.y + slideRect.y}
+            const newPosition = {x: Math.round(slideRect.x + delta.x), y: Math.round(delta.y + slideRect.y)}
             setDndPosition(newPosition)
 
         }

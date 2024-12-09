@@ -14,3 +14,7 @@
 .toolbar {
     display: flex;
 }
+
+.undo-redo-bar {
+    padding: 4px;
+}

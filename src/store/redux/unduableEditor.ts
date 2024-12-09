@@ -1,0 +1,63 @@
+import {EditorType} from "../types.ts";
+import {ActionType, EditorAction} from "./actions.ts";
+import {getLocalEditor} from "../data.ts";
+import {editorReducer} from "./editorReducer.ts";
+import {setToLocalStorage} from "../setToLocalStorage.ts";
+
+type StateType = {
+    past: EditorType[],
+    present: EditorType,
+    future: EditorType[]
+}
+
+function undoable(reducer: (editor: EditorType, action: EditorAction) => EditorType) {
+    const initialState: StateType = {
+        past: [] as EditorType[],
+        present: getLocalEditor(),
+        future: [] as EditorType[]
+    }
+
+    return function (state = initialState, action: EditorAction): typeof initialState {
+        const {past, present, future} = state
+
+        switch (action.type) {
+            case ActionType.UNDO: {
+                const previous = past[past.length - 1]
+                const newPast = past.slice(0, past.length - 1)
+                return {
+                    past: newPast,
+                    present: previous,
+                    future: [present, ...future]
+                }
+            }
+            case ActionType.REDO: {
+                const next = future[0]
+                const newFuture = future.slice(1)
+                return {
+                    past: [...past, present],
+                    present: next,
+                    future: newFuture
+                }
+            }
+            default: {
+                const newPresent = reducer(present, action)
+                if (JSON.stringify(present.presentation) === JSON.stringify(newPresent.presentation)) {
+                    return {
+                        ...state,
+                        present: newPresent
+                    }
+                }
+
+                setToLocalStorage(newPresent.presentation)
+
+                return {
+                    past: [...past, present],
+                    present: newPresent,
+                    future: []
+                }
+            }
+        }
+    }
+}
+
+export const undoableEditorReducer = undoable(editorReducer)

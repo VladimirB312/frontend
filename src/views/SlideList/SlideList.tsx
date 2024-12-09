@@ -8,7 +8,7 @@ import {useSlideListDnd} from "../hooks/useSlideListDnd.tsx";
 const SLIDE_PREVIEW_SCALE = 0.2;
 
 function SlideList() {
-    const editor = useAppSelector((editor => editor))
+    const editor = useAppSelector(state => state.present)
     const slides = editor.presentation.slides
     const selection = editor.selection
 
@@ -42,6 +42,7 @@ function SlideList() {
                         slide={slide}
                         scale={SLIDE_PREVIEW_SCALE}
                         isSelected={selection?.selectedSlidesId?.includes(slide.id) ?? false}
+                        isActive={selection?.activeSlideId?.includes(slide.id) ?? false}
                         className={classes.slide}
                     />
                 )
@@ -56,6 +57,7 @@ function SlideList() {
                                     slide={slide}
                                     scale={SLIDE_PREVIEW_SCALE}
                                     isSelected={selection?.selectedSlidesId?.includes(slide.id) ?? false}
+                                    isActive={false}
                                     className={classes.slide + ' ' + classes.draggedSlide}
                                 />
                             )

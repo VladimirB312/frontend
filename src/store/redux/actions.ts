@@ -10,19 +10,24 @@ enum ActionType {
     CHANGE_SLIDE_POSITION = 'changeSlidePosition',
     SET_BACKGROUND_COLOR = 'setBackgroundColor',
     SET_BACKGROUND_IMAGE = 'setBackgroundImage',
+
     SET_SELECTION_SLIDE = 'setSelectionSlide',
     SET_ACTIVE_SLIDE = 'setActiveSlide',
 
     SET_SELECTION_ELEMENT = 'setSelectionElement',
     RESET_SELECTION_ELEMENT = 'resetSelectionElement',
+
     ADD_TEXT_ELEMENT = 'addTextElement',
     ADD_IMAGE_ELEMENT = 'addImageElement',
     CHANGE_ELEMENT_POSITION = 'changeElementPosition',
     CHANGE_ELEMENT_SIZE = 'changeElementSize',
+    CHANGE_ELEMENT_RECT = 'changeElementRect',
     CHANGE_TEXT_VALUE = 'changeTextValue',
     REMOVE_ELEMENT = 'removeElement',
 
     SET_EDITOR = 'setEditor',
+    UNDO = 'undo',
+    REDO = 'redo',
 }
 
 type RenamePresentation = {
@@ -96,6 +101,14 @@ type ChangeElementSize = {
     payload: Size,
 }
 
+type ChangeElementRect = {
+    type: ActionType.CHANGE_ELEMENT_RECT,
+    payload: {
+        position: Position,
+        size: Size,
+    }
+}
+
 type ChangeTextValue = {
     type: ActionType.CHANGE_TEXT_VALUE,
     payload: string,
@@ -108,6 +121,14 @@ type RemoveElement = {
 type SetEditorAction = {
     type: ActionType.SET_EDITOR,
     payload: EditorType,
+}
+
+type Undo = {
+    type: ActionType.UNDO
+}
+
+type Redo = {
+    type: ActionType.REDO
 }
 
 type EditorAction =
@@ -129,7 +150,9 @@ type EditorAction =
     | RemoveElement
     | ChangeSlidePosition
     | LoadPresentation
-
+    | Undo
+    | Redo
+    | ChangeElementRect
 
 export {
     ActionType,
@@ -147,5 +170,8 @@ export {
     type SetBackgroundImage,
     type RemoveElement,
     type ChangeSlidePosition,
-    type LoadPresentation
+    type LoadPresentation,
+    type Redo,
+    type Undo,
+    type ChangeElementRect,
 }

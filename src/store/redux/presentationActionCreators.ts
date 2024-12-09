@@ -15,7 +15,21 @@ function loadPresentation(loadedPresentation: PresentationType) {
     }
 }
 
+function undo() {
+    return {
+        type: ActionType.UNDO
+    }
+}
+
+function redo() {
+    return {
+        type: ActionType.REDO
+    }
+}
+
 export {
     renamePresentation,
-    loadPresentation
+    loadPresentation,
+    undo,
+    redo
 }

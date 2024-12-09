@@ -9,7 +9,7 @@ import {
     changePosition,
     changeSize,
     removeElement,
-    changeTextValue
+    changeTextValue, changeRect
 } from "../elementFunctions.ts";
 import {renamePresentation, loadPresentation} from "../presentationFunctions.ts";
 
@@ -40,6 +40,7 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
             return setSelectionElement(editor, action)
         case ActionType.RESET_SELECTION_ELEMENT:
             return resetSelectionElement(editor)
+
         case ActionType.ADD_TEXT_ELEMENT:
             return addTextElement(editor)
         case ActionType.ADD_IMAGE_ELEMENT:
@@ -48,6 +49,8 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
             return changePosition(editor, action)
         case ActionType.CHANGE_ELEMENT_SIZE:
             return changeSize(editor, action)
+        case ActionType.CHANGE_ELEMENT_RECT:
+            return changeRect(editor, action)
         case ActionType.CHANGE_TEXT_VALUE:
             return changeTextValue(editor, action)
         case ActionType.REMOVE_ELEMENT:

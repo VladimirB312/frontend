@@ -9,7 +9,7 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
     const [isTextEditing, setIsTextEditing] = useState(false)
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
 
-    const {setSelectionElement,resetSelectionElement, changeElementPosition} = useAppActions()
+    const {setSelectionElement, resetSelectionElement, changeElementPosition} = useAppActions()
 
     const clearTextArea = () => {
         setIsTextEditing(false)
@@ -73,7 +73,7 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
             // const height = elementRef.current.offsetParent.getBoundingClientRect().height
 
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            const newPosition = {x: dndPosition.x + delta.x, y: dndPosition.y + delta.y}
+            const newPosition = {x: Math.round(dndPosition.x + delta.x), y: Math.round(dndPosition.y + delta.y)}
 
             // if (newPosition.x < 0) {
             //     newPosition.x = 0;

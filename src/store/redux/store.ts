@@ -1,7 +1,7 @@
 import { legacy_createStore as createStore } from "redux";
-import { editorReducer } from "./editorReducer";
+import {undoableEditorReducer} from "./unduableEditor.ts";
 
-const store = createStore(editorReducer)
+const store = createStore(undoableEditorReducer)
 
 export {
     store

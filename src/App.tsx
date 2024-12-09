@@ -8,8 +8,7 @@ import {useAppSelector} from "./views/hooks/useAppSelector.ts";
 
 function App() {
 
-    const editor = useAppSelector(editor => editor)
-    localStorage.setItem('editor', JSON.stringify(editor.presentation))
+    const editor = useAppSelector(state => state.present)
 
     const activeSlide = editor.presentation.slides.find(
         slide => slide.id == editor.selection?.activeSlideId
@@ -21,25 +20,25 @@ function App() {
 
     return (
         <div>
-            <TopPanel
-                slide={activeSlide}
-                selectedElementId={selectedElementId}
-                previewUserBackground={previewUserBackground}
-                setPreviewUserBackground={setPreviewUserBackground}
-            />
-            <div className={classes['wrapper']}>
-                <SlideList/>
-                <WorkArea
-                    slide={activeSlide
-                        ? {
-                            ...activeSlide,
-                            background: previewUserBackground || activeSlide.background
-                        }
-                        : activeSlide
-                    }
+                <TopPanel
+                    slide={activeSlide}
                     selectedElementId={selectedElementId}
+                    previewUserBackground={previewUserBackground}
+                    setPreviewUserBackground={setPreviewUserBackground}
                 />
-            </div>
+                <div className={classes['wrapper']}>
+                    <SlideList/>
+                    <WorkArea
+                        slide={activeSlide
+                            ? {
+                                ...activeSlide,
+                                background: previewUserBackground || activeSlide.background
+                            }
+                            : activeSlide
+                        }
+                        selectedElementId={selectedElementId}
+                    />
+                </div>
         </div>
     )
 }

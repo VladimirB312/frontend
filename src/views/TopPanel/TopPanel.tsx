@@ -8,6 +8,7 @@ import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {useUndoRedo} from "../hooks/useUndoRedo.ts";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -25,9 +26,10 @@ function TopPanel({
 
     const [showModal, setShowModal] = React.useState(false);
 
-    const editor = useAppSelector(editor => editor)
+    const editor = useAppSelector(state => state.present)
+
     const title = editor.presentation.title
-    const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement} = useAppActions()
+    const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement, undo, redo} = useAppActions()
 
     function onAddSlide() {
         addSlide()
@@ -74,6 +76,8 @@ function TopPanel({
 
     const disabledElementButton: boolean = !selectedElementId
 
+    const {undoDisabled, redoDisabled} = useUndoRedo()
+
     return (
         <div className={classes['top-panel']}>
             {showModal && <BackgroundChangeModal slide={slide}
@@ -90,6 +94,16 @@ function TopPanel({
                 <DownloadImage disabled={disabledSlideButton}/>
                 <Button text={'Сохранить'} onClick={onSavePresentation}/>
                 <LoadPresentation/>
+            </div>
+            <div className={classes['undo-redo-bar']}>
+                <Button text={'Отменить'}
+                        onClick={undo}
+                        disabled={undoDisabled}
+                        />
+                <Button text={'Повторить'}
+                        onClick={redo}
+                        disabled={redoDisabled}
+                        />
             </div>
         </div>
     )

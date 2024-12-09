@@ -1,6 +1,12 @@
-import {ImageElement, PresentationType, TextElement} from "./types.ts";
+import {ImageElement, Position, PresentationType, Size, TextElement} from "./types.ts";
 import {EditorType} from "./types.ts";
-import {AddImageElement, ChangeElementPosition, ChangeElementSize, ChangeTextValue} from "./redux/actions.ts";
+import {
+    AddImageElement,
+    ChangeElementPosition,
+    ChangeElementRect,
+    ChangeElementSize,
+    ChangeTextValue
+} from "./redux/actions.ts";
 
 function addElement(editor: EditorType, newElement: ImageElement | TextElement) {
     return {
@@ -84,6 +90,20 @@ export function changeSize(editor: EditorType, action: ChangeElementSize): Edito
     }
 }
 
+export function changeRect(editor: EditorType, action: ChangeElementRect): EditorType {
+    const slideId = editor.selection?.activeSlideId
+    const slideElementId = editor.selection?.selectedElementId
+
+    if (!slideId || !slideElementId) {
+        return editor
+    }
+
+    return {
+        ...editor,
+        presentation: changeElementRect(editor.presentation, slideId, slideElementId, action.payload),
+    }
+}
+
 function changeElementPosition(presentation: PresentationType, slideId: string, slideElementId: string, newPosition: { //
     x: number,
     y: number
@@ -127,6 +147,32 @@ function changeElementSize(presentation: PresentationType, slideId: string, slid
                     return {
                         ...obj,
                         size: newSize,
+                    }
+                })
+            }
+        )
+    }
+}
+
+function changeElementRect(presentation: PresentationType, slideId: string, slideElementId: string, newRect: { //
+    position: Position,
+    size: Size,
+}) {
+    return {
+        ...presentation,
+        slides: presentation.slides.map(slide => slide.id !== slideId
+            ? slide
+            : {
+                ...slide,
+                objects: slide.objects.map(obj => {
+                    if (obj.id != slideElementId) {
+                        return obj;
+                    }
+
+                    return {
+                        ...obj,
+                        size: newRect.size,
+                        position: newRect.position,
                     }
                 })
             }
