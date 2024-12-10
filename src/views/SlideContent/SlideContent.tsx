@@ -3,8 +3,8 @@ import {ImageElement, SlideType, TextElement} from "../../store/types.ts";
 import {CSSProperties} from "react";
 import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
 
-const SLIDE_WIDTH: number = 935;
-const SLIDE_HEIGHT: number = 525;
+export const SLIDE_WIDTH: number = 935;
+export const SLIDE_HEIGHT: number = 525;
 
 type SlideProps = {
     slide?: SlideType | null,

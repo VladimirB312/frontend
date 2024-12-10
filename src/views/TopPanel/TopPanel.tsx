@@ -9,6 +9,7 @@ import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
 import {useUndoRedo} from "../hooks/useUndoRedo.ts";
+import {createPdf} from "../../savePdf.ts";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -103,6 +104,13 @@ function TopPanel({
                 <Button text={'Повторить'}
                         onClick={redo}
                         disabled={redoDisabled}
+                        />
+                <Button text={'Сохранить в PDF'}
+                        onClick={
+                            () => {
+                                createPdf(editor)
+                            }
+                        }
                         />
             </div>
         </div>
