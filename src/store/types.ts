@@ -52,7 +52,16 @@ export type SelectionType = {
     selectedElementId?: string | null,
 }
 
+export type UnsplashImageType = {
+    src: string,
+    id: string,
+    width: number,
+    height: number,
+}
+
 export type EditorType = {
     presentation: PresentationType,
     selection: SelectionType | null,
+    unsplashImages?: [UnsplashImageType] | [],
+    unsplashImageSelectedId?: string | null,
 }

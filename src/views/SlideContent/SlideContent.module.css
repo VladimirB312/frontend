@@ -1,6 +1,6 @@
 .slide {
     position: relative;
-    background-size: cover;
+    background-size: 100% 100%;
 }
 
 .slide__element_selected {

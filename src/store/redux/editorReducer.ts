@@ -6,12 +6,19 @@ import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelection
 import {
     addImageElement,
     addTextElement,
+    addUnsplashImageElement,
     changePosition,
     changeSize,
     removeElement,
     changeTextValue, changeRect
 } from "../elementFunctions.ts";
-import {renamePresentation, loadPresentation} from "../presentationFunctions.ts";
+import {
+    renamePresentation,
+    loadPresentation,
+    setUnsplashImages,
+    setUnsplashImageSelection
+} from "../presentationFunctions.ts";
+
 
 function editorReducer(editor: EditorType = getLocalEditor(), action: EditorAction): EditorType {
     switch (action.type) {
@@ -58,6 +65,14 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
 
         case ActionType.SET_EDITOR:
             return action.payload
+
+        case ActionType.SET_UNSPLASH_IMAGES:
+            return setUnsplashImages(editor, action)
+        case ActionType.SET_UNSPLASH_IMAGE_SELECTION:
+            return setUnsplashImageSelection(editor, action)
+        case ActionType.ADD_UNSPLASH_IMAGE_ELEMENT:
+            return addUnsplashImageElement(editor, action)
+
         default:
             return editor
     }

@@ -9,13 +9,14 @@ import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
 import {useUndoRedo} from "../hooks/useUndoRedo.ts";
-import {createPdf} from "../../savePdf.ts";
+import {exportToPdf} from "../../utils/exportToPDF.ts";
 
 type TopPanelProps = {
     slide: SlideType | null,
     selectedElementId: string | null,
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
+    onOpenUnsplash: () => void,
 }
 
 function TopPanel({
@@ -23,6 +24,7 @@ function TopPanel({
                       selectedElementId,
                       previewUserBackground,
                       setPreviewUserBackground,
+                      onOpenUnsplash
                   }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
@@ -79,6 +81,10 @@ function TopPanel({
 
     const {undoDisabled, redoDisabled} = useUndoRedo()
 
+    const onExportClick = () => {
+        exportToPdf(editor)
+    }
+
     return (
         <div className={classes['top-panel']}>
             {showModal && <BackgroundChangeModal slide={slide}
@@ -100,18 +106,18 @@ function TopPanel({
                 <Button text={'Отменить'}
                         onClick={undo}
                         disabled={undoDisabled}
-                        />
+                />
                 <Button text={'Повторить'}
                         onClick={redo}
                         disabled={redoDisabled}
-                        />
-                <Button text={'Сохранить в PDF'}
-                        onClick={
-                            () => {
-                                createPdf(editor)
-                            }
-                        }
-                        />
+                />
+                <Button text={'Экспорт в PDF'}
+                        onClick={onExportClick}
+                />
+                <Button text={'Unsplash'}
+                        onClick={onOpenUnsplash}
+                        disabled={disabledSlideButton}
+                />
             </div>
         </div>
     )

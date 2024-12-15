@@ -1,7 +1,7 @@
 import {ImageElement, Position, PresentationType, Size, TextElement} from "./types.ts";
 import {EditorType} from "./types.ts";
 import {
-    AddImageElement,
+    AddImageElement, AddUnsplashImageElement,
     ChangeElementPosition,
     ChangeElementRect,
     ChangeElementSize,
@@ -59,7 +59,24 @@ export function addImageElement(editor: EditorType, action: AddImageElement) {
             src: action.payload
         }
 
-        return addElement(editor, newImageElement);
+        return addElement(editor, newImageElement)
+}
+
+export function addUnsplashImageElement(editor: EditorType, action: AddUnsplashImageElement) {
+    const uniqueId: string = crypto.randomUUID()
+    console.log(action.payload.size.height, action.payload.size.width)
+    const ratio = action.payload.size.width / action.payload.size.height
+
+    const newImageElement: ImageElement =
+        {
+            id: uniqueId,
+            position: {x: 350, y: 350},
+            size: {width: 150, height: 150 / ratio},
+            type: "image",
+            src: action.payload.src
+        }
+
+    return addElement(editor, newImageElement)
 }
 
 export function changePosition(editor: EditorType, action: ChangeElementPosition): EditorType {

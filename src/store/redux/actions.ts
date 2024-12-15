@@ -1,4 +1,4 @@
-import {EditorType} from "../types.ts"
+import {EditorType, UnsplashImageType} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -28,6 +28,10 @@ enum ActionType {
     SET_EDITOR = 'setEditor',
     UNDO = 'undo',
     REDO = 'redo',
+
+    SET_UNSPLASH_IMAGES = 'setUnsplashImages',
+    SET_UNSPLASH_IMAGE_SELECTION = 'setUnsplashImageSelection',
+    ADD_UNSPLASH_IMAGE_ELEMENT = 'addUnsplashImageElement',
 }
 
 type RenamePresentation = {
@@ -131,6 +135,24 @@ type Redo = {
     type: ActionType.REDO
 }
 
+type SetUnsplashImages = {
+    type: ActionType.SET_UNSPLASH_IMAGES,
+    payload: [UnsplashImageType]
+}
+
+type SetUnsplashImageSelection = {
+    type: ActionType.SET_UNSPLASH_IMAGE_SELECTION,
+    payload: string,
+}
+
+type AddUnsplashImageElement = {
+    type: ActionType.ADD_UNSPLASH_IMAGE_ELEMENT,
+    payload: {
+        src: string,
+        size: Size,
+    }
+}
+
 type EditorAction =
     AddSlideAction
     | RemoveSlideAction
@@ -143,6 +165,7 @@ type EditorAction =
     | AddImageElement
     | ChangeElementPosition
     | ChangeElementSize
+    | ChangeElementRect
     | ChangeTextValue
     | RenamePresentation
     | SetBackgroundColor
@@ -152,7 +175,9 @@ type EditorAction =
     | LoadPresentation
     | Undo
     | Redo
-    | ChangeElementRect
+    | SetUnsplashImages
+    | SetUnsplashImageSelection
+    | AddUnsplashImageElement
 
 export {
     ActionType,
@@ -164,6 +189,7 @@ export {
     type AddImageElement,
     type ChangeElementPosition,
     type ChangeElementSize,
+    type ChangeElementRect,
     type ChangeTextValue,
     type RenamePresentation,
     type SetBackgroundColor,
@@ -173,5 +199,7 @@ export {
     type LoadPresentation,
     type Redo,
     type Undo,
-    type ChangeElementRect,
+    type SetUnsplashImages,
+    type SetUnsplashImageSelection,
+    type AddUnsplashImageElement,
 }

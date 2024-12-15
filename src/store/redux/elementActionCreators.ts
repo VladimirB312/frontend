@@ -14,6 +14,16 @@ function addImageElement(src: string) {
     }
 }
 
+function addUnsplashImageElement(src: string, size: Size) {
+    return {
+        type: ActionType.ADD_UNSPLASH_IMAGE_ELEMENT,
+        payload: {
+            src,
+            size
+        }
+    }
+}
+
 function changeElementPosition(newPosition: Position) {
     return {
         type: ActionType.CHANGE_ELEMENT_POSITION,
@@ -51,6 +61,7 @@ function removeElement() {
 export {
     addTextElement,
     addImageElement,
+    addUnsplashImageElement,
     changeElementPosition,
     changeElementSize,
     changeTextValue,

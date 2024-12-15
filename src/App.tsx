@@ -5,6 +5,8 @@ import WorkArea from "./views/WorkArea/WorkArea.tsx";
 import {Background} from "./store/types.ts";
 import {useState} from "react";
 import {useAppSelector} from "./views/hooks/useAppSelector.ts";
+import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
+import {createPortal} from "react-dom";
 
 function App() {
 
@@ -16,29 +18,36 @@ function App() {
 
     const [previewUserBackground, setPreviewUserBackground] = useState<null | Background>(null)
 
+    const [showUnsplash, setShowUnsplash] = useState(false)
+
     const selectedElementId = editor.selection?.selectedElementId ?? null
 
     return (
         <div>
-                <TopPanel
-                    slide={activeSlide}
-                    selectedElementId={selectedElementId}
-                    previewUserBackground={previewUserBackground}
-                    setPreviewUserBackground={setPreviewUserBackground}
-                />
-                <div className={classes['wrapper']}>
-                    <SlideList/>
-                    <WorkArea
-                        slide={activeSlide
-                            ? {
-                                ...activeSlide,
-                                background: previewUserBackground || activeSlide.background
-                            }
-                            : activeSlide
+            <TopPanel
+                slide={activeSlide}
+                selectedElementId={selectedElementId}
+                previewUserBackground={previewUserBackground}
+                setPreviewUserBackground={setPreviewUserBackground}
+                onOpenUnsplash={() => setShowUnsplash(true)}
+            />
+            <div className={classes['wrapper']}>
+                <SlideList/>
+                <WorkArea
+                    slide={activeSlide
+                        ? {
+                            ...activeSlide,
+                            background: previewUserBackground || activeSlide.background
                         }
-                        selectedElementId={selectedElementId}
-                    />
-                </div>
+                        : activeSlide
+                    }
+                    selectedElementId={selectedElementId}
+                />
+            </div>
+            {showUnsplash && createPortal(
+                <UnsplashWindow onCloseUnsplash={() => setShowUnsplash(false)}/>,
+                document.body
+            )}
         </div>
     )
 }

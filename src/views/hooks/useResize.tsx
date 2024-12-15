@@ -230,7 +230,7 @@ export function useResize() {
             document.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [changeElementPosition, changeElementSize, direction, dndRect, isDragging, startPos]);
+    }, [changeElementPosition, changeElementRect, changeElementSize, direction, dndRect, isDragging, startPos]);
 
     return {onResize, dndRect}
 }

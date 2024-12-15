@@ -6,11 +6,12 @@ export function addSlide(editor: EditorType): EditorType {
     const uniqueId: string = crypto.randomUUID()
     const newSlide: SlideType = {
         id: uniqueId,
-        background: {color: 'transparent', type: 'solid'},
+        background: {color: '#ffffff', type: 'solid'},
         objects: []
     }
 
     return {
+        ...editor,
         presentation: {
             ...editor.presentation,
             slides: [...editor.presentation.slides, newSlide],
@@ -41,6 +42,7 @@ export function removeSlide(editor: EditorType): EditorType {
     }
 
     return {
+        ...editor,
         presentation: {
             ...editor.presentation,
             slides: newSlides,
@@ -92,6 +94,7 @@ function changeAllSlidePosition(presentation: PresentationType, slidesId: string
 
 export function setBackground(editor: EditorType, newBackground: Background): EditorType {
     return {
+        ...editor,
         presentation: {
             ...editor.presentation,
             slides:
