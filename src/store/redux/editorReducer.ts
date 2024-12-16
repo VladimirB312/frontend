@@ -15,9 +15,8 @@ import {
 import {
     renamePresentation,
     loadPresentation,
-    setUnsplashImages,
-    setUnsplashImageSelection
 } from "../presentationFunctions.ts";
+import {setUnsplashState, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 
 
 function editorReducer(editor: EditorType = getLocalEditor(), action: EditorAction): EditorType {
@@ -67,11 +66,13 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
             return action.payload
 
         case ActionType.SET_UNSPLASH_IMAGES:
-            return setUnsplashImages(editor, action)
+            return setUnsplashState(editor, action)
         case ActionType.SET_UNSPLASH_IMAGE_SELECTION:
             return setUnsplashImageSelection(editor, action)
         case ActionType.ADD_UNSPLASH_IMAGE_ELEMENT:
             return addUnsplashImageElement(editor, action)
+        case ActionType.TOGGLE_UNSPLASH_FETCHING:
+            return toggleUnsplashFetching(editor, action)
 
         default:
             return editor

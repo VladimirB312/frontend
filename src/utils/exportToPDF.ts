@@ -2,8 +2,8 @@ import {jsPDF} from "jspdf";
 import {EditorType} from "../store/types.ts";
 import {SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
 
-const PDF_DOC_WIDTH = 1920;
-const PDF_DOC_HEIGHT = 1080
+const PDF_DOC_WIDTH = 841.89
+const PDF_DOC_HEIGHT = 595.28
 
 export function exportToPdf(editor: EditorType) {
     const presentation = editor.presentation

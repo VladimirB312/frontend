@@ -58,10 +58,17 @@ export type UnsplashImageType = {
     width: number,
     height: number,
 }
+export type UnsplashStateType = {
+    images?: [UnsplashImageType] | [],
+    imageSelectedId?: string | null,
+    isFetching?: boolean,
+    currentPage?: number,
+    totalPages?: number,
+}
 
 export type EditorType = {
     presentation: PresentationType,
     selection: SelectionType | null,
-    unsplashImages?: [UnsplashImageType] | [],
-    unsplashImageSelectedId?: string | null,
+    unsplashState?: UnsplashStateType,
+
 }

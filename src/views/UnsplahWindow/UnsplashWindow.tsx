@@ -2,6 +2,7 @@ import classes from './UnsplashWindow.module.css'
 import {useEffect, useState} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {useAppSelector} from "../hooks/useAppSelector.ts";
+import Preloader from "../../components/Preloader/Preloader.tsx";
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
@@ -10,13 +11,17 @@ type UnsplashWindowPropsType = {
 export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
     const [searchImg, setSearchImg] = useState("cats")
 
-    const {requestImages, setUnsplashImageSelection, addUnsplashImageToSlide} = useAppActions()
-    const unsplashImages = useAppSelector(state => state.present.unsplashImages)
-    const unsplashImageSelectedId = useAppSelector(state => state.present.unsplashImageSelectedId)
+    const {requestImages, setUnsplashPage, setUnsplashImageSelection, addUnsplashImageToSlide} = useAppActions()
+    const unsplashImages = useAppSelector(state => state.present.unsplashState?.images)
+    const unsplashImageSelectedId = useAppSelector(state => state.present.unsplashState?.imageSelectedId)
+    const isFetching = useAppSelector(state => state.present.unsplashState?.isFetching)
+    const currentPage = useAppSelector(state => state.present.unsplashState?.currentPage)
+    const totalPages = useAppSelector(state => state.present.unsplashState?.totalPages)
+
 
     useEffect(() => {
         requestImages(searchImg)
-    }, []);
+    }, [searchImg]);
 
     const Submit = () => {
         requestImages(searchImg)
@@ -31,6 +36,21 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
         addUnsplashImageToSlide()
         onCloseUnsplash()
     }
+
+    const onSetPagePrev = () => {
+        if (currentPage) {
+            setUnsplashPage(searchImg, currentPage - 1)
+        }
+    }
+
+    const onSetPageNext = () => {
+        if (currentPage) {
+            setUnsplashPage(searchImg, currentPage + 1)
+        }
+    }
+
+    const prevButtonDisabled = !!(currentPage && currentPage == 1)
+    const nextButtonDisabled = !!(currentPage && currentPage == totalPages)
 
     return (
         <div className={classes['modal-wrapper']}>
@@ -47,7 +67,7 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
                     </button>
                 </div>
                 <div>
-                    {unsplashImages && unsplashImages.map((img) => {
+                    {isFetching ? <Preloader/> : unsplashImages && unsplashImages.map((img) => {
                         return (
                             <img
                                 onClick={() => onSelect(img.id)}
@@ -67,6 +87,16 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
                     </button>
                     <button onClick={onCloseUnsplash}>
                         Закрыть
+                    </button>
+                    <button
+                        onClick={onSetPagePrev}
+                        disabled={prevButtonDisabled}>
+                        Назад
+                    </button>
+                    <button
+                        onClick={onSetPageNext}
+                        disabled={nextButtonDisabled}>
+                        Вперед
                     </button>
                 </div>
 

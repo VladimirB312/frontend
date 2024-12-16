@@ -1,5 +1,5 @@
 import {EditorType} from "./types.ts";
-import {LoadPresentation, RenamePresentation, SetUnsplashImages, SetUnsplashImageSelection} from "./redux/actions.ts";
+import {LoadPresentation, RenamePresentation} from "./redux/actions.ts";
 import {validate} from "../ajvValidator.ts";
 
 export function renamePresentation(editor: EditorType, action: RenamePresentation): EditorType {
@@ -27,19 +27,4 @@ export function loadPresentation(editor: EditorType, action: LoadPresentation): 
 
     console.log("invalid json scheme from file", validate.errors)
     return editor
-}
-
-export function setUnsplashImages (editor: EditorType, action: SetUnsplashImages) {
-    return {
-        ...editor,
-        unsplashImages: action.payload,
-        unsplashImageSelectedId: null,
-    }
-}
-
-export function setUnsplashImageSelection(editor: EditorType, action: SetUnsplashImageSelection) {
-    return {
-        ...editor,
-        unsplashImageSelectedId: action.payload,
-    }
 }

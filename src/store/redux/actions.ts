@@ -32,6 +32,7 @@ enum ActionType {
     SET_UNSPLASH_IMAGES = 'setUnsplashImages',
     SET_UNSPLASH_IMAGE_SELECTION = 'setUnsplashImageSelection',
     ADD_UNSPLASH_IMAGE_ELEMENT = 'addUnsplashImageElement',
+    TOGGLE_UNSPLASH_FETCHING = 'toggleUnsplashFetching',
 }
 
 type RenamePresentation = {
@@ -135,9 +136,13 @@ type Redo = {
     type: ActionType.REDO
 }
 
-type SetUnsplashImages = {
+type SetUnsplashState = {
     type: ActionType.SET_UNSPLASH_IMAGES,
-    payload: [UnsplashImageType]
+    payload: {
+        images: [UnsplashImageType],
+        totalPages: number,
+        currentPage: number,
+    }
 }
 
 type SetUnsplashImageSelection = {
@@ -151,6 +156,11 @@ type AddUnsplashImageElement = {
         src: string,
         size: Size,
     }
+}
+
+type ToggleUnsplashFetching = {
+    type: ActionType.TOGGLE_UNSPLASH_FETCHING,
+    payload: boolean,
 }
 
 type EditorAction =
@@ -175,9 +185,10 @@ type EditorAction =
     | LoadPresentation
     | Undo
     | Redo
-    | SetUnsplashImages
+    | SetUnsplashState
     | SetUnsplashImageSelection
     | AddUnsplashImageElement
+    | ToggleUnsplashFetching
 
 export {
     ActionType,
@@ -199,7 +210,8 @@ export {
     type LoadPresentation,
     type Redo,
     type Undo,
-    type SetUnsplashImages,
+    type SetUnsplashState,
     type SetUnsplashImageSelection,
     type AddUnsplashImageElement,
+    type ToggleUnsplashFetching,
 }
