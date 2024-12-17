@@ -49,8 +49,8 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
         }
     }
 
-    const prevButtonDisabled = !!(currentPage && currentPage == 1)
-    const nextButtonDisabled = !!(currentPage && currentPage == totalPages)
+    const prevButtonDisabled = (!totalPages || !currentPage || currentPage == 1)
+    const nextButtonDisabled = (!totalPages || !currentPage || currentPage === totalPages)
 
     return (
         <div className={classes['modal-wrapper']}>

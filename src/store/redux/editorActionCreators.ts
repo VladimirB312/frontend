@@ -8,7 +8,7 @@ function setEditor(newEditor: EditorType) {
     }
 }
 
-function setUnsplashState(images: [UnsplashImageType], totalPages: number, currentPage: number) {
+function setUnsplashState(images: [UnsplashImageType] | [], totalPages: number, currentPage: number | null) {
     return {
         type: ActionType.SET_UNSPLASH_IMAGES,
         payload: {

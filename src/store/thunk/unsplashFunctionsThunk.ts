@@ -45,15 +45,17 @@ const setUnsplashPage = (query: string, pageNumber: number) => {
 }
 
 const requestImages = (query: string) => {
-    return async (dispatch: TDispatch, getState: () => RootState) => {
+    return async (dispatch: TDispatch) => {
         dispatch(toggleUnsplashFetching(true))
 
-        const currentPage = getState().present.unsplashState?.currentPage || 1
+        // const currentPage = getState().present.unsplashState?.currentPage || 1
+        const currentPage = 1
 
         try {
             const {images, totalPages} = await requestToApi(query, currentPage)
             dispatch(setUnsplashState(images, totalPages, currentPage))
         } catch {
+            dispatch(setUnsplashState([], 0, null))
             console.log('error in requestImages')
         } finally {
             dispatch(toggleUnsplashFetching(false))
