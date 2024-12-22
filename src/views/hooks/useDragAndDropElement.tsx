@@ -31,7 +31,6 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
                 textAreaRef.current = textAreaElement
                 textAreaRef.current.readOnly = false;
                 textAreaRef.current.style.cursor = 'text'
-                console.log("textarea tag = ", textAreaElement.tagName)
             }
         }
 
@@ -43,7 +42,6 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
             const selectedTextArea = target.closest('textarea')
 
             if (textAreaRef.current != selectedTextArea) {
-                console.log("clear")
                 clearTextArea()
             }
 

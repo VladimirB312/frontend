@@ -7,16 +7,19 @@ function addTextElement() {
     }
 }
 
-function addImageElement(src: string) {
+function addImageElement(src: string, size: Size) {
     return {
         type: ActionType.ADD_IMAGE_ELEMENT,
-        payload: src,
+        payload: {
+            src,
+            size
+        },
     }
 }
 
 function addUnsplashImageElement(src: string, size: Size) {
     return {
-        type: ActionType.ADD_UNSPLASH_IMAGE_ELEMENT,
+        type: ActionType.ADD_EXTERNAL_IMAGE_ELEMENT,
         payload: {
             src,
             size

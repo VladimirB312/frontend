@@ -1,12 +1,11 @@
 import {jsPDF} from "jspdf";
-import {EditorType} from "../store/types.ts";
+import { PresentationType} from "../store/types.ts";
 import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
 
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
 
-export function exportToPdf(editor: EditorType) {
-    const presentation = editor.presentation
+export function exportToPdf(presentation: PresentationType) {
     const presentationTitle = presentation.title
     const slides = presentation.slides
     const scale = PDF_DOC_WIDTH / SLIDE_WIDTH

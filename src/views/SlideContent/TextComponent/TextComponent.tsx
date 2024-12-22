@@ -32,10 +32,6 @@ function TextComponent({
         changeTextValue((event.target as HTMLInputElement).value)
     }
 
-    const onMD = () => {
-        console.log('textarea click')
-    }
-
     return (
         <textarea
             readOnly={true}
@@ -43,7 +39,6 @@ function TextComponent({
             style={textStyle}
             value={element.value}
             draggable={false}
-            onMouseDown={onMD}
             onChange={onTextValueChange}
             onDrop={(e) => e.preventDefault()}
         />

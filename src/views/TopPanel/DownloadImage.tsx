@@ -1,6 +1,7 @@
 import classes from './DownloadImage.module.css'
 import {useRef} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
+import {Size} from "../../store/types.ts";
 
 type DownloadImageProps = {
     disabled: boolean
@@ -11,10 +12,20 @@ export function DownloadImage({disabled}: DownloadImageProps) {
 
     const {addImageElement} = useAppActions()
 
-    function convertToBase64(file: File, onSuccess: (base64: string) => void) {
+    function convertToBase64(file: File, onSuccess: (base64: string, size: Size) => void) {
         const reader = new FileReader()
-        reader.onload = () => onSuccess(reader.result as string)
         reader.readAsDataURL(file)
+        reader.onload = (e) =>  {
+            const image = new Image()
+            if (!e.target?.result || typeof e.target.result != "string") {
+                return
+            }
+
+            image.src = e.target.result
+            image.onload = () => {
+                onSuccess(reader.result as string, {width: image.width, height: image.height})
+            }
+        }
     }
 
     const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -27,8 +38,8 @@ export function DownloadImage({disabled}: DownloadImageProps) {
             return
         }
 
-        convertToBase64(file, (base64: string) => {
-            addImageElement(base64)
+        convertToBase64(file, (base64: string, size: Size) => {
+            addImageElement(base64, size)
         })
     }
 

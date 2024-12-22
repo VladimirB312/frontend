@@ -7,14 +7,15 @@ import {DownloadImage} from "./DownloadImage.tsx";
 import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
-import {useAppSelector} from "../hooks/useAppSelector.ts";
-import {useUndoRedo} from "../hooks/useUndoRedo.ts";
+import {usePresentationSelector} from "../hooks/useAppSelector.ts";
 import {exportToPdf} from "../../utils/exportToPDF.ts";
 
 type TopPanelProps = {
     slide: SlideType | null,
     selectedElementId: string | null,
     previewUserBackground: null | Background,
+    undoDisabled: boolean,
+    redoDisabled: boolean,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
     onOpenUnsplash: () => void,
 }
@@ -23,15 +24,18 @@ function TopPanel({
                       slide,
                       selectedElementId,
                       previewUserBackground,
+                      undoDisabled,
+                      redoDisabled,
                       setPreviewUserBackground,
                       onOpenUnsplash
                   }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
 
-    const editor = useAppSelector(state => state.present)
+    const presentation = usePresentationSelector()
 
-    const title = editor.presentation.title
+    const title = presentation.title
+
     const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement, undo, redo} = useAppActions()
 
     function onAddSlide() {
@@ -66,7 +70,7 @@ function TopPanel({
     }
 
     const onSavePresentation = () => {
-        const jsonEditor = JSON.stringify(editor.presentation)
+        const jsonEditor = JSON.stringify(presentation)
         const file = new Blob([jsonEditor], {type: "application/json"})
         const a = document.createElement('a')
         a.href = URL.createObjectURL(file)
@@ -79,10 +83,8 @@ function TopPanel({
 
     const disabledElementButton: boolean = !selectedElementId
 
-    const {undoDisabled, redoDisabled} = useUndoRedo()
-
     const onExportClick = () => {
-        exportToPdf(editor)
+        exportToPdf(presentation)
     }
 
     return (

@@ -1,11 +1,11 @@
 import {EditorType} from "./types.ts";
-import {SetUnsplashState, SetUnsplashImageSelection, ToggleUnsplashFetching} from "./redux/actions.ts";
+import {SetExternalImages, SetExternalImageSelection, ToggleExternalImagesFetching} from "./redux/actions.ts";
 
-export function setUnsplashState(editor: EditorType, action: SetUnsplashState) {
+function setExternalImages(editor: EditorType, action: SetExternalImages) {
     return {
         ...editor,
-        unsplashState: {
-            ...editor.unsplashState,
+        externalImages: {
+            ...editor.externalImages,
             images: action.payload.images,
             imageSelectedId: null,
             totalPages: action.payload.totalPages,
@@ -14,33 +14,40 @@ export function setUnsplashState(editor: EditorType, action: SetUnsplashState) {
     }
 }
 
-export function setUnsplashImageSelection(editor: EditorType, action: SetUnsplashImageSelection) {
+function setUnsplashImageSelection(editor: EditorType, action: SetExternalImageSelection) {
     return {
         ...editor,
-        unsplashState: {
-            ...editor.unsplashState,
+        externalImages: {
+            ...editor.externalImages,
             imageSelectedId: action.payload
         }
     }
 }
 
-export function toggleUnsplashFetching(editor: EditorType, action: ToggleUnsplashFetching) {
+function toggleUnsplashFetching(editor: EditorType, action: ToggleExternalImagesFetching) {
     return {
         ...editor,
-        unsplashState: {
-            ...editor.unsplashState,
+        externalImages: {
+            ...editor.externalImages,
             isFetching: action.payload,
         }
     }
 }
 
-export function setUnsplashPageNumber(editor: EditorType, action: ToggleUnsplashFetching) {
+function setUnsplashPageNumber(editor: EditorType, action: ToggleExternalImagesFetching) {
     return {
         ...editor,
-        unsplashState: {
-            ...editor.unsplashState,
+        externalImages: {
+            ...editor.externalImages,
             isFetching: action.payload,
         }
     }
+}
+
+export {
+    setExternalImages,
+    setUnsplashImageSelection,
+    toggleUnsplashFetching,
+    setUnsplashPageNumber
 }
 

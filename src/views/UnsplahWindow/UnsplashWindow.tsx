@@ -1,7 +1,7 @@
 import classes from './UnsplashWindow.module.css'
 import {useEffect, useState} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
-import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
 import Preloader from "../../components/Preloader/Preloader.tsx";
 
 type UnsplashWindowPropsType = {
@@ -11,12 +11,14 @@ type UnsplashWindowPropsType = {
 export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
     const [searchImg, setSearchImg] = useState("cats")
 
-    const {requestImages, setUnsplashPage, setUnsplashImageSelection, addUnsplashImageToSlide} = useAppActions()
-    const unsplashImages = useAppSelector(state => state.present.unsplashState?.images)
-    const unsplashImageSelectedId = useAppSelector(state => state.present.unsplashState?.imageSelectedId)
-    const isFetching = useAppSelector(state => state.present.unsplashState?.isFetching)
-    const currentPage = useAppSelector(state => state.present.unsplashState?.currentPage)
-    const totalPages = useAppSelector(state => state.present.unsplashState?.totalPages)
+    const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide} = useAppActions()
+    const externalImages = useExternalImagesSelector()
+
+    const unsplashImages = externalImages?.images
+    const unsplashImageSelectedId = externalImages?.imageSelectedId
+    const isFetching = externalImages?.isFetching
+    const currentPage = externalImages?.currentPage
+    const totalPages = externalImages?.totalPages
 
 
     useEffect(() => {
@@ -29,7 +31,7 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
     }
 
     const onSelect = (id: string) => {
-        setUnsplashImageSelection(id)
+        setExternalImageSelection(id)
     }
 
     const onAddImage = () => {

@@ -8,9 +8,9 @@ function setEditor(newEditor: EditorType) {
     }
 }
 
-function setUnsplashState(images: [UnsplashImageType] | [], totalPages: number, currentPage: number | null) {
+function setExternalImages(images: [UnsplashImageType] | [], totalPages: number, currentPage: number | null) {
     return {
-        type: ActionType.SET_UNSPLASH_IMAGES,
+        type: ActionType.SET_EXTERNAL_IMAGES,
         payload: {
             images,
             totalPages,
@@ -19,23 +19,23 @@ function setUnsplashState(images: [UnsplashImageType] | [], totalPages: number, 
     }
 }
 
-function setUnsplashImageSelection(imageId: string) {
+function setExternalImageSelection(imageId: string) {
     return {
-        type: ActionType.SET_UNSPLASH_IMAGE_SELECTION,
+        type: ActionType.SET_EXTERNAL_IMAGE_SELECTION,
         payload: imageId
     }
 }
 
-function toggleUnsplashFetching(isFetching: boolean) {
+function toggleExternalImagesFetching(isFetching: boolean) {
     return {
-        type: ActionType.TOGGLE_UNSPLASH_FETCHING,
+        type: ActionType.TOGGLE_EXTERNAL_IMAGES_FETCHING,
         payload: isFetching,
     }
 }
 
 export {
     setEditor,
-    setUnsplashState,
-    setUnsplashImageSelection,
-    toggleUnsplashFetching,
+    setExternalImages,
+    setExternalImageSelection,
+    toggleExternalImagesFetching,
 }

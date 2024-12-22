@@ -58,7 +58,7 @@ export type UnsplashImageType = {
     width: number,
     height: number,
 }
-export type UnsplashStateType = {
+export type ExternalImagesStateType = {
     images?: [UnsplashImageType] | [],
     imageSelectedId?: string | null,
     isFetching?: boolean,
@@ -69,6 +69,6 @@ export type UnsplashStateType = {
 export type EditorType = {
     presentation: PresentationType,
     selection: SelectionType | null,
-    unsplashState?: UnsplashStateType,
+    externalImages?: ExternalImagesStateType,
 
 }

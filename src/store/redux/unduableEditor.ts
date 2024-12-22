@@ -4,6 +4,8 @@ import {getLocalEditor} from "../data.ts";
 import {editorReducer} from "./editorReducer.ts";
 import {setToLocalStorage} from "../setToLocalStorage.ts";
 
+const HISTORY_LENGTH = 50
+
 type StateType = {
     past: EditorType[],
     present: EditorType,
@@ -51,7 +53,7 @@ function undoable(reducer: (editor: EditorType, action: EditorAction) => EditorT
                 setToLocalStorage(newPresent.presentation)
 
                 return {
-                    past: [...past, present],
+                    past: [...past, present].slice(-HISTORY_LENGTH),
                     present: newPresent,
                     future: []
                 }

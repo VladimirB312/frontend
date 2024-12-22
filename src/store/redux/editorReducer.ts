@@ -6,7 +6,6 @@ import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelection
 import {
     addImageElement,
     addTextElement,
-    addUnsplashImageElement,
     changePosition,
     changeSize,
     removeElement,
@@ -16,7 +15,7 @@ import {
     renamePresentation,
     loadPresentation,
 } from "../presentationFunctions.ts";
-import {setUnsplashState, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
+import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 
 
 function editorReducer(editor: EditorType = getLocalEditor(), action: EditorAction): EditorType {
@@ -65,13 +64,11 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
         case ActionType.SET_EDITOR:
             return action.payload
 
-        case ActionType.SET_UNSPLASH_IMAGES:
-            return setUnsplashState(editor, action)
-        case ActionType.SET_UNSPLASH_IMAGE_SELECTION:
+        case ActionType.SET_EXTERNAL_IMAGES:
+            return setExternalImages(editor, action)
+        case ActionType.SET_EXTERNAL_IMAGE_SELECTION:
             return setUnsplashImageSelection(editor, action)
-        case ActionType.ADD_UNSPLASH_IMAGE_ELEMENT:
-            return addUnsplashImageElement(editor, action)
-        case ActionType.TOGGLE_UNSPLASH_FETCHING:
+        case ActionType.TOGGLE_EXTERNAL_IMAGES_FETCHING:
             return toggleUnsplashFetching(editor, action)
 
         default:

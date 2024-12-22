@@ -2,15 +2,14 @@ import classes from './SlideList.module.css'
 import SlideContent from "../SlideContent/SlideContent.tsx";
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useRef, } from "react";
-import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {useSelectionSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
 import {useSlideListDnd} from "../hooks/useSlideListDnd.tsx";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
 
 function SlideList() {
-    const editor = useAppSelector(state => state.present)
-    const slides = editor.presentation.slides
-    const selection = editor.selection
+    const slides = useSlidesSelector()
+    const selection = useSelectionSelector()
 
     const slideListRef = useRef<HTMLDivElement>(null)
     const {isDragging, dndPosition} = useSlideListDnd(slideListRef, selection)

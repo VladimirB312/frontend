@@ -4,17 +4,19 @@ import SlideList from "./views/SlideList/SlideList.tsx";
 import WorkArea from "./views/WorkArea/WorkArea.tsx";
 import {Background} from "./store/types.ts";
 import {useState} from "react";
-import {useAppSelector} from "./views/hooks/useAppSelector.ts";
 import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
 import {createPortal} from "react-dom";
 import SlidesPreview from "./views/SlidesPreview/SlidesPreview.tsx";
+import {usePresentationSelector, useSelectionSelector} from "./views/hooks/useAppSelector.ts";
+import {useUndoRedo} from "./views/hooks/useUndoRedo.ts";
 
 function App() {
 
-    const editor = useAppSelector(state => state.present)
+    const presentation = usePresentationSelector()
+    const selection = useSelectionSelector()
 
-    const activeSlide = editor.presentation.slides.find(
-        slide => slide.id == editor.selection?.activeSlideId
+    const activeSlide = presentation.slides.find(
+        slide => slide.id == selection?.activeSlideId
     ) ?? null ///
 
     const [previewUserBackground, setPreviewUserBackground] = useState<null | Background>(null)
@@ -23,7 +25,9 @@ function App() {
 
     const [showPreviewSlides, setShowPreviewSlides] = useState(true)
 
-    const selectedElementId = editor.selection?.selectedElementId ?? null
+    const {undoDisabled, redoDisabled} = useUndoRedo()
+
+    const selectedElementId = selection?.selectedElementId ?? null
 
     return (
         <div>
@@ -35,6 +39,8 @@ function App() {
                 slide={activeSlide}
                 selectedElementId={selectedElementId}
                 previewUserBackground={previewUserBackground}
+                undoDisabled={undoDisabled}
+                redoDisabled={redoDisabled}
                 setPreviewUserBackground={setPreviewUserBackground}
                 onOpenUnsplash={() => setShowUnsplash(true)}
             />

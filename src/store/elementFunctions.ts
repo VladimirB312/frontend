@@ -1,16 +1,17 @@
 import {ImageElement, Position, PresentationType, Size, TextElement} from "./types.ts";
 import {EditorType} from "./types.ts";
 import {
-    AddImageElement, AddUnsplashImageElement,
+    AddImageElement,
     ChangeElementPosition,
     ChangeElementRect,
     ChangeElementSize,
     ChangeTextValue
 } from "./redux/actions.ts";
+import {calculatePosition} from "../utils/calculatePosition.ts";
 
 function addElement(editor: EditorType, newElement: ImageElement | TextElement) {
     return {
-        presentation : {
+        presentation: {
             ...editor.presentation,
             slides: editor.presentation.slides.map(slide => {
                 if (slide.id !== editor.selection?.activeSlideId) {
@@ -30,7 +31,7 @@ function addElement(editor: EditorType, newElement: ImageElement | TextElement) 
     }
 }
 
-export function addTextElement(editor: EditorType) {
+function addTextElement(editor: EditorType) {
     const uniqueId: string = crypto.randomUUID()
 
     const newTextElement: TextElement =
@@ -47,31 +48,21 @@ export function addTextElement(editor: EditorType) {
     return addElement(editor, newTextElement);
 }
 
-export function addImageElement(editor: EditorType, action: AddImageElement) {
+function addImageElement(editor: EditorType, action: AddImageElement) {
     const uniqueId: string = crypto.randomUUID()
+
+    const {
+        imageHeight,
+        imageWidth,
+        imageX,
+        imageY
+    } = calculatePosition(action.payload.size.height, action.payload.size.width)
 
     const newImageElement: ImageElement =
         {
             id: uniqueId,
-            position: {x: 350, y: 350},
-            size: {width: 150, height: 150},
-            type: "image",
-            src: action.payload
-        }
-
-        return addElement(editor, newImageElement)
-}
-
-export function addUnsplashImageElement(editor: EditorType, action: AddUnsplashImageElement) {
-    const uniqueId: string = crypto.randomUUID()
-    console.log(action.payload.size.height, action.payload.size.width)
-    const ratio = action.payload.size.width / action.payload.size.height
-
-    const newImageElement: ImageElement =
-        {
-            id: uniqueId,
-            position: {x: 350, y: 350},
-            size: {width: 150, height: 150 / ratio},
+            position: {x: imageX, y: imageY},
+            size: {width: imageWidth, height: imageHeight},
             type: "image",
             src: action.payload.src
         }
@@ -79,7 +70,7 @@ export function addUnsplashImageElement(editor: EditorType, action: AddUnsplashI
     return addElement(editor, newImageElement)
 }
 
-export function changePosition(editor: EditorType, action: ChangeElementPosition): EditorType {
+function changePosition(editor: EditorType, action: ChangeElementPosition): EditorType {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -93,7 +84,7 @@ export function changePosition(editor: EditorType, action: ChangeElementPosition
     }
 }
 
-export function changeSize(editor: EditorType, action: ChangeElementSize): EditorType {
+function changeSize(editor: EditorType, action: ChangeElementSize): EditorType {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -107,7 +98,7 @@ export function changeSize(editor: EditorType, action: ChangeElementSize): Edito
     }
 }
 
-export function changeRect(editor: EditorType, action: ChangeElementRect): EditorType {
+function changeRect(editor: EditorType, action: ChangeElementRect): EditorType {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -197,7 +188,7 @@ function changeElementRect(presentation: PresentationType, slideId: string, slid
     }
 }
 
-export function removeElement(editor: EditorType) : EditorType {
+function removeElement(editor: EditorType): EditorType {
     if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
         return editor
     }
@@ -227,7 +218,7 @@ export function removeElement(editor: EditorType) : EditorType {
     }
 }
 
-export function changeTextValue(editor: EditorType, action: ChangeTextValue): EditorType {
+function changeTextValue(editor: EditorType, action: ChangeTextValue): EditorType {
     const newText = action.payload;
 
     return {
@@ -251,4 +242,14 @@ export function changeTextValue(editor: EditorType, action: ChangeTextValue): Ed
                 })
         }
     }
+}
+
+export {
+    addTextElement,
+    addImageElement,
+    changePosition,
+    changeSize,
+    changeRect,
+    removeElement,
+    changeTextValue
 }

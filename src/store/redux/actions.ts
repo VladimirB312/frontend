@@ -29,10 +29,9 @@ enum ActionType {
     UNDO = 'undo',
     REDO = 'redo',
 
-    SET_UNSPLASH_IMAGES = 'setUnsplashImages',
-    SET_UNSPLASH_IMAGE_SELECTION = 'setUnsplashImageSelection',
-    ADD_UNSPLASH_IMAGE_ELEMENT = 'addUnsplashImageElement',
-    TOGGLE_UNSPLASH_FETCHING = 'toggleUnsplashFetching',
+    SET_EXTERNAL_IMAGES = 'setExternalImages',
+    SET_EXTERNAL_IMAGE_SELECTION = 'setExternalImageSelection',
+    TOGGLE_EXTERNAL_IMAGES_FETCHING = 'toggleExternalImagesFetching',
 }
 
 type RenamePresentation = {
@@ -93,7 +92,10 @@ type AddTextElement = {
 
 type AddImageElement = {
     type: ActionType.ADD_IMAGE_ELEMENT,
-    payload: string,
+    payload: {
+        src: string,
+        size: Size
+    },
 }
 
 type ChangeElementPosition = {
@@ -136,8 +138,8 @@ type Redo = {
     type: ActionType.REDO
 }
 
-type SetUnsplashState = {
-    type: ActionType.SET_UNSPLASH_IMAGES,
+type SetExternalImages = {
+    type: ActionType.SET_EXTERNAL_IMAGES,
     payload: {
         images: [UnsplashImageType],
         totalPages: number,
@@ -145,21 +147,13 @@ type SetUnsplashState = {
     }
 }
 
-type SetUnsplashImageSelection = {
-    type: ActionType.SET_UNSPLASH_IMAGE_SELECTION,
+type SetExternalImageSelection = {
+    type: ActionType.SET_EXTERNAL_IMAGE_SELECTION,
     payload: string,
 }
 
-type AddUnsplashImageElement = {
-    type: ActionType.ADD_UNSPLASH_IMAGE_ELEMENT,
-    payload: {
-        src: string,
-        size: Size,
-    }
-}
-
-type ToggleUnsplashFetching = {
-    type: ActionType.TOGGLE_UNSPLASH_FETCHING,
+type ToggleExternalImagesFetching = {
+    type: ActionType.TOGGLE_EXTERNAL_IMAGES_FETCHING,
     payload: boolean,
 }
 
@@ -185,10 +179,9 @@ type EditorAction =
     | LoadPresentation
     | Undo
     | Redo
-    | SetUnsplashState
-    | SetUnsplashImageSelection
-    | AddUnsplashImageElement
-    | ToggleUnsplashFetching
+    | SetExternalImages
+    | SetExternalImageSelection
+    | ToggleExternalImagesFetching
 
 export {
     ActionType,
@@ -210,8 +203,7 @@ export {
     type LoadPresentation,
     type Redo,
     type Undo,
-    type SetUnsplashState,
-    type SetUnsplashImageSelection,
-    type AddUnsplashImageElement,
-    type ToggleUnsplashFetching,
+    type SetExternalImages,
+    type SetExternalImageSelection,
+    type ToggleExternalImagesFetching,
 }

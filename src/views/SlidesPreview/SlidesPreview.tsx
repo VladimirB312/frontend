@@ -1,6 +1,6 @@
 import classes from './SlidesPreview.module.css'
 import SlideContent from "../SlideContent/SlideContent.tsx";
-import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {useSlidesSelector} from "../hooks/useAppSelector.ts";
 import {useState} from "react";
 
 type SlidesPreviewType = {
@@ -8,7 +8,7 @@ type SlidesPreviewType = {
 }
 
 function SlidesPreview({onClosePreview}:SlidesPreviewType) {
-    const slides = useAppSelector(state => state.present.presentation.slides)
+    const slides = useSlidesSelector()
 
     const [activeSlideIndex, setActiveSlideIndex] = useState(0)
 
@@ -43,7 +43,6 @@ function SlidesPreview({onClosePreview}:SlidesPreviewType) {
             </button>
             <button
                 onClick={onClosePreview}
-                disabled={buttonNextDisabled}
             >
                 Закрыть
             </button>
