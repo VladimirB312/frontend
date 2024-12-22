@@ -1,15 +1,14 @@
 import {jsPDF} from "jspdf";
 import {EditorType} from "../store/types.ts";
-import {SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
 
-const PDF_DOC_WIDTH = 841.89
-const PDF_DOC_HEIGHT = 595.28
+const PDF_DOC_WIDTH = SLIDE_WIDTH
+const PDF_DOC_HEIGHT = SLIDE_HEIGHT
 
 export function exportToPdf(editor: EditorType) {
     const presentation = editor.presentation
     const presentationTitle = presentation.title
     const slides = presentation.slides
-
     const scale = PDF_DOC_WIDTH / SLIDE_WIDTH
 
     const doc = new jsPDF({
@@ -29,7 +28,7 @@ export function exportToPdf(editor: EditorType) {
 
         slide.objects.map((element) => {
             if (element.type == 'text') {
-                doc.setFontSize(element.textSize * scale)
+                doc.setFontSize(element.textSize * scale * doc.internal.scaleFactor)
                 doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'}
                 )
             } else {

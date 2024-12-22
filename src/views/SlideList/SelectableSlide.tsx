@@ -31,13 +31,6 @@ export function SelectableSlide({
         }
     }, [isActive])
 
-    // if (isActive) {
-    //     elementRef?.current?.scrollIntoView({
-    //         behavior: "smooth",
-    //         block: "nearest",
-    //     })
-    // }
-
     return (
         <div ref={elementRef}
              data-slide-id={id}

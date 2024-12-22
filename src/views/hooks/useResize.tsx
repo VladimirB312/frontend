@@ -23,6 +23,7 @@ export function useResize() {
         if (!element) {
             return
         }
+        // e.preventDefault()
         setDirection(dir)
         setIsDragging(true)
         setStartPos({x: e.pageX, y: e.pageY})

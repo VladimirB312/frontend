@@ -7,6 +7,7 @@ import {useState} from "react";
 import {useAppSelector} from "./views/hooks/useAppSelector.ts";
 import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
 import {createPortal} from "react-dom";
+import SlidesPreview from "./views/SlidesPreview/SlidesPreview.tsx";
 
 function App() {
 
@@ -20,10 +21,16 @@ function App() {
 
     const [showUnsplash, setShowUnsplash] = useState(false)
 
+    const [showPreviewSlides, setShowPreviewSlides] = useState(true)
+
     const selectedElementId = editor.selection?.selectedElementId ?? null
 
     return (
         <div>
+            {showPreviewSlides && createPortal(
+                <SlidesPreview onClosePreview={() => setShowPreviewSlides(false)}/>,
+                document.body
+            )}
             <TopPanel
                 slide={activeSlide}
                 selectedElementId={selectedElementId}
