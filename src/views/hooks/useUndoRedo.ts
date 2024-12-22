@@ -16,7 +16,6 @@ export function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } 
         }
 
         const onRedo = () => {
-            console.log()
             if (!redoDisabled) {
                 redo()
             }

@@ -8,7 +8,7 @@ import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {usePresentationSelector} from "../hooks/useAppSelector.ts";
-import {exportToPdf} from "../../utils/exportToPDF.ts";
+import {useNavigate} from "react-router";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -17,6 +17,7 @@ type TopPanelProps = {
     undoDisabled: boolean,
     redoDisabled: boolean,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
+    setShowPreviewsSlides: React.Dispatch<SetStateAction<boolean>>,
     onOpenUnsplash: () => void,
 }
 
@@ -27,11 +28,12 @@ function TopPanel({
                       undoDisabled,
                       redoDisabled,
                       setPreviewUserBackground,
+                      setShowPreviewsSlides,
                       onOpenUnsplash
                   }: TopPanelProps) {
 
     const [showModal, setShowModal] = React.useState(false);
-
+    const navigate = useNavigate()
     const presentation = usePresentationSelector()
 
     const title = presentation.title
@@ -79,13 +81,15 @@ function TopPanel({
         URL.revokeObjectURL(a.href)
     }
 
+    const onOpenPlayerView = () => {
+        navigate('/player')
+    }
+
     const disabledSlideButton: boolean = !slide
 
     const disabledElementButton: boolean = !selectedElementId
 
-    const onExportClick = () => {
-        exportToPdf(presentation)
-    }
+
 
     return (
         <div className={classes['top-panel']}>
@@ -114,11 +118,14 @@ function TopPanel({
                         disabled={redoDisabled}
                 />
                 <Button text={'Экспорт в PDF'}
-                        onClick={onExportClick}
+                        onClick={() => setShowPreviewsSlides(true)}
                 />
                 <Button text={'Unsplash'}
                         onClick={onOpenUnsplash}
                         disabled={disabledSlideButton}
+                />
+                <Button text={'Слайд-шоу'}
+                        onClick={onOpenPlayerView}
                 />
             </div>
         </div>

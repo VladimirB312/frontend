@@ -1,4 +1,4 @@
-.modal-wrapper {
+.preview-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,4 +16,10 @@
 .slide {
     overflow: hidden;
     pointer-events: none;
+}
+
+.buttons {
+    position: absolute;
+    top: 5%;
+    right: 5%;
 }
