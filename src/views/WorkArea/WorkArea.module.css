@@ -1,8 +1,10 @@
 .work-area {
     border: 2px solid darkgray;
     border-left: none;
-    padding: 30px;
     overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .slide {
