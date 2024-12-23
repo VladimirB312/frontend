@@ -1,6 +1,6 @@
 import {SlideType} from "../../store/types.ts";
 import classes from './WorkArea.module.css'
-import SlideContent, {SLIDE_HEIGHT, SLIDE_WIDTH} from "../SlideContent/SlideContent.tsx";
+import {SlideContent, SLIDE_HEIGHT, SLIDE_WIDTH} from "../SlideContent/SlideContent.tsx";
 import React, {RefObject, useEffect, useRef, useState} from "react";
 
 const WORK_AREA_PADDING = 20
@@ -63,4 +63,4 @@ function WorkArea({
     )
 }
 
-export default WorkArea;
+export {WorkArea}

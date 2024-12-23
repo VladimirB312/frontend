@@ -1,4 +1,4 @@
-import SlideContent from "../SlideContent/SlideContent.tsx";
+import {SlideContent} from "../SlideContent/SlideContent.tsx";
 import {SlideType} from "../../store/types.ts";
 import {useEffect, useRef} from "react";
 
@@ -11,7 +11,7 @@ type SlideProps = {
     isActive: boolean
 }
 
-export function SelectableSlide({
+function SelectableSlide({
                                     scale,
                                     slide,
                                     className,
@@ -44,3 +44,5 @@ export function SelectableSlide({
         </div>
     )
 }
+
+export {SelectableSlide}

@@ -1,6 +1,6 @@
 import classes from './BackgroundChangeModal.module.css'
 import {Background, ColorBackground, ImageBackground, SlideType} from "../../store/types.ts";
-import Button from "../../components/Button/Button.tsx";
+import {Button} from "../../components/Button/Button.tsx";
 import React, {SetStateAction} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 
@@ -11,7 +11,7 @@ type BackgroundChangeModalProps = {
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
 }
 
-export function BackgroundChangeModal({
+function BackgroundChangeModal({
                                           slide,
                                           onClick,
                                           previewUserBackground,
@@ -91,3 +91,5 @@ export function BackgroundChangeModal({
         </div>
     )
 }
+
+export {BackgroundChangeModal}

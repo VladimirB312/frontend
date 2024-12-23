@@ -1,5 +1,5 @@
 import classes from './TopPanel.module.css'
-import Button from "../../components/Button/Button.tsx";
+import {Button} from "../../components/Button/Button.tsx";
 import {Background, SlideType} from "../../store/types.ts";
 import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx";
 import React, {SetStateAction} from "react";
@@ -90,7 +90,6 @@ function TopPanel({
     const disabledElementButton: boolean = !selectedElementId
 
 
-
     return (
         <div className={classes['top-panel']}>
             {showModal && <BackgroundChangeModal slide={slide}
@@ -132,4 +131,4 @@ function TopPanel({
     )
 }
 
-export default TopPanel;
+export {TopPanel}

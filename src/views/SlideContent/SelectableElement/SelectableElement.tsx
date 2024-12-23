@@ -1,7 +1,7 @@
 import classes from './SelectableElement.module.css'
 import {ImageElement, TextElement} from "../../../store/types.ts";
-import TextComponent from "../TextComponent/TextComponent.tsx";
-import ImageComponent from "../ImageComponent/ImageComponent.tsx";
+import {TextComponent} from "../TextComponent/TextComponent.tsx";
+import {ImageComponent} from "../ImageComponent/ImageComponent.tsx";
 import {CSSProperties, RefObject, useRef} from "react";
 import {useDragAndDropElement} from "../../hooks/useDragAndDropElement.tsx";
 import {useResize} from "../../hooks/useResize.tsx";
@@ -14,7 +14,7 @@ type SelectableElementProps = {
     id: string,
 }
 
-export function SelectableElement({
+function SelectableElement({
                                       element,
                                       scale = 1,
                                       elementStyle,
@@ -26,7 +26,7 @@ export function SelectableElement({
     const {onResize, dndRect: dndRect} = useResize()
 
     const elementRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
-    const elementPosition = useDragAndDropElement(elementRef, element)
+    const elementPosition = useDragAndDropElement(elementRef, element, scale)
 
     const borderStyle: CSSProperties = {
         top: `${scale * element.position.y}px`,
@@ -90,28 +90,28 @@ export function SelectableElement({
                  className={classes.resizeableElement}>
                 {element.id == selectedElementId && (
                     <>
-                        <div onMouseDown={(e) => onResize(e, element, "left")}
+                        <div onMouseDown={(e) => onResize(e, element, "left", scale)}
                              data-resizer-id={'L'}
                              className={classes.resizerL}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "top")}
+                        <div onMouseDown={(e) => onResize(e, element, "top", scale)}
                              data-resizer-id={'T'}
                              className={classes.resizerT}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "right")}
+                        <div onMouseDown={(e) => onResize(e, element, "right", scale)}
                              data-resizer-id={'R'}
                              className={classes.resizerR}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "bottom")}
+                        <div onMouseDown={(e) => onResize(e, element, "bottom", scale)}
                              data-resizer-id={'B'}
                              className={classes.resizerB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "rightBottom")}
+                        <div onMouseDown={(e) => onResize(e, element, "rightBottom", scale)}
                              data-resizer-id={'RB'}
                              className={classes.resizerRB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "leftBottom")}
+                        <div onMouseDown={(e) => onResize(e, element, "leftBottom", scale)}
                              data-resizer-id={'LB'}
                              className={classes.resizerLB}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "leftTop")}
+                        <div onMouseDown={(e) => onResize(e, element, "leftTop", scale)}
                              data-resizer-id={'LT'}
                              className={classes.resizerLT}></div>
-                        <div onMouseDown={(e) => onResize(e, element, "rightTop")}
+                        <div onMouseDown={(e) => onResize(e, element, "rightTop", scale)}
                              data-resizer-id={'RT'}
                              className={classes.resizerRT}></div>
                     </>)}
@@ -119,3 +119,5 @@ export function SelectableElement({
         </div>
     )
 }
+
+export {SelectableElement}

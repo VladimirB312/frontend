@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {ImageElement, Position, TextElement} from "../../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
-export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement): Position {
+function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement, scale: number): Position {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
@@ -60,7 +60,7 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
         const onMouseMove = (e: MouseEvent) => {
             e.preventDefault()
 
-            if (isTextEditing || !isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition) {
+            if (isTextEditing || !isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition || !scale) {
                 return;
             }
 
@@ -71,7 +71,7 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
             // const height = elementRef.current.offsetParent.getBoundingClientRect().height
 
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            const newPosition = {x: Math.round(dndPosition.x + delta.x), y: Math.round(dndPosition.y + delta.y)}
+            const newPosition = {x: dndPosition.x + delta.x / scale , y: dndPosition.y + delta.y / scale }
 
             // if (newPosition.x < 0) {
             //     newPosition.x = 0;
@@ -135,4 +135,6 @@ export function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement
 
     return dndPosition ?? element.position;
 }
+
+export {useDragAndDropElement}
 

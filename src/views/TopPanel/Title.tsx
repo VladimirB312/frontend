@@ -6,10 +6,12 @@ type TitleProps = {
     onChange: React.ChangeEventHandler;
 }
 
-export function Title({ value, onChange}: TitleProps): JSX.Element {
+function Title({ value, onChange}: TitleProps): JSX.Element {
     return (
         <input className={classes["title"]}
                type="text" value={value}
                onChange={onChange}/>
     );
 }
+
+export {Title}

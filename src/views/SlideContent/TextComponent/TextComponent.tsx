@@ -45,4 +45,4 @@ function TextComponent({
     )
 }
 
-export default TextComponent
+export {TextComponent}

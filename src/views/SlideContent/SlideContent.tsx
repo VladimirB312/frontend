@@ -67,4 +67,4 @@ function SlideContent({
     )
 }
 
-export default SlideContent
+export {SlideContent}

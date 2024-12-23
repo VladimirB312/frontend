@@ -7,7 +7,7 @@ type DownloadImageProps = {
     disabled: boolean
 }
 
-export function DownloadImage({disabled}: DownloadImageProps) {
+function DownloadImage({disabled}: DownloadImageProps) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const {addImageElement} = useAppActions()
@@ -56,3 +56,4 @@ export function DownloadImage({disabled}: DownloadImageProps) {
     )
 }
 
+export {DownloadImage}

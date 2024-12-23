@@ -2,7 +2,7 @@ import {useAppSelector} from "./useAppSelector.ts";
 import {useEffect} from "react";
 import {useAppActions} from "./useAppAction.ts";
 
-export function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
+function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
     const undoDisabled = !useAppSelector(state => state.past.length)
     const redoDisabled = !useAppSelector(state => state.future.length)
 
@@ -42,3 +42,5 @@ export function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } 
         redoDisabled,
     }
 }
+
+export {useUndoRedo}

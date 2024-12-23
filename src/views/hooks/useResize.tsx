@@ -11,19 +11,21 @@ type Rect = {
     height?: number,
 }
 
-export function useResize() {
+function useResize() {
     const [dndRect, setDndRect] = useState<Rect | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [direction, setDirection] = useState<Direction>(null)
+    const [scale, setScale] = useState<null | number>(null)
 
     const {changeElementPosition, changeElementSize, changeElementRect} = useAppActions()
 
-    const onResize = (e: React.MouseEvent<HTMLDivElement>, element: TextElement | ImageElement, dir: Direction,) => {
+    const onResize = (e: React.MouseEvent<HTMLDivElement>, element: TextElement | ImageElement, dir: Direction, scale: number) => {
         if (!element) {
             return
         }
-        // e.preventDefault()
+        e.preventDefault()
+        setScale(scale)
         setDirection(dir)
         setIsDragging(true)
         setStartPos({x: e.pageX, y: e.pageY})
@@ -36,12 +38,12 @@ export function useResize() {
     }
 
     useEffect(() => {
-        if (!isDragging) {
-            return
-        }
+        // if (!isDragging) {
+        //     return
+        // }
 
         const onMouseMove = (e: MouseEvent) => {
-            if (!isDragging || !startPos || !dndRect || !direction) {
+            if (!isDragging || !startPos || !dndRect || !direction || !scale) {
                 return
             }
 
@@ -51,7 +53,7 @@ export function useResize() {
 
             e.preventDefault()
 
-            const delta = {x: Math.round(e.pageX - startPos.x), y: Math.round(e.pageY - startPos.y)}
+            const delta = {x: Math.round(e.pageX - startPos.x) / scale, y: Math.round(e.pageY - startPos.y) / scale}
 
             if (direction == "right") {
                 const newWidth = dndRect.width + delta.x
@@ -187,7 +189,7 @@ export function useResize() {
         }
 
         const onMouseUp = () => {
-            if (!isDragging || !dndRect || !dndRect.width || !dndRect.height || !dndRect.top || !dndRect.left) {
+            if (!isDragging || !dndRect || dndRect.left == null || dndRect.top == null || dndRect.width == null || dndRect.height == null) {
                 return
             }
 
@@ -235,4 +237,6 @@ export function useResize() {
 
     return {onResize, dndRect}
 }
+
+export {useResize}
 

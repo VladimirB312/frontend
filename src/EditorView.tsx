@@ -1,12 +1,12 @@
 import classes from './EditorView.module.css'
-import TopPanel from "./views/TopPanel/TopPanel.tsx";
-import SlideList from "./views/SlideList/SlideList.tsx";
-import WorkArea from "./views/WorkArea/WorkArea.tsx";
+import {TopPanel} from "./views/TopPanel/TopPanel.tsx";
+import {SlideList} from "./views/SlideList/SlideList.tsx";
+import {WorkArea} from "./views/WorkArea/WorkArea.tsx";
 import {Background} from "./store/types.ts";
 import {useState} from "react";
 import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
 import {createPortal} from "react-dom";
-import SlidesPreview from "./views/SlidesPreview/SlidesPreview.tsx";
+import {SlidesPreview} from "./views/SlidesPreview/SlidesPreview.tsx";
 import {usePresentationSelector, useSelectionSelector} from "./views/hooks/useAppSelector.ts";
 import {useUndoRedo} from "./views/hooks/useUndoRedo.ts";
 

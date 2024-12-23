@@ -1,8 +1,8 @@
 import classes from './SlidesPreview.module.css'
-import SlideContent from "../SlideContent/SlideContent.tsx";
+import {SlideContent} from "../SlideContent/SlideContent.tsx";
 import {usePresentationSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
 import {useState} from "react";
-import Button from "../../components/Button/Button.tsx";
+import {Button} from "../../components/Button/Button.tsx";
 import {exportToPdf} from "../../utils/exportToPDF.ts";
 
 type SlidesPreviewType = {
@@ -65,4 +65,4 @@ function SlidesPreview({onClosePreview}: SlidesPreviewType) {
     )
 }
 
-export default SlidesPreview;
+export {SlidesPreview}

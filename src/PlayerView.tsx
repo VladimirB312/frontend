@@ -1,8 +1,8 @@
 import classes from './PlayerView.module.css'
 import {useEffect, useState} from "react";
 import {useSlidesSelector} from "./views/hooks/useAppSelector.ts";
-import SlideContent, {SLIDE_HEIGHT, SLIDE_WIDTH} from "./views/SlideContent/SlideContent.tsx";
-import Button from "./components/Button/Button.tsx";
+import {SlideContent, SLIDE_HEIGHT, SLIDE_WIDTH} from "./views/SlideContent/SlideContent.tsx";
+import {Button} from "./components/Button/Button.tsx";
 import {useNavigate} from "react-router";
 import {useWindowResize} from "./views/hooks/useWindowResize.tsx";
 
@@ -14,13 +14,13 @@ function SlidesPreview() {
 
     useEffect(() => {
         if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen()
+            document.documentElement.requestFullscreen().catch((err) => console.log(err))
         }
 
 
         return () => {
-            if (document.exitFullscreen) {
-                document.exitFullscreen()
+            if (document.exitFullscreen && document.fullscreenElement) {
+                document.exitFullscreen().catch((err) => console.log(err))
             }
         }
 

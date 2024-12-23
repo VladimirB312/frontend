@@ -1,64 +1,64 @@
-export type ColorBackground = {
+type ColorBackground = {
     color: string;
     type: 'solid';
 }
 
-export type ImageBackground = {
+type ImageBackground = {
     src: string;
     type: 'image';
 }
 
-export type Background = ColorBackground | ImageBackground
+type Background = ColorBackground | ImageBackground
 
-export type Position = {
+type Position = {
     x: number,
     y: number
 }
 
-export type Size = {
+type Size = {
     width: number;
     height: number;
 }
 
-export type SlideElement = {
+type SlideElement = {
     id: string;
     position: Position,
     size: Size
 }
 
-export type TextElement = SlideElement & {
+type TextElement = SlideElement & {
     type: 'text',
     value: string,
     textSize: number,
     font: string,
 };
 
-export type ImageElement = SlideElement & { type: 'image', src: string };
+type ImageElement = SlideElement & { type: 'image', src: string };
 
-export type SlideType = {
+type SlideType = {
     id: string,
     background: Background,
     objects: Array<TextElement | ImageElement>,
 }
 
-export type PresentationType = {
+type PresentationType = {
     title: string,
     slides: Array<SlideType>,
 }
 
-export type SelectionType = {
+type SelectionType = {
     activeSlideId?: string | null,
     selectedSlidesId?: string[] | null,
     selectedElementId?: string | null,
 }
 
-export type UnsplashImageType = {
+type UnsplashImageType = {
     src: string,
     id: string,
     width: number,
     height: number,
 }
-export type ExternalImagesStateType = {
+type ExternalImagesStateType = {
     images?: [UnsplashImageType] | [],
     imageSelectedId?: string | null,
     isFetching?: boolean,
@@ -66,9 +66,25 @@ export type ExternalImagesStateType = {
     totalPages?: number,
 }
 
-export type EditorType = {
+type EditorType = {
     presentation: PresentationType,
     selection: SelectionType | null,
     externalImages?: ExternalImagesStateType,
+}
 
+export type {
+    ColorBackground,
+    ImageBackground,
+    Background,
+    Position,
+    Size,
+    SlideElement,
+    TextElement,
+    ImageElement,
+    SlideType,
+    PresentationType,
+    SelectionType,
+    UnsplashImageType,
+    ExternalImagesStateType,
+    EditorType
 }

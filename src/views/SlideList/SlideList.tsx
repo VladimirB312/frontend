@@ -1,5 +1,5 @@
 import classes from './SlideList.module.css'
-import SlideContent from "../SlideContent/SlideContent.tsx";
+import {SlideContent} from "../SlideContent/SlideContent.tsx";
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useRef, } from "react";
 import {useSelectionSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
@@ -71,4 +71,4 @@ function SlideList() {
     )
 }
 
-export default SlideList
+export {SlideList}

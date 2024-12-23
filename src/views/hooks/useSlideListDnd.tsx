@@ -14,7 +14,7 @@ function getSlideId(node: Element): string | null {
     return null;
 }
 
-export function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
+function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
     isDragging: boolean,
     dndPosition: Position | null
 } {
@@ -116,3 +116,5 @@ export function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selecti
 
     return {isDragging, dndPosition}
 }
+
+export {useSlideListDnd}

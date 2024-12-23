@@ -2,13 +2,14 @@ import classes from './UnsplashWindow.module.css'
 import {useEffect, useState} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
-import Preloader from "../../components/Preloader/Preloader.tsx";
+import {Preloader} from "../../components/Preloader/Preloader.tsx";
+import {Button} from "../../components/Button/Button.tsx";
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
 }
 
-export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
+function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
     const [searchImg, setSearchImg] = useState("cats")
 
     const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide} = useAppActions()
@@ -81,28 +82,29 @@ export function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
                     })}
                 </div>
                 <div>
-                    <button
+                    <Button
                         onClick={onAddImage}
                         disabled={!unsplashImageSelectedId}
-                    >
-                        Добавить на слайд
-                    </button>
-                    <button onClick={onCloseUnsplash}>
-                        Закрыть
-                    </button>
-                    <button
+                        text={'Добавить на слайд'}
+                    />
+                    <Button onClick={onCloseUnsplash}
+                            text={'Закрыть'}
+                    />
+                    <Button
                         onClick={onSetPagePrev}
-                        disabled={prevButtonDisabled}>
-                        Назад
-                    </button>
-                    <button
+                        disabled={prevButtonDisabled}
+                        text={'Назад'}
+                    />
+                    <Button
                         onClick={onSetPageNext}
-                        disabled={nextButtonDisabled}>
-                        Вперед
-                    </button>
+                        disabled={nextButtonDisabled}
+                        text={'Вперед'}
+                    />
                 </div>
 
             </div>
         </div>
     )
 }
+
+export {UnsplashWindow}

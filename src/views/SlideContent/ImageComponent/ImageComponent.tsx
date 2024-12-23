@@ -32,4 +32,4 @@ function ImageComponent({
     )
 }
 
-export default ImageComponent
+export {ImageComponent}

@@ -3,7 +3,7 @@ import {useRef} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {PresentationType} from "../../store/types.ts";
 
-export function LoadPresentation() {
+function LoadPresentation() {
     const inputRef = useRef<HTMLInputElement>(null)
     const {loadPresentation} = useAppActions()
 
@@ -49,4 +49,6 @@ export function LoadPresentation() {
         </div>
     )
 }
+
+export {LoadPresentation}
 

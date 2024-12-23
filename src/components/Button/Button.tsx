@@ -16,4 +16,4 @@ function Button({text, onClick, disabled = false}: ButtonProps) {
     )
 }
 
-export default Button
+export {Button}
