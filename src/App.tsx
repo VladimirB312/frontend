@@ -6,7 +6,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<EditorView />} />
+                <Route path="/*" element={<EditorView />} />
                 <Route path="player" element={<PlayerView />} />
             </Routes>
         </BrowserRouter>

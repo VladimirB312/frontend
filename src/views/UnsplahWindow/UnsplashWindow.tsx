@@ -21,7 +21,6 @@ function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
     const currentPage = externalImages?.currentPage
     const totalPages = externalImages?.totalPages
 
-
     useEffect(() => {
         requestImages(searchImg)
     }, [searchImg]);

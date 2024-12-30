@@ -19,11 +19,14 @@ function calculatePosition(height: number, width: number): {
         imageHeight = imageWidth / ratio
     }
 
-    const imageX = SLIDE_WIDTH / 2 - imageWidth / 2
-    const imageY = SLIDE_HEIGHT / 2 - imageHeight / 2
+    const imageX = (SLIDE_WIDTH - imageWidth) / 2
+    const imageY = (SLIDE_HEIGHT - imageHeight) / 2
 
     return {
-        imageHeight, imageWidth, imageX, imageY
+        imageHeight,
+        imageWidth,
+        imageX,
+        imageY
     }
 }
 

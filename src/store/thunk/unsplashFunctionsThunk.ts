@@ -66,17 +66,20 @@ const requestImages = (query: string) => {
 const addUnsplashImageToSlide = () => {
     return async (dispatch: TDispatch, getState: () => RootState) => {
         try {
-            const selectedImageId = getState().present.externalImages?.imageSelectedId
-            const image = getState().present.externalImages?.images?.find(img => img.id == selectedImageId)
+            const state = getState()
+            const selectedImageId = state.present.externalImages?.imageSelectedId
+            const image = state.present.externalImages?.images?.find(img => img.id == selectedImageId)
             if (!image || !image.src) {
                 throw new Error('Error: no image selected')
             }
             const blob = await fetchImage(image.src)
             const base64Image = await convertToBase64(blob)
 
-            dispatch(addImageElement(base64Image, {
-                width: image.width, height: image.height
-            }))
+            dispatch(addImageElement(base64Image,
+                {
+                    width: image.width,
+                    height: image.height
+                }))
         } catch (error) {
             console.log('Error add unsplash image to slide: ', error)
         }

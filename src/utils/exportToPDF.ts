@@ -5,7 +5,7 @@ import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx"
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
 
-export function exportToPdf(presentation: PresentationType) {
+function exportToPdf(presentation: PresentationType) {
     const presentationTitle = presentation.title
     const slides = presentation.slides
     const scale = PDF_DOC_WIDTH / SLIDE_WIDTH
@@ -21,7 +21,8 @@ export function exportToPdf(presentation: PresentationType) {
         if (slide.background.type == 'solid') {
             doc.setFillColor(slide.background.color)
             doc.rect(0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, 'F')
-        } else {
+        }
+        if (slide.background.type == 'image'){
             doc.addImage(slide.background.src, 0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, '', 'FAST')
         }
 
@@ -30,7 +31,8 @@ export function exportToPdf(presentation: PresentationType) {
                 doc.setFontSize(element.textSize * scale * doc.internal.scaleFactor)
                 doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'}
                 )
-            } else {
+            }
+            if (element.type == 'image') {
                 doc.addImage(
                     element.src, element.position.x * scale, element.position.y * scale, element.size.width * scale, element.size.height * scale, '', 'FAST'
                 )
@@ -44,3 +46,5 @@ export function exportToPdf(presentation: PresentationType) {
 
     doc.save(presentationTitle);
 }
+
+export {exportToPdf}
