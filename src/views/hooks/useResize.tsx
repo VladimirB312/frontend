@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {ImageElement, Position, TextElement} from "../../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
+const MIN_ELEMENT_SIZE = 15;
+
 type Direction = null | "right" | "left" | "top" | "bottom" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom"
 
 type Rect = {
@@ -13,6 +15,7 @@ type Rect = {
 
 function useResize() {
     const [dndRect, setDndRect] = useState<Rect | null>(null)
+    const [startRect, setStartRect] = useState<Rect | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
     const [direction, setDirection] = useState<Direction>(null)
@@ -35,19 +38,25 @@ function useResize() {
             width: element.size.width,
             height: element.size.height
         })
+        setStartRect({
+            left: element.position.x,
+            top: element.position.y,
+            width: element.size.width,
+            height: element.size.height
+        })
     }
 
     useEffect(() => {
-        // if (!isDragging) {
-        //     return
-        // }
-
         const onMouseMove = (e: MouseEvent) => {
-            if (!isDragging || !startPos || !dndRect || !direction || !scale) {
+            if (!isDragging || !startPos || !dndRect || !direction || !scale || !startRect) {
                 return
             }
 
             if (dndRect.top == undefined || dndRect.left == undefined || dndRect.height == undefined || dndRect.width == undefined) {
+                return
+            }
+
+            if (startRect.top == undefined || startRect.left == undefined || startRect.height == undefined || startRect.width == undefined) {
                 return
             }
 
@@ -56,8 +65,8 @@ function useResize() {
             const delta = {x: Math.round(e.pageX - startPos.x) / scale, y: Math.round(e.pageY - startPos.y) / scale}
 
             if (direction == "right") {
-                const newWidth = dndRect.width + delta.x
-                if (newWidth < 20) {
+                const newWidth = startRect.width + delta.x
+                if (newWidth < MIN_ELEMENT_SIZE) {
                     return
                 }
                 setDndRect(prevState => ({
@@ -67,8 +76,8 @@ function useResize() {
             }
 
             if (direction == "bottom") {
-                const newHeight = dndRect.height + delta.y
-                if (newHeight < 20) {
+                const newHeight = startRect.height + delta.y
+                if (newHeight < MIN_ELEMENT_SIZE) {
                     return
                 }
                 setDndRect(prevState => ({
@@ -78,10 +87,18 @@ function useResize() {
             }
 
             if (direction == "rightBottom") {
-                const ratio = dndRect.width / (dndRect.width + delta.x)
-                const newWidth = dndRect.width + delta.x
-                const newHeight = dndRect.height / ratio
-                if (newWidth < 20 || newHeight < 20) {
+                const ratio = startRect.width / startRect.height
+                let newWidth
+                let newHeight
+                if (delta.x >= delta.y) {
+                    newWidth = startRect.width + delta.x
+                    newHeight = startRect.height + delta.x / ratio
+                } else {
+                    newHeight = startRect.height + delta.y
+                    newWidth = startRect.width + delta.y * ratio
+                }
+
+                if (newWidth < MIN_ELEMENT_SIZE || newHeight < MIN_ELEMENT_SIZE) {
                     return
                 }
                 setDndRect(prevState => ({
@@ -92,9 +109,9 @@ function useResize() {
             }
 
             if (direction == "top") {
-                const newTop = dndRect.top + delta.y
-                const newHeight = dndRect.height - delta.y
-                if (newHeight < 20) {
+                const newTop = startRect.top + delta.y
+                const newHeight = startRect.height - delta.y
+                if (newHeight < MIN_ELEMENT_SIZE) {
                     return
                 }
                 setDndRect(prevState => ({
@@ -105,9 +122,9 @@ function useResize() {
             }
 
             if (direction == "left") {
-                const newLeft = dndRect.left + delta.x
-                const newWidth = dndRect.width - delta.x
-                if (newWidth < 20) return
+                const newLeft = startRect.left + delta.x
+                const newWidth = startRect.width - delta.x
+                if (newWidth < MIN_ELEMENT_SIZE) return
                 setDndRect(prevState => ({
                     ...prevState,
                     left: newLeft,
@@ -116,11 +133,12 @@ function useResize() {
             }
 
             if (direction == "leftBottom") {
-                const ratio = dndRect.width / (dndRect.width - delta.x)
-                const newLeft = dndRect.left + delta.x
-                const newWidth = dndRect.width - delta.x
-                const newHeight = dndRect.height / ratio
-                if (newWidth < 20 || newHeight < 20) {
+                const ratio = startRect.width / startRect.height
+                const newWidth= startRect.width - delta.x
+                const newHeight= startRect.height - delta.x / ratio
+                const newLeft= startRect.left + delta.x
+
+                if (newWidth < MIN_ELEMENT_SIZE || newHeight < MIN_ELEMENT_SIZE) {
                     return
                 }
                 setDndRect(prevState => ({
@@ -132,15 +150,18 @@ function useResize() {
             }
 
             if (direction == "leftTop") {
-                let newTop = dndRect.top + delta.y
-                let newLeft = dndRect.left + delta.x
-                let newWidth = dndRect.width - delta.x
-                let newHeight = dndRect.height - delta.y
-                if (newWidth < 20) {
+                const ratio = startRect.width / startRect.height
+                let newWidth = startRect.width - delta.x
+                let newHeight = startRect.height - delta.x / ratio
+                const deltaHeight = startRect.height - newHeight
+                let newTop = startRect.top + deltaHeight
+                let newLeft = startRect.left + delta.x
+
+                if (newWidth < MIN_ELEMENT_SIZE) {
                     newWidth = dndRect.width
                     newLeft = dndRect.left
                 }
-                if (newHeight < 20) {
+                if (newHeight < MIN_ELEMENT_SIZE) {
                     newTop = dndRect.top
                     newHeight = dndRect.height
                 }
@@ -153,13 +174,16 @@ function useResize() {
             }
 
             if (direction == "rightTop") {
-                let newTop = dndRect.top + delta.y
-                let newHeight = dndRect.height - delta.y
-                let newWidth = dndRect.width + delta.x
-                if (newWidth < 20) {
+                const ratio = startRect.width / startRect.height
+                let newHeight = startRect.height + delta.x / ratio
+                let newWidth = startRect.width + delta.x
+                const deltaHeight = startRect.height - newHeight
+                let newTop = startRect.top + deltaHeight
+
+                if (newWidth < MIN_ELEMENT_SIZE) {
                     newWidth = dndRect.width
                 }
-                if (newHeight < 20) {
+                if (newHeight < MIN_ELEMENT_SIZE) {
                     newTop = dndRect.top
                     newHeight = dndRect.height
                 }
@@ -170,29 +194,12 @@ function useResize() {
                     height: newHeight,
                 }))
             }
-
-            // if (dndRect.width < 15) {
-            //     setDndRect(prevState => ({
-            //         ...prevState,
-            //         width: 15
-            //     }))
-            // }
-            //
-            // if (dndRect.height < 15) {
-            //     setDndRect(prevState => ({
-            //         ...prevState,
-            //         height: 15
-            //     }))
-            // }
-
-            setStartPos({x: e.pageX, y: e.pageY})
         }
 
         const onMouseUp = () => {
             if (!isDragging || !dndRect || dndRect.left == null || dndRect.top == null || dndRect.width == null || dndRect.height == null) {
                 return
             }
-
 
             changeElementRect({
                 position: {
@@ -204,16 +211,6 @@ function useResize() {
                     height: dndRect.height
                 }
             })
-
-            // changeElementSize({
-            //     width: dndRect.width,
-            //     height: dndRect.height
-            // })
-            //
-            // changeElementPosition({
-            //     x: dndRect.left,
-            //     y: dndRect.top
-            // })
 
             setStartPos(null)
             setIsDragging(false)

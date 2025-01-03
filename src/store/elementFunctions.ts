@@ -166,7 +166,6 @@ function changeElementRect(presentation: PresentationType, slideId: string, slid
     position: Position,
     size: Size,
 }) {
-    console.log(slideId, slideElementId, newRect)
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId

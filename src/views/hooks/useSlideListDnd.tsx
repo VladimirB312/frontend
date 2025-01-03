@@ -4,13 +4,10 @@ import {useAppActions} from "./useAppAction.ts";
 
 function getSlideId(node: Element): string | null {
     const element: Element | null = node;
-
-    // while (element != null) {
     if (element.getAttribute('data-slide-id')) {
         return element.getAttribute('data-slide-id');
     }
-    // element = element.parentNode as Element;
-    // }
+
     return null;
 }
 
@@ -71,7 +68,6 @@ function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: Sel
             const delta = {x: event.pageX - startPosition.x, y: event.pageY - startPosition.y}
             const newPosition = {x: Math.round(slideRect.x + delta.x), y: Math.round(delta.y + slideRect.y)}
             setDndPosition(newPosition)
-
         }
 
         const onMouseUp = (event: MouseEvent) => {
