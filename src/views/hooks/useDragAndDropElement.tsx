@@ -67,29 +67,11 @@ function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, elem
             elementRef.current.style.userSelect = 'none'
             elementRef.current.style.pointerEvents = 'none'
 
-            // const width = elementRef.current.offsetParent.getBoundingClientRect().width
-            // const height = elementRef.current.offsetParent.getBoundingClientRect().height
-
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
             const newPosition = {x: dndPosition.x + delta.x / scale , y: dndPosition.y + delta.y / scale }
 
-            // if (newPosition.x < 0) {
-            //     newPosition.x = 0;
-            // }
-            // if (newPosition.x + element.size.width > width) {
-            //     newPosition.x = width - element.size.width
-            // }
-            // if (newPosition.y < 0) {
-            //     newPosition.y = 0
-            // }
-            // if (newPosition.y + element.size.height > height) {
-            //     newPosition.y = height - element.size.height
-            // }
-
-
             setDndPosition(newPosition)
             setStartPos({x: e.pageX, y: e.pageY})
-
         }
 
         const onMouseUp = () => {
@@ -112,19 +94,12 @@ function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, elem
             document.removeEventListener('dblclick', onDoubleClick)
         }
 
-        // if (!elementRef.current) {
-        //     return;
-        // }
-        // const tempElementRef = elementRef
-        // elementRef.current.addEventListener('mousedown', onMouseDown)
         document.addEventListener('mousedown', onMouseDown)
         document.addEventListener('dblclick', onDoubleClick)
         document.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
 
         return () => {
-            // tempElementRef?.current?.removeEventListener('mousedown', onMouseDown);
-
             document.removeEventListener('mousedown', onMouseDown);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
