@@ -239,4 +239,4 @@ function useResize() {
 }
 
 export {useResize}
-
+export type {Direction}

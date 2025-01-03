@@ -1,5 +1,6 @@
-.element {
+.resizeableElement {
     position: absolute;
     box-sizing: content-box;
     user-select: none;
+    pointer-events: none;
 }
