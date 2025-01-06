@@ -22,13 +22,10 @@ const EditorView = () => {
 
     const [previewUserBackground, setPreviewUserBackground] = useState<null | Background>(null)
     const [showBackgroundModal, setShowBackgroundModal] = React.useState(false)
-
     const [showUnsplash, setShowUnsplash] = useState(false)
-
     const [showPreviewSlides, setShowPreviewSlides] = useState(false)
 
     const {undoDisabled, redoDisabled} = useUndoRedo(showBackgroundModal, showUnsplash, showPreviewSlides)
-
     const selectedElementId = selection?.selectedElementId ?? null
 
     useDeleteObject(showBackgroundModal, showUnsplash, showPreviewSlides)
@@ -60,7 +57,9 @@ const EditorView = () => {
                 />
             </div>
             {showPreviewSlides && createPortal(
-                <SlidesPreview onClosePreview={() => setShowPreviewSlides(false)}/>,
+                <SlidesPreview
+                    onClosePreview={() => setShowPreviewSlides(false)}
+                />,
                 document.body
             )}
             {showUnsplash && createPortal(

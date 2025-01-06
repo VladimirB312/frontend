@@ -14,11 +14,13 @@
 .presentationToolbar {
     padding: 4px;
     display: flex;
+    gap: 5px;
     height: calc(var(--topPanelHeight) / 3);
 }
 
 .slidesToolbar {
     padding: 4px;
     display: flex;
+    gap: 5px;
     height: calc(var(--topPanelHeight) / 3);
 }

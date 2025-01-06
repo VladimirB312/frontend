@@ -16,10 +16,5 @@
 .slide {
     overflow: hidden;
     pointer-events: none;
-}
-
-.buttons {
-    position: absolute;
-    top: 5%;
-    right: 5%;
+    box-sizing: border-box;
 }

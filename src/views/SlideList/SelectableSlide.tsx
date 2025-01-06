@@ -21,7 +21,7 @@ const SelectableSlide = ({
                                 }: SlideProps) => {
 
     const elementRef = useRef<HTMLDivElement>(null)
-
+    
     useEffect(() => {
         if (isActive) {
             elementRef?.current?.scrollIntoView({

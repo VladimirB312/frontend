@@ -14,6 +14,8 @@ import deleteIcon from '../assets/delete_icon.svg'
 import arrowLeftIcon from '../assets/arrow_left.svg'
 import arrowRightIcon from '../assets/arrow_right.svg'
 import closeIcon from '../assets/close_icon.svg'
+import addImageIcon from '../assets/add_image_icon.svg'
+import applyIcon from '../assets/apply.svg'
 
 export {
     saveIcon,
@@ -31,5 +33,7 @@ export {
     deleteIcon,
     arrowLeftIcon,
     arrowRightIcon,
-    closeIcon
+    closeIcon,
+    addImageIcon,
+    applyIcon
 }

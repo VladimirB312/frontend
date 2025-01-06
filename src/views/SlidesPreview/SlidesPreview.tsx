@@ -1,16 +1,19 @@
 import classes from './SlidesPreview.module.css'
-import {SlideContent} from "../SlideContent/SlideContent.tsx";
+import {SLIDE_HEIGHT, SLIDE_WIDTH, SlideContent} from "../SlideContent/SlideContent.tsx";
 import {usePresentationSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
 import {useState} from "react";
 import {Button} from "../../components/Button/Button.tsx";
 import {exportToPdf} from "../../utils/exportToPDF.ts";
 import {arrowLeftIcon, arrowRightIcon, closeIcon, generatePdfIcon} from "../../components/icons.ts";
+import {useWindowResize} from "../hooks/useWindowResize.tsx";
 
 type SlidesPreviewType = {
-    onClosePreview: () => void
+    onClosePreview: () => void,
 }
 
-const SlidesPreview = ({onClosePreview}: SlidesPreviewType) => {
+const SlidesPreview = ({
+                           onClosePreview,
+                       }: SlidesPreviewType) => {
     const slides = useSlidesSelector()
 
     const [activeSlideIndex, setActiveSlideIndex] = useState(0)
@@ -28,6 +31,11 @@ const SlidesPreview = ({onClosePreview}: SlidesPreviewType) => {
         exportToPdf(presentation)
     }
 
+    const {width, height} = useWindowResize()
+    const windowScale = width / SLIDE_WIDTH < height / SLIDE_HEIGHT
+        ? width / SLIDE_WIDTH
+        : height / SLIDE_HEIGHT
+
     const buttonPrevDisabled = (!slides.length || activeSlideIndex == 0)
     const buttonNextDisabled = (!slides.length || activeSlideIndex == slides.length - 1)
 
@@ -35,12 +43,11 @@ const SlidesPreview = ({onClosePreview}: SlidesPreviewType) => {
         <div className={classes.modalWrapper}>
             <div>
                 <SlideContent
-                    scale={1.2}
+                    scale={windowScale * 0.8}
                     className={classes.slide}
                     slide={slides[activeSlideIndex]}
                     isSelected={false}/>
             </div>
-
             <div className={classes.controlsButtons}>
                 <Button
                     onClick={onPrevSlide}
@@ -63,6 +70,7 @@ const SlidesPreview = ({onClosePreview}: SlidesPreviewType) => {
                 />
 
             </div>
+
 
         </div>
     )

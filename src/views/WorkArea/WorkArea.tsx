@@ -6,8 +6,8 @@ import React, {RefObject, useEffect, useRef, useState} from "react";
 const WORK_AREA_PADDING = 20
 
 type WorkAreaProps = {
-    slide?: SlideType | null;
-    selectedElementId: string | null;
+    slide?: SlideType | null,
+    selectedElementId: string | null,
 }
 
 const useSlideScale = (elementRef: React.RefObject<HTMLDivElement>): number | null => {
@@ -40,20 +40,21 @@ const useSlideScale = (elementRef: React.RefObject<HTMLDivElement>): number | nu
     return scale
 }
 
-function WorkArea({
+const WorkArea = ({
                       slide,
-                      selectedElementId
-                  }: WorkAreaProps) {
+                      selectedElementId,
+                  }: WorkAreaProps) => {
 
     const workAreaRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
+    const scale = useSlideScale(workAreaRef) || 1
 
     return (
         <div ref={workAreaRef}
-             className={classes['work-area']}
+             className={classes.workArea}
              style={{padding: `${WORK_AREA_PADDING}px`}}
         >
             <SlideContent
-                scale={useSlideScale(workAreaRef) || 1}
+                scale={scale}
                 slide={slide}
                 isSelected={false}
                 selectedElementId={selectedElementId}

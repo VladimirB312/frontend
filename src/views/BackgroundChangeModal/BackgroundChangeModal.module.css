@@ -14,12 +14,47 @@
 
 .modalWindow {
     padding: 10px;
-    width: 300px;
-    height: 300px;
     background-color: rgba(240, 240, 240, 0.8);
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .controlButtons {
-    height: 50px;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.inputForColor {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.labelForColorInput {
+    cursor: pointer;
+}
+
+.labelForImageInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 25px;
+}
+
+.iconForImageInput {
+    background-color: rgba(245, 245, 245, 0.51);
+    min-width: 40px;
+    height: 25px;
+    border: 1px solid rgba(245, 245, 245);
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.imageInput {
+    display: none;
 }

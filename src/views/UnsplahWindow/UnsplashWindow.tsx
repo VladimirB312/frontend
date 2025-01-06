@@ -4,6 +4,7 @@ import {useAppActions} from "../hooks/useAppAction.ts";
 import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
 import {Preloader} from "../../components/Preloader/Preloader.tsx";
 import {Button} from "../../components/Button/Button.tsx";
+import {addImageIcon, arrowLeftIcon, arrowRightIcon, closeIcon} from "../../components/icons.ts";
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
@@ -55,7 +56,7 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
     const nextButtonDisabled = (!totalPages || !currentPage || currentPage === totalPages)
 
     return (
-        <div className={classes['modal-wrapper']}>
+        <div className={classes.modalWrapper}>
             <div className={classes.main}>
                 <div className={classes.toolbar}>
                     <input
@@ -68,7 +69,7 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
                         Найти
                     </button>
                 </div>
-                <div>
+                <div className={classes.images}>
                     {isFetching ? <Preloader/> : unsplashImages && unsplashImages.map((img) => {
                         return (
                             <img
@@ -84,20 +85,24 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
                     <Button
                         onClick={onAddImage}
                         disabled={!unsplashImageSelectedId}
-                        text={'Добавить на слайд'}
-                    />
-                    <Button onClick={onCloseUnsplash}
-                            text={'Закрыть'}
+                        icon={addImageIcon}
+                        title={'Добавить картинку'}
                     />
                     <Button
                         onClick={onSetPagePrev}
                         disabled={prevButtonDisabled}
-                        text={'Назад'}
+                        icon={arrowLeftIcon}
+                        title={'Назад'}
                     />
                     <Button
                         onClick={onSetPageNext}
                         disabled={nextButtonDisabled}
-                        text={'Вперед'}
+                        icon={arrowRightIcon}
+                        title={'Вперед'}
+                    />
+                    <Button onClick={onCloseUnsplash}
+                            icon={closeIcon}
+                            title={'Закрыть'}
                     />
                 </div>
 

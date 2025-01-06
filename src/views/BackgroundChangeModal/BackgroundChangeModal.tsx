@@ -3,6 +3,7 @@ import {Background, ColorBackground, ImageBackground, SlideType} from "../../sto
 import {Button} from "../../components/Button/Button.tsx";
 import React, {SetStateAction} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
+import {applyIcon, closeIcon, photoAddIcon} from "../../components/icons.ts";
 
 type BackgroundChangeModalProps = {
     slide: SlideType | null,
@@ -81,20 +82,51 @@ const BackgroundChangeModal = ({
         <div className={classes.modalWrapper}>
             <div className={classes.modalWindow}>
                 <div>
-                    <span>Выберите цвет фона</span>
-                    <input type='color' value={selectedColor} onChange={handleColorChange}/>
 
+                    <input
+                        className={classes.inputForColor}
+                        id='colorInput'
+                        type='color'
+                        value={selectedColor}
+                        onChange={handleColorChange}
+                    />
+                    <label
+                        className={classes.labelForColorInput}
+                        htmlFor='colorInput'
+                    >
+                        Выбрать цвет фона
+                    </label>
                 </div>
-                <div>
-                    <span>Выберите фоновое изображение</span>
-                    <input type='file' onChange={handleImageChange}/>
-                </div>
-                <div>
-                    Выберите градиент
+                <div className={classes.imageInputWrapper}>
+                    <label
+                        className={classes.labelForImageInput}
+                        htmlFor='imageInput'
+                    >
+                        <img
+                            className={classes.iconForImageInput}
+                             src={photoAddIcon}>
+                        </img>
+                        Выбрать фоновое изображение
+                    </label>
+
+                    <input
+                        className={classes.imageInput}
+                        id='imageInput'
+                        type='file'
+                        onChange={handleImageChange}
+                    />
                 </div>
                 <div className={classes.controlButtons}>
-                    <Button text='Закрыть' onClick={onClose}/>
-                    <Button text='Применить' onClick={onSave}/>
+                    <Button
+                        icon={closeIcon}
+                        text='Закрыть'
+                        onClick={onClose}
+                    />
+                    <Button
+                        icon={applyIcon}
+                        text='Применить'
+                        onClick={onSave}
+                    />
                 </div>
             </div>
         </div>

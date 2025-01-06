@@ -3,7 +3,7 @@ import {EditorType} from "./types.ts";
 import {validate} from "../ajvValidator.ts";
 
 const slide1: SlideType = {
-    id: "1",
+    id: "123123",
     background: {
         color: "#64e6ac",
         type: "solid"
@@ -29,14 +29,14 @@ const slide1: SlideType = {
 }
 
 const slide2: SlideType = {
-    id: "2",
+    id: "5235235",
     background: {
         src: "./src/assets/testBackground.jpg",
         type: "image"
     },
     objects: [
         {
-            id: "15",
+            id: "135",
             position: {x: 50, y: 150},
             size: {width: 200, height: 50},
             type: "text",

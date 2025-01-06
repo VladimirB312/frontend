@@ -1,4 +1,4 @@
-.modal-wrapper {
+.modalWrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -32,6 +32,11 @@
 .buttons {
     display: flex;
     height: 30px;
+    gap: 3px;
+}
+
+.images {
+    height: 306px;
 }
 
 .image {

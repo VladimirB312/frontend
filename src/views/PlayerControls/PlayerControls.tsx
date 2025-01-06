@@ -1,9 +1,10 @@
-import classes from "../../PlayerView.module.css";
+import classes from "./PlayerControls.module.css";
 import {Button} from "../../components/Button/Button.tsx";
 import {useSlidesSelector} from "../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
 import {useEffect} from "react";
 import {SlideType} from "../../store/types.ts";
+import {arrowLeftIcon, arrowRightIcon, closeIcon} from "../../components/icons.ts";
 
 const EDITOR_URL = '/'
 
@@ -33,7 +34,7 @@ const usePlayerControlsHandler = (
         const nextDisabled = (!slides.length || activeSlideIndex == slides.length - 1)
 
         const handleKeydown = (e: KeyboardEvent) => {
-            if (e.code == 'ArrowRight' && !nextDisabled) {
+            if ((e.code == 'ArrowRight' || e.code == 'Space') && !nextDisabled) {
                 onNextSlide()
             }
             if (e.code == 'ArrowLeft' && !prevDisabled) {
@@ -49,12 +50,21 @@ const usePlayerControlsHandler = (
                 onPrevSlide()
             }
         }
+
+        const handleFullscreenChange = () => {
+            if (!document.fullscreenElement) {
+                onClosePlayerView()
+            }
+        }
+
         document.addEventListener('keydown', handleKeydown)
         document.addEventListener('wheel', handleWheel)
+        document.addEventListener('fullscreenchange', handleFullscreenChange)
 
         return () => {
             document.removeEventListener('keydown', handleKeydown)
             document.removeEventListener('wheel', handleWheel)
+            document.removeEventListener('fullscreenchange', handleFullscreenChange)
         }
 
     }, [activeSlideIndex, navigate, onNextSlide, onPrevSlide, setActiveSlideIndex, slides.length])
@@ -101,18 +111,18 @@ function PlayerControls({slides, activeSlideIndex, setActiveSlideIndex}: PlayerC
     return (
         <div className={classes.buttons}>
             <Button
+                icon={arrowLeftIcon}
                 onClick={onPrevSlide}
-                text={'Предыдущий'}
                 disabled={prevDisabled}
             />
             <Button
+                icon={arrowRightIcon}
                 onClick={onNextSlide}
-                text={'Следующий'}
                 disabled={nextDisabled}
             />
             <Button
+                icon={closeIcon}
                 onClick={onClosePlayerView}
-                text={'Вернуться'}
             />
         </div>
     )

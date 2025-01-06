@@ -1,6 +1,7 @@
 .slide {
     position: relative;
     background-size: 100% 100%;
+    box-sizing: content-box;
 }
 
 .slide__element_selected {
