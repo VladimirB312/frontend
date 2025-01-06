@@ -1,7 +1,6 @@
 import classes from './TopPanel.module.css'
 import {Button} from "../../components/Button/Button.tsx";
 import {Background, SlideType} from "../../store/types.ts";
-import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx";
 import React, {SetStateAction} from "react";
 import {DownloadImage} from "./DownloadImage.tsx";
 import {Title} from "./Title.tsx";
@@ -9,6 +8,15 @@ import {LoadPresentation} from "./LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {usePresentationSelector} from "../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
+import {
+    addSlideIcon, backgroundIcon, deleteIcon,
+    deleteSlideIcon,
+    generatePdfIcon,
+    redoIcon,
+    saveIcon,
+    slideShowIcon, textAddIcon,
+    undoIcon, unsplashIcon
+} from "../../components/icons.ts";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -17,22 +25,22 @@ type TopPanelProps = {
     undoDisabled: boolean,
     redoDisabled: boolean,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
+    setShowBackgroundModal: React.Dispatch<SetStateAction<boolean>>,
     setShowPreviewsSlides: React.Dispatch<SetStateAction<boolean>>,
     onOpenUnsplash: () => void,
 }
 
-function TopPanel({
+const TopPanel = ({
                       slide,
                       selectedElementId,
-                      previewUserBackground,
                       undoDisabled,
                       redoDisabled,
-                      setPreviewUserBackground,
+                      setShowBackgroundModal,
                       setShowPreviewsSlides,
                       onOpenUnsplash
-                  }: TopPanelProps) {
+                  }: TopPanelProps) => {
 
-    const [showModal, setShowModal] = React.useState(false);
+
     const navigate = useNavigate()
     const presentation = usePresentationSelector()
 
@@ -40,11 +48,11 @@ function TopPanel({
 
     const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement, undo, redo} = useAppActions()
 
-    function onAddSlide() {
+    const onAddSlide = () => {
         addSlide()
     }
 
-    function onRemoveSlide() {
+    const onRemoveSlide = () => {
         removeSlide()
     }
 
@@ -52,15 +60,10 @@ function TopPanel({
         renamePresentation((event.target as HTMLInputElement).value);
     }
 
-    const onShowModal = () => {
+    const onShowBackgroundModal = () => {
         if (slide) {
-            setShowModal(true)
+            setShowBackgroundModal(true)
         }
-    }
-
-    const onCloseModal = () => {
-        setShowModal(false)
-        setPreviewUserBackground(null)
     }
 
     const onRemoveElement = () => {
@@ -89,42 +92,73 @@ function TopPanel({
 
     const disabledElementButton: boolean = !selectedElementId
 
-
     return (
-        <div className={classes['top-panel']}>
-            {showModal && <BackgroundChangeModal slide={slide}
-                                                 previewUserBackground={previewUserBackground}
-                                                 setPreviewUserBackground={setPreviewUserBackground}
-                                                 onClick={onCloseModal}/>}
+        <div className={classes.topPanel}>
             <Title value={title} onChange={onTitleChange}/>
-            <div className={classes['toolbar']}>
-                <Button text={'Добавить слайд'} onClick={onAddSlide}/>
-                <Button text={'Удалить слайд'} onClick={onRemoveSlide} disabled={disabledSlideButton}/>
-                <Button text={'Изменить фон'} onClick={onShowModal} disabled={disabledSlideButton}/>
-                <Button text={'Удалить элемент'} onClick={onRemoveElement} disabled={disabledElementButton}/>
-                <Button text={'Добавить текст'} onClick={onAddTextElement} disabled={disabledSlideButton}/>
-                <DownloadImage disabled={disabledSlideButton}/>
-                <Button text={'Сохранить'} onClick={onSavePresentation}/>
+            <div className={classes.presentationToolbar}>
+                <Button
+                    text={'Сохранить'}
+                    onClick={onSavePresentation}
+                    icon={saveIcon}
+                />
                 <LoadPresentation/>
-            </div>
-            <div className={classes['undo-redo-bar']}>
-                <Button text={'Отменить'}
-                        onClick={undo}
-                        disabled={undoDisabled}
-                />
-                <Button text={'Повторить'}
-                        onClick={redo}
-                        disabled={redoDisabled}
-                />
                 <Button text={'Экспорт в PDF'}
                         onClick={() => setShowPreviewsSlides(true)}
-                />
-                <Button text={'Unsplash'}
-                        onClick={onOpenUnsplash}
-                        disabled={disabledSlideButton}
+                        icon={generatePdfIcon}
                 />
                 <Button text={'Слайд-шоу'}
                         onClick={onOpenPlayerView}
+                        icon={slideShowIcon}
+                />
+            </div>
+            <div className={classes.slidesToolbar}>
+                <Button
+                    text={'Добавить слайд'}
+                    onClick={onAddSlide}
+                    icon={addSlideIcon}
+                />
+                <Button
+                    text={'Удалить слайд'}
+                    onClick={onRemoveSlide}
+                    disabled={disabledSlideButton}
+                    icon={deleteSlideIcon}
+                />
+                <Button
+                    title={'Отменить'}
+                    onClick={undo}
+                    disabled={undoDisabled}
+                    icon={undoIcon}
+                />
+                <Button
+                    title={'Повторить'}
+                    onClick={redo}
+                    disabled={redoDisabled}
+                    icon={redoIcon}
+                />
+                <Button
+                    title={'Добавить текст'}
+                    onClick={onAddTextElement}
+                    disabled={disabledSlideButton}
+                    icon={textAddIcon}
+                />
+                <DownloadImage disabled={disabledSlideButton}/>
+                <Button
+                    text={'Unsplash'}
+                    onClick={onOpenUnsplash}
+                    disabled={disabledSlideButton}
+                    icon={unsplashIcon}
+                />
+                <Button
+                    title={'Сменить фон'}
+                    onClick={onShowBackgroundModal}
+                    disabled={disabledSlideButton}
+                    icon={backgroundIcon}
+                />
+                <Button
+                    text={'Удалить элемент'}
+                    onClick={onRemoveElement}
+                    disabled={disabledElementButton}
+                    icon={deleteIcon}
                 />
             </div>
         </div>

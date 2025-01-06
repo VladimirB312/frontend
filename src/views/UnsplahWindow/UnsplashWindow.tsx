@@ -9,7 +9,7 @@ type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
 }
 
-function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
+const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
     const [searchImg, setSearchImg] = useState("cats")
 
     const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide} = useAppActions()
@@ -80,7 +80,7 @@ function UnsplashWindow({onCloseUnsplash}: UnsplashWindowPropsType) {
                         )
                     })}
                 </div>
-                <div>
+                <div className={classes.buttons}>
                     <Button
                         onClick={onAddImage}
                         disabled={!unsplashImageSelectedId}

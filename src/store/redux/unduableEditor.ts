@@ -26,6 +26,8 @@ function undoable(reducer: (editor: EditorType, action: EditorAction) => EditorT
             case ActionType.UNDO: {
                 const previous = past[past.length - 1]
                 const newPast = past.slice(0, past.length - 1)
+                setToLocalStorage(previous.presentation)
+
                 return {
                     past: newPast,
                     present: previous,
@@ -35,6 +37,8 @@ function undoable(reducer: (editor: EditorType, action: EditorAction) => EditorT
             case ActionType.REDO: {
                 const next = future[0]
                 const newFuture = future.slice(1)
+                setToLocalStorage(next.presentation)
+
                 return {
                     past: [...past, present],
                     present: next,

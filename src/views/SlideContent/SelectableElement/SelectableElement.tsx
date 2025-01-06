@@ -13,13 +13,13 @@ type SelectableElementProps = {
     id: string,
 }
 
-function SelectableElement({
+const SelectableElement = ({
                                element,
                                scale = 1,
                                elementStyle,
                                selectedElementId,
                                id
-                           }: SelectableElementProps) {
+                           }: SelectableElementProps) => {
     const elementRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
     const borderStyle: CSSProperties = {

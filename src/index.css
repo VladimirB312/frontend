@@ -1,15 +1,17 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: 12px Arial, Helvetica, sans-serif;
 }
 
 :root {
-  --topPanelHeight: 110px;
-  --paddingApp: 10px;
+    --topPanelHeight: 100px;
+    --paddingApp: 10px;
+    background-color: #F1F1F1;
 }
 
 #root {
-  padding: var(--paddingApp);
-  height: calc(100vh - var(--paddingApp) * 2);
+    padding: var(--paddingApp);
+    height: calc(100vh - var(--paddingApp) * 2);
 }

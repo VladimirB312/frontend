@@ -9,12 +9,12 @@ type ImageProps = {
     elementStyle?: string,
 }
 
-function ImageComponent({
+const ImageComponent = ({
                             element,
                             scale,
                             className = '',
                             elementStyle = ''
-                        }: ImageProps) {
+                        }: ImageProps) => {
 
     const imageStyle: CSSProperties = {
         top: `${scale * element.position.y}px`,

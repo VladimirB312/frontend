@@ -6,23 +6,24 @@ import {useAppActions} from "../hooks/useAppAction.ts";
 
 type BackgroundChangeModalProps = {
     slide: SlideType | null,
-    onClick: () => void,
+    onCloseBackgroundModal: () => void,
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
 }
 
-function BackgroundChangeModal({
-                                          slide,
-                                          onClick,
-                                          previewUserBackground,
-                                          setPreviewUserBackground,
-                                      }: BackgroundChangeModalProps) {
+const BackgroundChangeModal = ({
+                                   slide,
+                                   onCloseBackgroundModal,
+                                   previewUserBackground,
+                                   setPreviewUserBackground,
+                               }: BackgroundChangeModalProps) => {
 
     const {setBackgroundColor, setBackgroundImage} = useAppActions()
 
     if (!slide) {
         return <p>Цвет фона</p>
     }
+
     let selectedColor = slide.background.type == 'solid' ? slide.background.color : '#ffffff'
 
     if (slide.background.type == 'solid') {
@@ -57,7 +58,6 @@ function BackgroundChangeModal({
             }
             setPreviewUserBackground(newBackgroundImage)
         })
-
     }
 
     const onSave = () => {
@@ -70,12 +70,16 @@ function BackgroundChangeModal({
         if (previewUserBackground.type == "image") {
             setBackgroundImage(previewUserBackground)
         }
+    }
 
+    const onClose = () => {
+        setPreviewUserBackground(null)
+        onCloseBackgroundModal()
     }
 
     return (
-        <div className={classes['modal-wrapper']}>
-            <div className={classes['modal-window']}>
+        <div className={classes.modalWrapper}>
+            <div className={classes.modalWindow}>
                 <div>
                     <span>Выберите цвет фона</span>
                     <input type='color' value={selectedColor} onChange={handleColorChange}/>
@@ -85,8 +89,13 @@ function BackgroundChangeModal({
                     <span>Выберите фоновое изображение</span>
                     <input type='file' onChange={handleImageChange}/>
                 </div>
-                <Button text='Закрыть' onClick={onClick}/>
-                <Button text='Применить' onClick={onSave}/>
+                <div>
+                    Выберите градиент
+                </div>
+                <div className={classes.controlButtons}>
+                    <Button text='Закрыть' onClick={onClose}/>
+                    <Button text='Применить' onClick={onSave}/>
+                </div>
             </div>
         </div>
     )

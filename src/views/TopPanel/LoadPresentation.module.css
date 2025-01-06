@@ -1,3 +1,30 @@
-.load-presentation-input {
+.button {
+   margin-right: 5px;
+   background-color: #F5F5F5;
+   border-radius: 3px;
+   box-shadow: 0 2px 3px 0 #979CA5;
+   transition: 0.5s;
+}
 
+.button:hover {
+   transform: translate(0,-2px);
+   box-shadow: 0 4px 7px 0 #91A1BA;
+}
+
+.label {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 3px;
+   cursor: pointer;
+   height: 25px;
+   gap: 3px;
+}
+
+.input {
+   display: none;
+}
+
+.img {
+   height: 100%;
 }

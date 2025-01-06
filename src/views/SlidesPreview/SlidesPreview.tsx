@@ -4,12 +4,13 @@ import {usePresentationSelector, useSlidesSelector} from "../hooks/useAppSelecto
 import {useState} from "react";
 import {Button} from "../../components/Button/Button.tsx";
 import {exportToPdf} from "../../utils/exportToPDF.ts";
+import {arrowLeftIcon, arrowRightIcon, closeIcon, generatePdfIcon} from "../../components/icons.ts";
 
 type SlidesPreviewType = {
     onClosePreview: () => void
 }
 
-function SlidesPreview({onClosePreview}: SlidesPreviewType) {
+const SlidesPreview = ({onClosePreview}: SlidesPreviewType) => {
     const slides = useSlidesSelector()
 
     const [activeSlideIndex, setActiveSlideIndex] = useState(0)
@@ -31,7 +32,7 @@ function SlidesPreview({onClosePreview}: SlidesPreviewType) {
     const buttonNextDisabled = (!slides.length || activeSlideIndex == slides.length - 1)
 
     return (
-        <div className={classes['modal-wrapper']}>
+        <div className={classes.modalWrapper}>
             <div>
                 <SlideContent
                     scale={1.2}
@@ -39,24 +40,26 @@ function SlidesPreview({onClosePreview}: SlidesPreviewType) {
                     slide={slides[activeSlideIndex]}
                     isSelected={false}/>
             </div>
-            <div>
+
+            <div className={classes.controlsButtons}>
                 <Button
                     onClick={onPrevSlide}
-                    text={'Предыдущий'}
                     disabled={buttonPrevDisabled}
+                    icon={arrowLeftIcon}
                 />
                 <Button
                     onClick={onNextSlide}
-                    text={'Следующий'}
                     disabled={buttonNextDisabled}
+                    icon={arrowRightIcon}
                 />
                 <Button
                     onClick={onExportClick}
-                    text={'Сохранить'}
+                    icon={generatePdfIcon}
+
                 />
                 <Button
                     onClick={onClosePreview}
-                    text={'Закрыть'}
+                    icon={closeIcon}
                 />
 
             </div>

@@ -2,12 +2,13 @@ import classes from './DownloadImage.module.css'
 import {useRef} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {Size} from "../../store/types.ts";
+import {photoAddIcon} from "../../components/icons.ts";
 
 type DownloadImageProps = {
     disabled: boolean
 }
 
-function DownloadImage({disabled}: DownloadImageProps) {
+const DownloadImage = ({disabled}: DownloadImageProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const {addImageElement} = useAppActions()
@@ -15,7 +16,7 @@ function DownloadImage({disabled}: DownloadImageProps) {
     function convertToBase64(file: File, onSuccess: (base64: string, size: Size) => void) {
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload = (e) =>  {
+        reader.onload = (e) => {
             const image = new Image()
             if (!e.target?.result || typeof e.target.result != "string") {
                 return
@@ -44,14 +45,24 @@ function DownloadImage({disabled}: DownloadImageProps) {
     }
 
     return (
-
-        <div className={classes['download-image-input']}>
-                <p>Добавить изображение</p>
-                <input disabled={disabled}
-                    ref={inputRef}
-                       type='file'
-                       placeholder='Добавить изображение'
-                       onChange={handleImageChange}/>
+        <div className={`${classes.button} ${disabled ? classes.buttonDisabled : ''}`}
+             title={'Добавить картинку'}
+        >
+            <label
+                className={classes.label + ' ' + `${disabled ? classes.labelDisabled : ''}`}
+                htmlFor='downloadImageInput'
+            >
+                <img className={classes.img + ' ' + `${disabled ? classes.imgDisabled : ''}`}
+                     src={photoAddIcon}>
+                </img>
+            </label>
+            <input className={classes.input}
+                   id='downloadImageInput'
+                   disabled={disabled}
+                   ref={inputRef}
+                   type='file'
+                   placeholder='Добавить изображение'
+                   onChange={handleImageChange}/>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import {SlideContent, SLIDE_HEIGHT, SLIDE_WIDTH} from "./views/SlideContent/Slid
 import {useWindowResize} from "./views/hooks/useWindowResize.tsx";
 import {PlayerControls} from "./views/PlayerControls/PlayerControls.tsx";
 
-function SlidesPreview() {
+const SlidesPreview = () => {
     const slides = useSlidesSelector()
 
     const [activeSlideIndex, setActiveSlideIndex] = useState(0)

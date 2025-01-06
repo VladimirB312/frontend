@@ -7,7 +7,7 @@ import {useSlideListDnd} from "../hooks/useSlideListDnd.tsx";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
 
-function SlideList() {
+const SlideList = () => {
     const slides = useSlidesSelector()
     const selection = useSelectionSelector()
 

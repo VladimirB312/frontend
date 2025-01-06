@@ -1,11 +1,11 @@
 import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
 
-function calculatePosition(height: number, width: number): {
+const calculatePosition = (height: number, width: number): {
     imageHeight: number,
     imageWidth: number,
     imageX: number,
     imageY: number
-} {
+} => {
     let imageHeight = height
     let imageWidth = width
     const ratio = imageWidth / imageHeight

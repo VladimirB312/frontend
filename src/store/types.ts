@@ -1,12 +1,25 @@
 type ColorBackground = {
-    color: string;
-    type: 'solid';
+    color: string,
+    type: 'solid',
 }
 
 type ImageBackground = {
-    src: string;
-    type: 'image';
+    src: string,
+    type: 'image',
 }
+
+// type GradientDirection = 'right' | 'top' | 'left' | 'center' | 'bottom'
+//
+// type GradientColor = {
+//     color: string,
+//     colorStop: number,
+// }
+//
+// type GradientBackground = {
+//     type: 'gradient',
+//     direction: GradientDirection,
+//     colors: GradientColor[],
+// }
 
 type Background = ColorBackground | ImageBackground
 
@@ -16,14 +29,14 @@ type Position = {
 }
 
 type Size = {
-    width: number;
-    height: number;
+    width: number,
+    height: number,
 }
 
 type SlideElement = {
-    id: string;
+    id: string,
     position: Position,
-    size: Size
+    size: Size,
 }
 
 type TextElement = SlideElement & {

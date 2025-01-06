@@ -40,7 +40,6 @@ const useSlideScale = (elementRef: React.RefObject<HTMLDivElement>): number | nu
     return scale
 }
 
-
 function WorkArea({
                       slide,
                       selectedElementId

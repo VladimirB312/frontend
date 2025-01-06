@@ -11,14 +11,14 @@ type SlideProps = {
     isActive: boolean
 }
 
-function SelectableSlide({
+const SelectableSlide = ({
                                     scale,
                                     slide,
                                     className,
                                     isSelected,
                                     isActive,
                                     id,
-                                }: SlideProps) {
+                                }: SlideProps) => {
 
     const elementRef = useRef<HTMLDivElement>(null)
 

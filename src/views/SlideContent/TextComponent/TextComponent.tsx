@@ -10,12 +10,12 @@ type TextProps = {
     elementStyle?: string,
 }
 
-function TextComponent({
+const TextComponent = ({
                            element,
                            scale,
                            className = '',
                            elementStyle = ''
-                       }: TextProps) {
+                       }: TextProps) => {
 
     const {changeTextValue} = useAppActions()
 

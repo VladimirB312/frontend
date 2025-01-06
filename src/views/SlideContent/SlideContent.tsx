@@ -15,14 +15,14 @@ type SlideProps = {
     selectedElementId?: string | null,
 }
 
-function SlideContent({
+const SlideContent = ({
                           scale = 1,
                           slide,
                           className = '',
                           isSelected,
                           elementStyle,
                           selectedElementId,
-                      }: SlideProps) {
+                      }: SlideProps) => {
     if (!slide) {
         const emptyStyle: CSSProperties = {
             width: `${SLIDE_WIDTH * scale}px`,

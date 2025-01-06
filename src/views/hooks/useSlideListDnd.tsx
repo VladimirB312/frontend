@@ -2,7 +2,7 @@ import {RefObject, useEffect, useState} from "react";
 import {Position, SelectionType} from "../../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
-function getSlideId(node: Element): string | null {
+const getSlideId = (node: Element): string | null => {
     const element: Element | null = node;
     if (element.getAttribute('data-slide-id')) {
         return element.getAttribute('data-slide-id');
@@ -11,10 +11,10 @@ function getSlideId(node: Element): string | null {
     return null;
 }
 
-function useSlideListDnd(slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
+const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
     isDragging: boolean,
     dndPosition: Position | null
-} {
+} => {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPosition, setStartPosition] = useState<Position | null>(null)

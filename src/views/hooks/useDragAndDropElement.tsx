@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {ImageElement, Position, TextElement} from "../../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
-function useDragAndDropElement(elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement, scale: number): Position {
+const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement, scale: number): Position => {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)

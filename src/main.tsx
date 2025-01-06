@@ -8,7 +8,7 @@ import App from "./App.tsx";
 
 const root = createRoot(document.getElementById('root')!);
 
-function render() {
+const render = () => {
     root.render(
         <StrictMode>
             <Provider store={store}>

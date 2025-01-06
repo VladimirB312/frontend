@@ -1,4 +1,4 @@
-.top-panel {
+.topPanel {
     height: var(--topPanelHeight);
 }
 
@@ -8,13 +8,17 @@
     font-size: 16px;
     width: 250px;
     overflow: hidden;
-    margin: 10px;
+    height: calc(var(--topPanelHeight) / 3);
 }
 
-.toolbar {
-    display: flex;
-}
-
-.undo-redo-bar {
+.presentationToolbar {
     padding: 4px;
+    display: flex;
+    height: calc(var(--topPanelHeight) / 3);
+}
+
+.slidesToolbar {
+    padding: 4px;
+    display: flex;
+    height: calc(var(--topPanelHeight) / 3);
 }

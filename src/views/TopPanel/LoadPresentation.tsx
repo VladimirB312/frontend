@@ -2,8 +2,9 @@ import classes from './LoadPresentation.module.css'
 import {useRef} from "react";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {PresentationType} from "../../store/types.ts";
+import {loadIcon} from "../../components/icons.ts";
 
-function LoadPresentation() {
+const LoadPresentation = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const {loadPresentation} = useAppActions()
 
@@ -39,10 +40,19 @@ function LoadPresentation() {
     }
 
     return (
-
-        <div className={classes['load-presentation-input']}>
-            <p>Загрузить презентацию</p>
-            <input ref={inputRef}
+        <div className={classes.button}>
+            <label
+                className={classes.label}
+                htmlFor='loadPresentationInput'
+            >
+                <img className={classes.img}
+                     src={loadIcon}>
+                </img>
+                Загрузить
+            </label>
+            <input className={classes.input}
+                   id='loadPresentationInput'
+                   ref={inputRef}
                    type='file'
                    placeholder='Загрузить презентацию'
                    onChange={handlePresentationChange}/>

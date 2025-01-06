@@ -13,7 +13,7 @@ type Rect = {
     height?: number,
 }
 
-function useResize() {
+const useResize = () => {
     const [dndRect, setDndRect] = useState<Rect | null>(null)
     const [startRect, setStartRect] = useState<Rect | null>(null)
     const [isDragging, setIsDragging] = useState(false)

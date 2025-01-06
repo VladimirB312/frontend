@@ -29,6 +29,11 @@
     padding: 5px;
 }
 
+.buttons {
+    display: flex;
+    height: 30px;
+}
+
 .image {
     width: 150px;
     height: 150px;

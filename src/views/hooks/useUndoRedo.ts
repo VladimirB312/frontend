@@ -2,7 +2,7 @@ import {useAppSelector} from "./useAppSelector.ts";
 import {useEffect} from "react";
 import {useAppActions} from "./useAppAction.ts";
 
-function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
+const useUndoRedo = (showBackgroundModal: boolean, showUnsplash: boolean, showPreviewSlides: boolean): { undoDisabled: boolean, redoDisabled: boolean } => {
     const undoDisabled = !useAppSelector(state => state.past.length)
     const redoDisabled = !useAppSelector(state => state.future.length)
 
@@ -22,6 +22,10 @@ function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
         }
 
         const handleKeydown = (e: KeyboardEvent) => {
+            if (showBackgroundModal || showUnsplash || showPreviewSlides) {
+                return
+            }
+            
             if (e.code == 'KeyZ' && (e.ctrlKey || e.metaKey)) {
                 onUndo()
             }
@@ -35,7 +39,7 @@ function useUndoRedo(): { undoDisabled: boolean, redoDisabled: boolean } {
         return () => {
             document.removeEventListener('keydown', handleKeydown)
         }
-    }, [redo, redoDisabled, undo, undoDisabled])
+    }, [redo, redoDisabled, showBackgroundModal, showPreviewSlides, showUnsplash, undo, undoDisabled])
 
     return {
         undoDisabled,

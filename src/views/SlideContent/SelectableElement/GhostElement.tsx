@@ -12,12 +12,12 @@ type GhostElementProps = {
     scale: number,
 }
 
-function GhostElement({
+const GhostElement = ({
                           element,
                           scale = 1,
                           selectedElementId,
                           elementRef,
-                      }: GhostElementProps) {
+                      }: GhostElementProps) => {
 
     const {onResize, dndRect: dndRect} = useResize()
     const elementPosition = useDragAndDropElement(elementRef, element, scale)

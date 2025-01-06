@@ -1,16 +1,32 @@
 import classes from "./Button.module.css";
 
 type ButtonProps = {
-    text: string,
+    text?: string,
     onClick?: () => void,
     disabled?: boolean,
+    icon?: string,
+    title?: string,
 }
 
-function Button({text, onClick, disabled = false}: ButtonProps) {
+const Button = ({
+                    text,
+                    onClick,
+                    disabled = false,
+                    icon,
+                    title
+                }: ButtonProps) => {
     return (
-        <button className={classes['button']}
+        <button className={`${classes.button} ${disabled ? classes.buttonDisabled : ''}`}
                 onClick={onClick}
-                disabled={disabled}>
+                disabled={disabled}
+                title={title}
+        >
+            {icon &&
+                <img
+                    className={classes.img + ' ' + `${disabled ? classes.imgDisabled : ''}`}
+                    src={icon}
+                >
+                </img>}
             {text}
         </button>
     )

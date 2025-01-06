@@ -9,11 +9,11 @@ type ResizersProps = {
     onResize: (e: React.MouseEvent<HTMLDivElement>, element: (TextElement | ImageElement), dir: Direction, scale: number) => void;
 }
 
-function Resizers({
+const Resizers = ({
                       element,
                       scale = 1,
                       onResize,
-                  }: ResizersProps) {
+                  }: ResizersProps) => {
     return (
         <>
             <div onMouseDown={(e) => onResize(e, element, "left", scale)}
