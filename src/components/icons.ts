@@ -16,6 +16,7 @@ import arrowRightIcon from '../assets/arrow_right.svg'
 import closeIcon from '../assets/close_icon.svg'
 import addImageIcon from '../assets/add_image_icon.svg'
 import applyIcon from '../assets/apply.svg'
+import searchIcon from '../assets/search_icon.svg'
 
 export {
     saveIcon,
@@ -35,5 +36,6 @@ export {
     arrowRightIcon,
     closeIcon,
     addImageIcon,
-    applyIcon
+    applyIcon,
+    searchIcon
 }

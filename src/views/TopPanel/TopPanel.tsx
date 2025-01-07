@@ -149,7 +149,7 @@ const TopPanel = ({
                     icon={unsplashIcon}
                 />
                 <Button
-                    title={'Сменить фон'}
+                    title={'Изменить фон'}
                     onClick={onShowBackgroundModal}
                     disabled={disabledSlideButton}
                     icon={backgroundIcon}

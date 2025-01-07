@@ -4,7 +4,7 @@ import {useAppActions} from "../hooks/useAppAction.ts";
 import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
 import {Preloader} from "../../components/Preloader/Preloader.tsx";
 import {Button} from "../../components/Button/Button.tsx";
-import {addImageIcon, arrowLeftIcon, arrowRightIcon, closeIcon} from "../../components/icons.ts";
+import {addImageIcon, arrowLeftIcon, arrowRightIcon, closeIcon, searchIcon} from "../../components/icons.ts";
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
@@ -65,9 +65,10 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
                         value={searchImg}
                         onChange={(e) => setSearchImg(e.target.value)}
                     />
-                    <button onClick={Submit}>
-                        Найти
-                    </button>
+                    <Button
+                        icon={searchIcon}
+                        onClick={Submit}
+                    />
                 </div>
                 <div className={classes.images}>
                     {isFetching ? <Preloader/> : unsplashImages && unsplashImages.map((img) => {
