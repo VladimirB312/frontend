@@ -1,5 +1,5 @@
 .button {
-   background-color: #F5F5F5;
+   background-color: #d6dddd;
    border-radius: 3px;
    box-shadow: 0 2px 3px 0 #979CA5;
    transition: 0.5s;
@@ -8,6 +8,7 @@
 .button:hover {
    transform: translate(0,-2px);
    box-shadow: 0 4px 7px 0 #91A1BA;
+   background-color: #a1b3b3;
 }
 
 .label {

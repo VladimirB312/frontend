@@ -8,7 +8,20 @@
 :root {
     --topPanelHeight: 100px;
     --paddingApp: 10px;
-    background-color: #F1F1F1;
+    background-color: #F9FBFD;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F9F9FD;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #DADCE0;
+    border-radius: 5px;
 }
 
 #root {

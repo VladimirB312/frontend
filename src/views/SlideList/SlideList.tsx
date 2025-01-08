@@ -1,5 +1,4 @@
 import classes from './SlideList.module.css'
-import {SlideContent} from "../SlideContent/SlideContent.tsx";
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useRef, } from "react";
 import {useSelectionSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
@@ -16,26 +15,23 @@ const SlideList = () => {
 
     if (slides.length == 0) {
         return (
-            <div className={classes['slide-list']}>
-                <SlideContent scale={SLIDE_PREVIEW_SCALE} isSelected={false}/>
+            <div className={classes.slideList}>
             </div>
         )
     }
 
     const draggingStyle: CSSProperties = {
-        position: 'fixed',
         top: dndPosition ? `${dndPosition.y}px` : `0`,
         left: dndPosition ? `${dndPosition.x}px` : `0`,
-        pointerEvents: `none`,
-        userSelect: `none`,
     }
 
     return (
         <div ref={slideListRef}
-             className={classes['slide-list']}>
-            {slides.map(slide => {
+             className={classes.slideList}>
+            {slides.map((slide, index) => {
                 return (
                     <SelectableSlide
+                        index={index}
                         key={slide.id}
                         id={slide.id}
                         slide={slide}
@@ -46,7 +42,7 @@ const SlideList = () => {
                     />
                 )
             })}
-            {isDragging ? <div style={draggingStyle}>
+            {isDragging ? <div style={draggingStyle} className={classes.draggedSlides}>
                 {slides.map(slide => {
                         if (selection?.selectedSlidesId?.includes(slide.id)) {
                             return (
@@ -60,7 +56,6 @@ const SlideList = () => {
                                     className={classes.slide + ' ' + classes.draggedSlide}
                                 />
                             )
-
                         } else {
                             return null
                         }

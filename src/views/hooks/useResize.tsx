@@ -88,15 +88,8 @@ const useResize = () => {
 
             if (direction == "rightBottom") {
                 const ratio = startRect.width / startRect.height
-                let newWidth
-                let newHeight
-                if (delta.x >= delta.y) {
-                    newWidth = startRect.width + delta.x
-                    newHeight = startRect.height + delta.x / ratio
-                } else {
-                    newHeight = startRect.height + delta.y
-                    newWidth = startRect.width + delta.y * ratio
-                }
+                const newWidth = startRect.width + delta.x
+                const newHeight = startRect.height + delta.x / ratio
 
                 if (newWidth < MIN_ELEMENT_SIZE || newHeight < MIN_ELEMENT_SIZE) {
                     return

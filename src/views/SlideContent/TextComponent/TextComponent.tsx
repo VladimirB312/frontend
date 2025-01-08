@@ -26,6 +26,8 @@ const TextComponent = ({
         height: `${scale * element.size.height}px`,
         fontFamily: `${element.font}`,
         fontSize: `${scale * element.textSize}px`,
+        color: `${element.color}`,
+        textAlign: `${element.align}`,
     }
 
     const onTextValueChange: React.ChangeEventHandler = (event) => {

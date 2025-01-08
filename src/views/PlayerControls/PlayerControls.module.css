@@ -6,6 +6,7 @@
     display: flex;
     opacity: 0;
     padding: 120px 100px 50px 50px;
+    transition: opacity 1.5s ease;
 }
 
 .buttons:hover {

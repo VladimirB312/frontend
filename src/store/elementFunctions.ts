@@ -4,12 +4,12 @@ import {
     AddImageElement,
     ChangeElementPosition,
     ChangeElementRect,
-    ChangeElementSize,
+    ChangeElementSize, ChangeTextAlign,
     ChangeTextValue
 } from "./redux/actions.ts";
 import {calculatePosition} from "../utils/calculatePosition.ts";
 
-function addElement(editor: EditorType, newElement: ImageElement | TextElement) {
+const addElement = (editor: EditorType, newElement: ImageElement | TextElement) => {
     return {
         presentation: {
             ...editor.presentation,
@@ -31,7 +31,7 @@ function addElement(editor: EditorType, newElement: ImageElement | TextElement) 
     }
 }
 
-function addTextElement(editor: EditorType) {
+const addTextElement = (editor: EditorType) => {
     const uniqueId: string = crypto.randomUUID()
 
     const newTextElement: TextElement =
@@ -42,13 +42,15 @@ function addTextElement(editor: EditorType) {
             type: "text",
             value: "",
             textSize: 20,
-            font: "sans-serif"
+            font: "Arial, sans-serif",
+            color: '#000000',
+            align: 'left',
         }
 
     return addElement(editor, newTextElement);
 }
 
-function addImageElement(editor: EditorType, action: AddImageElement) {
+const addImageElement = (editor: EditorType, action: AddImageElement) => {
     const uniqueId: string = crypto.randomUUID()
 
     const {
@@ -70,7 +72,7 @@ function addImageElement(editor: EditorType, action: AddImageElement) {
     return addElement(editor, newImageElement)
 }
 
-function changePosition(editor: EditorType, action: ChangeElementPosition): EditorType {
+const changePosition = (editor: EditorType, action: ChangeElementPosition): EditorType => {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -84,7 +86,7 @@ function changePosition(editor: EditorType, action: ChangeElementPosition): Edit
     }
 }
 
-function changeSize(editor: EditorType, action: ChangeElementSize): EditorType {
+const changeSize = (editor: EditorType, action: ChangeElementSize): EditorType => {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -98,7 +100,7 @@ function changeSize(editor: EditorType, action: ChangeElementSize): EditorType {
     }
 }
 
-function changeRect(editor: EditorType, action: ChangeElementRect): EditorType {
+const changeRect = (editor: EditorType, action: ChangeElementRect): EditorType => {
     const slideId = editor.selection?.activeSlideId
     const slideElementId = editor.selection?.selectedElementId
 
@@ -112,10 +114,10 @@ function changeRect(editor: EditorType, action: ChangeElementRect): EditorType {
     }
 }
 
-function changeElementPosition(presentation: PresentationType, slideId: string, slideElementId: string, newPosition: { //
+const changeElementPosition = (presentation: PresentationType, slideId: string, slideElementId: string, newPosition: { //
     x: number,
     y: number
-}) {
+})=> {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -137,10 +139,10 @@ function changeElementPosition(presentation: PresentationType, slideId: string, 
     }
 }
 
-function changeElementSize(presentation: PresentationType, slideId: string, slideElementId: string, newSize: { //
+const changeElementSize = (presentation: PresentationType, slideId: string, slideElementId: string, newSize: { //
     width: number,
     height: number
-}) {
+}) => {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -162,10 +164,10 @@ function changeElementSize(presentation: PresentationType, slideId: string, slid
     }
 }
 
-function changeElementRect(presentation: PresentationType, slideId: string, slideElementId: string, newRect: { //
+const changeElementRect = (presentation: PresentationType, slideId: string, slideElementId: string, newRect: { //
     position: Position,
     size: Size,
-}) {
+}) => {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -188,7 +190,7 @@ function changeElementRect(presentation: PresentationType, slideId: string, slid
     }
 }
 
-function removeElement(editor: EditorType): EditorType {
+const removeElement = (editor: EditorType): EditorType => {
     if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
         return editor
     }
@@ -218,7 +220,7 @@ function removeElement(editor: EditorType): EditorType {
     }
 }
 
-function changeTextValue(editor: EditorType, action: ChangeTextValue): EditorType {
+const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorType => {
     const newText = action.payload;
 
     return {
@@ -244,6 +246,109 @@ function changeTextValue(editor: EditorType, action: ChangeTextValue): EditorTyp
     }
 }
 
+const changeTextFont = (editor: EditorType, action: ChangeTextFont): EditorType => {
+    const newTextFont = action.payload;
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId) {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            font: newTextFont,
+                        }
+                    })
+                })
+        }
+    }
+}
+
+const changeTextSize = (editor: EditorType, action: ChangeTextSize): EditorType => {
+    const newTextSize = parseInt(action.payload)
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId) {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            textSize: newTextSize,
+                        }
+                    })
+                })
+        }
+    }
+}
+
+const changeTextColor = (editor: EditorType, action: ChangeTextColor): EditorType => {
+    const newTextColor = action.payload
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId) {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            color: newTextColor,
+                        }
+                    })
+                })
+        }
+    }
+}
+
+const changeTextAlign = (editor: EditorType, action: ChangeTextAlign): EditorType => {
+    const newTextAlign = action.payload
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId) {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            align: newTextAlign,
+                        }
+                    })
+                })
+        }
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -251,5 +356,9 @@ export {
     changeSize,
     changeRect,
     removeElement,
-    changeTextValue
+    changeTextValue,
+    changeTextFont,
+    changeTextSize,
+    changeTextColor,
+    changeTextAlign
 }

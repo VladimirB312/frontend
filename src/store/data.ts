@@ -16,7 +16,9 @@ const slide1: SlideType = {
             type: "text",
             value: "Slide 1 text",
             textSize: 30,
-            font: "sans-serif"
+            font: "Arial, sans-serif",
+            color: '#000000',
+            align: 'center',
         },
         {
             id: "241",
@@ -42,7 +44,9 @@ const slide2: SlideType = {
             type: "text",
             value: "Slide 2 text",
             textSize: 20,
-            font: "sans-serif"
+            font: "Arial, sans-serif",
+            color: '#000000',
+            align: 'center',
         },
         {
             id: "182",
@@ -80,9 +84,14 @@ const getLocalEditor = () : EditorType => {
     const valid = validate(localPresentationObj)
     if (localPresentationObj && valid) {
         console.log("valid json scheme from local storage")
+        const selectedSlideId = localPresentationObj.slides.length ? localPresentationObj.slides[0].id : null
         return {
             presentation: localPresentationObj,
-            selection: null,
+            selection: {
+                selectedElementId: null,
+                selectedSlidesId: selectedSlideId ? [selectedSlideId] : null,
+                activeSlideId: selectedSlideId ?? null,
+            }
         }
     } else {
         console.log("invalid json scheme from local storage", validate.errors)

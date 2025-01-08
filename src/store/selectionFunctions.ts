@@ -1,7 +1,7 @@
 import {EditorType} from "./types.ts";
 import {SetSelectionSlideAction, SetActiveSlideAction, SetSelectionElement} from "./redux/actions.ts";
 
-function setActiveSlide(editor: EditorType, action: SetActiveSlideAction): EditorType {
+const setActiveSlide = (editor: EditorType, action: SetActiveSlideAction): EditorType => {
     const slideId = action.payload
 
     return {
@@ -11,11 +11,12 @@ function setActiveSlide(editor: EditorType, action: SetActiveSlideAction): Edito
             activeSlideId: slideId,
             selectedSlidesId: [slideId],
             selectedElementId: null,
+            type: "slide"
         }
     }
 }
 
-function setSelectionSlide(editor: EditorType, action: SetSelectionSlideAction): EditorType {
+const setSelectionSlide = (editor: EditorType, action: SetSelectionSlideAction): EditorType => {
     const slideId = action.payload
 
     if (slideId == editor.selection?.activeSlideId) {
@@ -29,6 +30,7 @@ function setSelectionSlide(editor: EditorType, action: SetSelectionSlideAction):
                 ...editor.selection,
                 selectedSlidesId: editor.selection.selectedSlidesId.filter(id => id !== slideId),
                 selectedElementId: null,
+                type: "slide",
             }
         }
     }
@@ -43,11 +45,12 @@ function setSelectionSlide(editor: EditorType, action: SetSelectionSlideAction):
                 slideId
             ],
             selectedElementId: null,
+            type: "slide",
         }
     }
 }
 
-function setSelectionElement(editor: EditorType, action: SetSelectionElement): EditorType {
+const setSelectionElement = (editor: EditorType, action: SetSelectionElement): EditorType => {
     const elementId = action.payload
     return {
         ...editor,
@@ -55,16 +58,18 @@ function setSelectionElement(editor: EditorType, action: SetSelectionElement): E
             ...editor.selection,
             selectedSlidesId: editor.selection?.activeSlideId ? [editor.selection.activeSlideId] : [],
             selectedElementId: elementId,
+            type: "element",
         }
     }
 }
 
-function resetSelectionElement(editor: EditorType): EditorType {
+const resetSelectionElement = (editor: EditorType): EditorType => {
     return {
         ...editor,
         selection: {
             ...editor.selection,
             selectedElementId: null,
+            type: null,
         }
     }
 }

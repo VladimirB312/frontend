@@ -1,16 +1,14 @@
-.slide-list {
+.slideList {
     display: flex;
     flex-direction: column;
-    border: 2px solid darkgray;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-shrink: 0;
     width: 220px;
-    /*position: relative;*/
 }
 
 .slide {
     margin: 5px;
-    border: 1px solid darkgray;
+    outline: 1px solid #A9A9A9;
     border-radius: 10px;
     pointer-events: none;
     user-select: none;
@@ -18,5 +16,11 @@
 }
 
 .draggedSlide {
-    opacity: 0.7;
+    opacity: 0.75;
+}
+
+.draggedSlides {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
 }

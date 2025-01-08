@@ -1,8 +1,8 @@
 import classes from './DownloadImage.module.css'
 import {useRef} from "react";
-import {useAppActions} from "../hooks/useAppAction.ts";
-import {Size} from "../../store/types.ts";
-import {photoAddIcon} from "../../components/icons.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
+import {Size} from "../../../store/types.ts";
+import {photoAddIcon} from "../../../components/icons.ts";
 
 type DownloadImageProps = {
     disabled: boolean
@@ -46,15 +46,16 @@ const DownloadImage = ({disabled}: DownloadImageProps) => {
 
     return (
         <div className={`${classes.button} ${disabled ? classes.buttonDisabled : ''}`}
-             title={'Добавить картинку'}
         >
             <label
                 className={classes.label + ' ' + `${disabled ? classes.labelDisabled : ''}`}
                 htmlFor='downloadImageInput'
             >
+
                 <img className={classes.img + ' ' + `${disabled ? classes.imgDisabled : ''}`}
                      src={photoAddIcon}>
                 </img>
+                Добавить картинку
             </label>
             <input className={classes.input}
                    id='downloadImageInput'

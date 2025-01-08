@@ -45,11 +45,11 @@ const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: Sel
         }
 
         const onMouseMove = (event: MouseEvent) => {
-            event.preventDefault()
-
             if (!draggedSlideId || !startPosition || !slideRect) {
                 return
             }
+
+            event.preventDefault()
 
             if (!selection?.selectedSlidesId?.includes(draggedSlideId)) {
                 setActiveSlide(draggedSlideId)

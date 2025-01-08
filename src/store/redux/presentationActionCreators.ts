@@ -1,32 +1,31 @@
 import {ActionType} from "./actions.ts";
 import {PresentationType} from "../types.ts";
 
-function renamePresentation(newTitle: string) {
+const renamePresentation = (newTitle: string) => {
     return {
         type: ActionType.RENAME_PRESENTATION,
         payload: newTitle
     }
 }
 
-function loadPresentation(loadedPresentation: PresentationType) {
+const loadPresentation = (loadedPresentation: PresentationType) => {
     return {
         type: ActionType.LOAD_PRESENTATION,
         payload: loadedPresentation
     }
 }
 
-function undo() {
+const undo = () => {
     return {
         type: ActionType.UNDO
     }
 }
 
-function redo() {
+const redo = () => {
     return {
         type: ActionType.REDO
     }
 }
-
 
 
 export {

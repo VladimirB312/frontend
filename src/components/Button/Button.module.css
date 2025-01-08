@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #F5F5F5;
+    background-color: #d6dddd;
     min-width: 40px;
     height: 25px;
     gap: 3px;
@@ -17,11 +17,13 @@
 .button:hover {
     transform: translate(0,-2px);
     box-shadow: 0 4px 7px 0 #91A1BA;
+    background-color: #a1b3b3;
 }
 
 .buttonDisabled:hover  {
     transform: none;
     box-shadow: 0 2px 3px 0 #979CA5;
+    background-color: #d6dddd;
 }
 
 .img {

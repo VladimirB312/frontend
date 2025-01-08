@@ -1,13 +1,13 @@
 import {ActionType} from "./actions.ts";
 import {Position, Size} from "../types.ts";
 
-function addTextElement() {
+const addTextElement = () => {
     return {
         type: ActionType.ADD_TEXT_ELEMENT,
     }
 }
 
-function addImageElement(src: string, size: Size) {
+const addImageElement = (src: string, size: Size) => {
     return {
         type: ActionType.ADD_IMAGE_ELEMENT,
         payload: {
@@ -17,35 +17,63 @@ function addImageElement(src: string, size: Size) {
     }
 }
 
-function changeElementPosition(newPosition: Position) {
+const changeElementPosition = (newPosition: Position) => {
     return {
         type: ActionType.CHANGE_ELEMENT_POSITION,
         payload: newPosition,
     }
 }
 
-function changeElementSize(newSize: Size) {
+const changeElementSize = (newSize: Size) => {
     return {
         type: ActionType.CHANGE_ELEMENT_SIZE,
         payload: newSize,
     }
 }
 
-function changeElementRect(newRect: { position: Position, size: Size }) {
+const changeElementRect = (newRect: { position: Position, size: Size }) => {
     return {
         type: ActionType.CHANGE_ELEMENT_RECT,
         payload: newRect,
     }
 }
 
-function changeTextValue(newText: string) {
+const changeTextValue = (newText: string) => {
     return {
         type: ActionType.CHANGE_TEXT_VALUE,
         payload: newText,
     }
 }
 
-function removeElement() {
+const changeTextFont = (newFont: string) => {
+    return {
+        type: ActionType.CHANGE_TEXT_FONT,
+        payload: newFont,
+    }
+}
+
+const changeTextSize = (newSize: string) => {
+    return {
+        type: ActionType.CHANGE_TEXT_SIZE,
+        payload: newSize,
+    }
+}
+
+const changeTextColor = (newColor: string) => {
+    return {
+        type: ActionType.CHANGE_TEXT_COLOR,
+        payload: newColor,
+    }
+}
+
+const changeTextAlign = (newAlign: string) => {
+    return {
+        type: ActionType.CHANGE_TEXT_ALIGN,
+        payload: newAlign,
+    }
+}
+
+const removeElement = () => {
     return {
         type: ActionType.REMOVE_ELEMENT,
     }
@@ -56,7 +84,11 @@ export {
     addImageElement,
     changeElementPosition,
     changeElementSize,
+    changeElementRect,
     changeTextValue,
+    changeTextFont,
+    changeTextSize,
+    changeTextColor,
+    changeTextAlign,
     removeElement,
-    changeElementRect
 }

@@ -1,7 +1,7 @@
 import {EditorType} from "./types.ts";
 import {SetExternalImages, SetExternalImageSelection, ToggleExternalImagesFetching} from "./redux/actions.ts";
 
-function setExternalImages(editor: EditorType, action: SetExternalImages) {
+const setExternalImages = (editor: EditorType, action: SetExternalImages) => {
     return {
         ...editor,
         externalImages: {
@@ -14,7 +14,7 @@ function setExternalImages(editor: EditorType, action: SetExternalImages) {
     }
 }
 
-function setUnsplashImageSelection(editor: EditorType, action: SetExternalImageSelection) {
+const setUnsplashImageSelection = (editor: EditorType, action: SetExternalImageSelection) => {
     return {
         ...editor,
         externalImages: {
@@ -24,17 +24,7 @@ function setUnsplashImageSelection(editor: EditorType, action: SetExternalImageS
     }
 }
 
-function toggleUnsplashFetching(editor: EditorType, action: ToggleExternalImagesFetching) {
-    return {
-        ...editor,
-        externalImages: {
-            ...editor.externalImages,
-            isFetching: action.payload,
-        }
-    }
-}
-
-function setUnsplashPageNumber(editor: EditorType, action: ToggleExternalImagesFetching) {
+const toggleUnsplashFetching = (editor: EditorType, action: ToggleExternalImagesFetching) => {
     return {
         ...editor,
         externalImages: {
@@ -48,6 +38,5 @@ export {
     setExternalImages,
     setUnsplashImageSelection,
     toggleUnsplashFetching,
-    setUnsplashPageNumber
 }
 

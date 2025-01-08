@@ -1,8 +1,8 @@
 import classes from './LoadPresentation.module.css'
 import {useRef} from "react";
-import {useAppActions} from "../hooks/useAppAction.ts";
-import {PresentationType} from "../../store/types.ts";
-import {loadIcon} from "../../components/icons.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
+import {PresentationType} from "../../../store/types.ts";
+import {loadIcon} from "../../../components/icons.ts";
 
 const LoadPresentation = () => {
     const inputRef = useRef<HTMLInputElement>(null)

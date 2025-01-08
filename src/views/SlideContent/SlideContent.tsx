@@ -2,6 +2,7 @@ import classes from './SlideContent.module.css';
 import {ImageElement, SlideType, TextElement} from "../../store/types.ts";
 import {CSSProperties} from "react";
 import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
+import {EmptySlide} from "./EmptySlide/EmptySlide.tsx";
 
 export const SLIDE_WIDTH: number = 935;
 export const SLIDE_HEIGHT: number = 525;
@@ -28,7 +29,14 @@ const SlideContent = ({
             width: `${SLIDE_WIDTH * scale}px`,
             height: `${SLIDE_HEIGHT * scale}px`,
         }
-        return <div className={classes.slide} style={emptyStyle}></div>
+        return (
+            <div
+                className={classes.slide + ' ' + classes.emptySlide}
+                style={emptyStyle}
+            >
+                <EmptySlide/>
+            </div>)
+
     }
 
     const slideStyle: CSSProperties = {
@@ -40,17 +48,17 @@ const SlideContent = ({
             : '',
         width: `${SLIDE_WIDTH * scale}px`,
         height: `${SLIDE_HEIGHT * scale}px`,
-        border: `1px solid #d3d3d3`
+
     }
 
     if (isSelected) {
-        slideStyle.border = '3px solid #0b57d0';
+        slideStyle.outline = '3px solid #0b57d0';
     }
 
     const elements: Array<TextElement | ImageElement> = slide.objects
 
     return (
-        <div className={classes.slide + ' ' + className}
+        <div className={`${classes.slide} ${className}`}
              style={slideStyle}
              data-slide-content-id={'slideContent'}
         >

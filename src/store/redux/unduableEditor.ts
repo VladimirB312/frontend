@@ -12,7 +12,7 @@ type StateType = {
     future: EditorType[]
 }
 
-function undoable(reducer: (editor: EditorType, action: EditorAction) => EditorType) {
+const undoable = (reducer: (editor: EditorType, action: EditorAction) => EditorType) => {
     const initialState: StateType = {
         past: [] as EditorType[],
         present: getLocalEditor(),

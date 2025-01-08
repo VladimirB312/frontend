@@ -2,9 +2,9 @@ import classes from './TopPanel.module.css'
 import {Button} from "../../components/Button/Button.tsx";
 import {Background, SlideType} from "../../store/types.ts";
 import React, {SetStateAction} from "react";
-import {DownloadImage} from "./DownloadImage.tsx";
+import {DownloadImage} from "./CustomButtons/DownloadImage.tsx";
 import {Title} from "./Title.tsx";
-import {LoadPresentation} from "./LoadPresentation.tsx";
+import {LoadPresentation} from "./CustomButtons/LoadPresentation.tsx";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {usePresentationSelector} from "../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
@@ -17,6 +17,7 @@ import {
     slideShowIcon, textAddIcon,
     undoIcon, unsplashIcon
 } from "../../components/icons.ts";
+import {TextEdit} from "./TextEdit.tsx";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -112,54 +113,64 @@ const TopPanel = ({
                 />
             </div>
             <div className={classes.slidesToolbar}>
-                <Button
-                    text={'Добавить слайд'}
-                    onClick={onAddSlide}
-                    icon={addSlideIcon}
-                />
-                <Button
-                    text={'Удалить слайд'}
-                    onClick={onRemoveSlide}
-                    disabled={disabledSlideButton}
-                    icon={deleteSlideIcon}
-                />
-                <Button
-                    title={'Отменить'}
-                    onClick={undo}
-                    disabled={undoDisabled}
-                    icon={undoIcon}
-                />
-                <Button
-                    title={'Повторить'}
-                    onClick={redo}
-                    disabled={redoDisabled}
-                    icon={redoIcon}
-                />
-                <Button
-                    title={'Добавить текст'}
-                    onClick={onAddTextElement}
-                    disabled={disabledSlideButton}
-                    icon={textAddIcon}
-                />
-                <DownloadImage disabled={disabledSlideButton}/>
-                <Button
-                    text={'Unsplash'}
-                    onClick={onOpenUnsplash}
-                    disabled={disabledSlideButton}
-                    icon={unsplashIcon}
-                />
-                <Button
-                    title={'Изменить фон'}
-                    onClick={onShowBackgroundModal}
-                    disabled={disabledSlideButton}
-                    icon={backgroundIcon}
-                />
-                <Button
-                    text={'Удалить элемент'}
-                    onClick={onRemoveElement}
-                    disabled={disabledElementButton}
-                    icon={deleteIcon}
-                />
+                <div className={classes.slidesControls}>
+                    <Button
+                        text={'Добавить слайд'}
+                        onClick={onAddSlide}
+                        icon={addSlideIcon}
+                    />
+                    <Button
+                        text={'Удалить слайд'}
+                        onClick={onRemoveSlide}
+                        disabled={disabledSlideButton}
+                        icon={deleteSlideIcon}
+                    />
+                    <Button
+                        title={'Отменить'}
+                        onClick={undo}
+                        disabled={undoDisabled}
+                        icon={undoIcon}
+                    />
+                    <Button
+                        title={'Повторить'}
+                        onClick={redo}
+                        disabled={redoDisabled}
+                        icon={redoIcon}
+                    />
+                </div>
+                <div className={classes.elementControls}>
+                    <Button
+                        text={'Изменить фон'}
+                        onClick={onShowBackgroundModal}
+                        disabled={disabledSlideButton}
+                        icon={backgroundIcon}
+                    />
+                    <Button
+                        text={'Добавить текст'}
+                        onClick={onAddTextElement}
+                        disabled={disabledSlideButton}
+                        icon={textAddIcon}
+                    />
+                    <DownloadImage disabled={disabledSlideButton}/>
+                    <Button
+                        text={'Unsplash'}
+                        onClick={onOpenUnsplash}
+                        disabled={disabledSlideButton}
+                        icon={unsplashIcon}
+                    />
+
+                    <Button
+                        text={'Удалить элемент'}
+                        onClick={onRemoveElement}
+                        disabled={disabledElementButton}
+                        icon={deleteIcon}
+                    />
+                    <TextEdit
+                        slide={slide}
+                        selectedElementId={selectedElementId}
+                    />
+                </div>
+
             </div>
         </div>
     )

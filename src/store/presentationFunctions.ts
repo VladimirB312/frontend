@@ -2,7 +2,7 @@ import {EditorType} from "./types.ts";
 import {LoadPresentation, RenamePresentation} from "./redux/actions.ts";
 import {validate} from "../ajvValidator.ts";
 
-function renamePresentation(editor: EditorType, action: RenamePresentation): EditorType {
+const renamePresentation = (editor: EditorType, action: RenamePresentation): EditorType => {
     return {
         ...editor,
         presentation: {
@@ -12,12 +12,11 @@ function renamePresentation(editor: EditorType, action: RenamePresentation): Edi
     }
 }
 
-function loadPresentation(editor: EditorType, action: LoadPresentation): EditorType {
+const loadPresentation = (editor: EditorType, action: LoadPresentation): EditorType => {
     const loadedPresentation = action.payload
     const valid = validate(loadedPresentation)
 
     if (loadedPresentation && valid) {
-        console.log("valid json scheme from file")
         return {
             ...editor,
             presentation: loadedPresentation,
@@ -25,7 +24,7 @@ function loadPresentation(editor: EditorType, action: LoadPresentation): EditorT
         }
     }
 
-    console.log("invalid json scheme from file", validate.errors)
+    alert("invalid json scheme from file", validate.errors)
     return editor
 }
 

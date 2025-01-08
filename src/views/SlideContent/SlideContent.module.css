@@ -2,13 +2,14 @@
     position: relative;
     background-size: 100% 100%;
     box-sizing: content-box;
+    outline: 1px solid #d3d3d3;
+    transition: outline 0.1s ease;
 }
 
-.slide__element_selected {
-    border: 2px solid #5F5F7CFF;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.slide__element_not-selected {
-    border: none
+.emptySlide {
+    outline: 2px dashed #d3d3d3;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

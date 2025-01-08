@@ -17,6 +17,10 @@ import closeIcon from '../assets/close_icon.svg'
 import addImageIcon from '../assets/add_image_icon.svg'
 import applyIcon from '../assets/apply.svg'
 import searchIcon from '../assets/search_icon.svg'
+import alignLeftIcon from '../assets/align_left_icon.svg'
+import alignRightIcon from '../assets/align_right_icon.svg'
+import alignCenterIcon from '../assets/align_center_icon.svg'
+
 
 export {
     saveIcon,
@@ -37,5 +41,8 @@ export {
     closeIcon,
     addImageIcon,
     applyIcon,
-    searchIcon
+    searchIcon,
+    alignLeftIcon,
+    alignRightIcon,
+    alignCenterIcon
 }

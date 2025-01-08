@@ -23,6 +23,10 @@ enum ActionType {
     CHANGE_ELEMENT_SIZE = 'changeElementSize',
     CHANGE_ELEMENT_RECT = 'changeElementRect',
     CHANGE_TEXT_VALUE = 'changeTextValue',
+    CHANGE_TEXT_FONT = 'changeTextFont',
+    CHANGE_TEXT_SIZE = 'changeTextSize',
+    CHANGE_TEXT_COLOR = 'changeTextColor',
+    CHANGE_TEXT_ALIGN = 'changeTextAlign',
     REMOVE_ELEMENT = 'removeElement',
 
     SET_EDITOR = 'setEditor',
@@ -121,6 +125,26 @@ type ChangeTextValue = {
     payload: string,
 }
 
+type ChangeTextFont = {
+    type: ActionType.CHANGE_TEXT_FONT,
+    payload: string,
+}
+
+type ChangeTextSize = {
+    type: ActionType.CHANGE_TEXT_SIZE,
+    payload: string,
+}
+
+type ChangeTextColor = {
+    type: ActionType.CHANGE_TEXT_COLOR,
+    payload: string,
+}
+
+type ChangeTextAlign = {
+    type: ActionType.CHANGE_TEXT_ALIGN,
+    payload: string,
+}
+
 type RemoveElement = {
     type: ActionType.REMOVE_ELEMENT
 }
@@ -171,6 +195,10 @@ type EditorAction =
     | ChangeElementSize
     | ChangeElementRect
     | ChangeTextValue
+    | ChangeTextFont
+    | ChangeTextSize
+    | ChangeTextColor
+    | ChangeTextAlign
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
@@ -195,6 +223,10 @@ export {
     type ChangeElementSize,
     type ChangeElementRect,
     type ChangeTextValue,
+    type ChangeTextFont,
+    type ChangeTextSize,
+    type ChangeTextColor,
+    type ChangeTextAlign,
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,

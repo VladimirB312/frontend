@@ -1,27 +1,27 @@
 import {ActionType} from "./actions.ts";
 
-function setSelectionSlide(slideId: string) {
+const setSelectionSlide = (slideId: string) => {
     return {
         type: ActionType.SET_SELECTION_SLIDE,
         payload: slideId,
     }
 }
 
-function setActiveSlide(slideId: string) {
+const setActiveSlide = (slideId: string) => {
     return {
         type: ActionType.SET_ACTIVE_SLIDE,
         payload: slideId,
     }
 }
 
-function setSelectionElement(elementId: string) {
+const setSelectionElement = (elementId: string) => {
     return {
         type: ActionType.SET_SELECTION_ELEMENT,
         payload: elementId
     }
 }
 
-function resetSelectionElement() {
+const resetSelectionElement = () => {
     return {
         type: ActionType.RESET_SELECTION_ELEMENT,
     }

@@ -2,4 +2,18 @@
     position: absolute;
     box-sizing: content-box;
     user-select: none;
+    /*outline: 2px solid transparent;*/
+    /*opacity: 1;*/
+    /*transition: outline 0.3s ease, opacity 0.3s ease;*/
+}
+
+.hoverableElement {
+    outline: 2px solid transparent;
+    transition: outline 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.hoverableElement:hover {
+    outline: 2px solid #767f97;
+    opacity: 0.8;
 }

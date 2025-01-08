@@ -10,7 +10,7 @@ import {SlidesPreview} from "./views/SlidesPreview/SlidesPreview.tsx";
 import {usePresentationSelector, useSelectionSelector} from "./views/hooks/useAppSelector.ts";
 import {useUndoRedo} from "./views/hooks/useUndoRedo.ts";
 import {BackgroundChangeModal} from "./views/BackgroundChangeModal/BackgroundChangeModal.tsx";
-import {useDeleteObject} from "./views/hooks/useDeleteObject.ts";
+import {useDelete} from "./views/hooks/useDelete.ts";
 
 const EditorView = () => {
     const presentation = usePresentationSelector()
@@ -28,7 +28,7 @@ const EditorView = () => {
     const {undoDisabled, redoDisabled} = useUndoRedo(showBackgroundModal, showUnsplash, showPreviewSlides)
     const selectedElementId = selection?.selectedElementId ?? null
 
-    useDeleteObject(showBackgroundModal, showUnsplash, showPreviewSlides)
+    useDelete(showBackgroundModal, showUnsplash, showPreviewSlides)
 
     return (
         <div>

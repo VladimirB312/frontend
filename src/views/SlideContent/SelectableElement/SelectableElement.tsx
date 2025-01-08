@@ -33,7 +33,7 @@ const SelectableElement = ({
         <div>
             <div ref={elementRef}
                  data-element-id={id}
-                 className={classes.element}
+                 className={`${classes.element} ${element.id != selectedElementId ? classes.hoverableElement : ''}`}
                  style={borderStyle}
             >
                 {(() => {

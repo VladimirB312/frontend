@@ -1,0 +1,67 @@
+.textEditBar {
+    position: absolute;
+    top: 33px;
+    display: flex;
+    background-color: #d6dddd;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    gap: 5px;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px 0 #979CA5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.textEditorBarVisible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fontFamilySelector {
+    background-color: #acb7b7;
+    cursor: pointer;
+}
+
+.fontFamilySelector option {
+    background-color: #deeaea;
+}
+
+.fontSizeSelector {
+    background-color: #acb7b7;
+    cursor: pointer;
+}
+
+.fontSizeSelector option {
+    background-color: #deeaea;
+}
+
+.colorPickerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.colorPicker {
+    height: 23px;
+    width: 23px;
+    cursor: pointer;
+}
+
+.alignButton {
+    padding: 3px;
+    cursor: pointer;
+    border: 1px solid gray;
+    background-color: #d6dddd;
+    min-width: 30px;
+    height: 23px;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px 0 #979CA5;
+    transition: 0.5s;
+}
+
+.alignButton:hover {
+    box-shadow: 0 4px 7px 0 #91A1BA;
+    background-color: #bdc3c3;
+}

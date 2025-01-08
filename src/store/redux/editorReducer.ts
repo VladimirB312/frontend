@@ -9,7 +9,7 @@ import {
     changePosition,
     changeSize,
     removeElement,
-    changeTextValue, changeRect
+    changeTextValue, changeRect, changeTextFont, changeTextSize, changeTextColor, changeTextAlign
 } from "../elementFunctions.ts";
 import {
     renamePresentation,
@@ -18,7 +18,7 @@ import {
 import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 
 
-function editorReducer(editor: EditorType = getLocalEditor(), action: EditorAction): EditorType {
+const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
     switch (action.type) {
         case ActionType.RENAME_PRESENTATION:
             return renamePresentation(editor, action)
@@ -58,6 +58,14 @@ function editorReducer(editor: EditorType = getLocalEditor(), action: EditorActi
             return changeRect(editor, action)
         case ActionType.CHANGE_TEXT_VALUE:
             return changeTextValue(editor, action)
+        case ActionType.CHANGE_TEXT_FONT:
+            return changeTextFont(editor, action)
+        case ActionType.CHANGE_TEXT_SIZE:
+            return changeTextSize(editor, action)
+        case ActionType.CHANGE_TEXT_COLOR:
+            return changeTextColor(editor, action)
+        case ActionType.CHANGE_TEXT_ALIGN:
+            return changeTextAlign(editor, action)
         case ActionType.REMOVE_ELEMENT:
             return removeElement(editor)
 

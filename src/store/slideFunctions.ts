@@ -2,7 +2,7 @@ import {EditorType} from "./types.ts";
 import {Background, PresentationType, SlideType} from "./types.ts";
 import {ChangeSlidePosition, SetBackgroundColor, SetBackgroundImage} from "./redux/actions.ts";
 
-function addSlide(editor: EditorType): EditorType {
+const addSlide = (editor: EditorType): EditorType => {
     const uniqueId: string = crypto.randomUUID()
     const newSlide: SlideType = {
         id: uniqueId,
@@ -24,7 +24,7 @@ function addSlide(editor: EditorType): EditorType {
     }
 }
 
-function _addSlide(slides: SlideType[], newSlide: SlideType, selectedSlidesId: string[] | null | undefined) {
+const _addSlide = (slides: SlideType[], newSlide: SlideType, selectedSlidesId: string[] | null | undefined) => {
     const lastSelectedSlideId = selectedSlidesId?.at(-1) || slides.at(-1)?.id
     if (!lastSelectedSlideId) {
         return [newSlide]
@@ -41,7 +41,7 @@ function _addSlide(slides: SlideType[], newSlide: SlideType, selectedSlidesId: s
     return newSlides
 }
 
-function removeSlide(editor: EditorType): EditorType {
+const removeSlide = (editor: EditorType): EditorType => {
     if (!editor.selection?.selectedSlidesId) {
         return editor
     }
@@ -72,7 +72,7 @@ function removeSlide(editor: EditorType): EditorType {
     }
 }
 
-function changeSlidePos(editor: EditorType, action: ChangeSlidePosition): EditorType {
+const changeSlidePos = (editor: EditorType, action: ChangeSlidePosition): EditorType => {
     const targetSlideId = action.payload
 
     if (!editor.selection?.selectedSlidesId || editor.selection?.selectedSlidesId.includes(targetSlideId)) {
@@ -89,7 +89,7 @@ function changeSlidePos(editor: EditorType, action: ChangeSlidePosition): Editor
     }
 }
 
-function changeAllSlidePosition(presentation: PresentationType, slidesId: string[], newSlideId: string) {
+const changeAllSlidePosition = (presentation: PresentationType, slidesId: string[], newSlideId: string) => {
     const slideIndex: number = presentation.slides.findIndex(slide => slide.id === slidesId[0]);
     if (slideIndex === -1) {
         return presentation;
@@ -109,7 +109,7 @@ function changeAllSlidePosition(presentation: PresentationType, slidesId: string
     }
 }
 
-function setBackground(editor: EditorType, newBackground: Background): EditorType {
+const setBackground = (editor: EditorType, newBackground: Background): EditorType => {
     return {
         ...editor,
         presentation: {
@@ -128,11 +128,11 @@ function setBackground(editor: EditorType, newBackground: Background): EditorTyp
     }
 }
 
-function setBackgroundColor(editor: EditorType, action: SetBackgroundColor): EditorType {
+const setBackgroundColor = (editor: EditorType, action: SetBackgroundColor): EditorType => {
     return setBackground(editor, action.payload);
 }
 
-function setBackgroundImage(editor: EditorType, action: SetBackgroundImage): EditorType {
+const setBackgroundImage = (editor: EditorType, action: SetBackgroundImage): EditorType => {
     return setBackground(editor, action.payload);
 }
 
