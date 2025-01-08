@@ -8,20 +8,23 @@ type ImageBackground = {
     type: 'image',
 }
 
-// type GradientDirection = 'right' | 'top' | 'left' | 'center' | 'bottom'
-//
-// type GradientColor = {
-//     color: string,
-//     colorStop: number,
-// }
-//
-// type GradientBackground = {
-//     type: 'gradient',
-//     direction: GradientDirection,
-//     colors: GradientColor[],
-// }
+type GradientDirection = 'to top'
+    | 'to right top'
+    | 'to right'
+    | 'to right bottom'
+    | 'to bottom'
+    | 'to left bottom'
+    | 'to left'
+    | 'to left top'
 
-type Background = ColorBackground | ImageBackground
+type GradientBackground = {
+    type: 'gradient',
+    direction: GradientDirection,
+    color1: string,
+    color2: string,
+}
+
+type Background = ColorBackground | ImageBackground | GradientBackground
 
 type Position = {
     x: number,

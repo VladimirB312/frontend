@@ -10,6 +10,7 @@ enum ActionType {
     CHANGE_SLIDE_POSITION = 'changeSlidePosition',
     SET_BACKGROUND_COLOR = 'setBackgroundColor',
     SET_BACKGROUND_IMAGE = 'setBackgroundImage',
+    SET_BACKGROUND_GRADIENT = 'setBackgroundGradient',
 
     SET_SELECTION_SLIDE = 'setSelectionSlide',
     SET_ACTIVE_SLIDE = 'setActiveSlide',
@@ -69,6 +70,11 @@ type SetBackgroundColor = {
 type SetBackgroundImage = {
     type: ActionType.SET_BACKGROUND_IMAGE,
     payload: ImageBackground,
+}
+
+type SetBackgroundGradient = {
+    type: ActionType.SET_BACKGROUND_GRADIENT,
+    payload: GradientBackground,
 }
 
 type SetSelectionSlideAction = {
@@ -202,6 +208,7 @@ type EditorAction =
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
+    | SetBackgroundGradient
     | RemoveElement
     | ChangeSlidePosition
     | LoadPresentation
@@ -230,6 +237,7 @@ export {
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,
+    type SetBackgroundGradient,
     type RemoveElement,
     type ChangeSlidePosition,
     type LoadPresentation,

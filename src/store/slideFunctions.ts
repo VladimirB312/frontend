@@ -1,6 +1,6 @@
 import {EditorType} from "./types.ts";
 import {Background, PresentationType, SlideType} from "./types.ts";
-import {ChangeSlidePosition, SetBackgroundColor, SetBackgroundImage} from "./redux/actions.ts";
+import {ChangeSlidePosition, SetBackgroundColor, SetBackgroundGradient, SetBackgroundImage} from "./redux/actions.ts";
 
 const addSlide = (editor: EditorType): EditorType => {
     const uniqueId: string = crypto.randomUUID()
@@ -136,11 +136,16 @@ const setBackgroundImage = (editor: EditorType, action: SetBackgroundImage): Edi
     return setBackground(editor, action.payload);
 }
 
+const setBackgroundGradient = (editor: EditorType, action: SetBackgroundGradient): EditorType => {
+    return setBackground(editor, action.payload);
+}
+
 export {
     addSlide,
     removeSlide,
     changeSlidePos,
     setBackground,
     setBackgroundColor,
-    setBackgroundImage
+    setBackgroundImage,
+    setBackgroundGradient
 }

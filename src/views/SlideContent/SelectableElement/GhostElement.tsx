@@ -44,7 +44,7 @@ const GhostElement = ({
     if (element.id == selectedElementId) {
         resizeMaskStyle.zIndex = 1
         resizeMaskStyle.border = '1px solid #5f6368'
-        resizeMaskStyle.backgroundColor = 'rgba(0, 0, 0, 0.1)'
+        resizeMaskStyle.backgroundColor = 'rgba(0, 0, 0, 0.09)'
     }
 
     return (

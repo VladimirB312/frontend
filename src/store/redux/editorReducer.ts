@@ -1,7 +1,14 @@
 import {EditorType} from "../types.ts";
 import {getLocalEditor} from "../data.ts";
 import {ActionType, EditorAction} from "./actions.ts";
-import {addSlide, removeSlide, changeSlidePos, setBackgroundColor, setBackgroundImage} from "../slideFunctions.ts";
+import {
+    addSlide,
+    removeSlide,
+    changeSlidePos,
+    setBackgroundColor,
+    setBackgroundImage,
+    setBackgroundGradient
+} from "../slideFunctions.ts";
 import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelectionSlide} from "../selectionFunctions.ts";
 import {
     addImageElement,
@@ -35,6 +42,8 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
             return setBackgroundColor(editor, action)
         case ActionType.SET_BACKGROUND_IMAGE:
             return setBackgroundImage(editor, action)
+        case ActionType.SET_BACKGROUND_GRADIENT:
+            return setBackgroundGradient(editor, action)
 
         case ActionType.SET_SELECTION_SLIDE:
             return setSelectionSlide(editor, action)

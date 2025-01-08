@@ -27,6 +27,13 @@ const setBackgroundImage = (newBackground: ImageBackground) => {
     }
 }
 
+const setBackgroundGradient = (newBackground: GradientBackground) => {
+    return {
+        type: ActionType.SET_BACKGROUND_GRADIENT,
+        payload: newBackground
+    }
+}
+
 const changeSlidePosition = (targetSlide: string) => {
     return {
         type: ActionType.CHANGE_SLIDE_POSITION,
@@ -39,5 +46,6 @@ export {
     removeSlide,
     setBackgroundColor,
     setBackgroundImage,
+    setBackgroundGradient,
     changeSlidePosition
 }

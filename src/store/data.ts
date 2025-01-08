@@ -5,8 +5,10 @@ import {validate} from "../ajvValidator.ts";
 const slide1: SlideType = {
     id: "123123",
     background: {
-        color: "#64e6ac",
-        type: "solid"
+        type: "gradient",
+        direction: 'to right',
+        color1: '#00FF00',
+        color2: '#30578a'
     },
     objects: [
         {

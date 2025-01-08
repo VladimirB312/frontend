@@ -34,8 +34,45 @@
                         "type"
                     ],
                     "type": "object"
+                },
+                {
+                    "properties": {
+                        "color1": {
+                            "type": "string"
+                        },
+                        "color2": {
+                            "type": "string"
+                        },
+                        "direction": {
+                            "$ref": "#/definitions/GradientDirection"
+                        },
+                        "type": {
+                            "const": "gradient",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "color1",
+                        "color2",
+                        "direction",
+                        "type"
+                    ],
+                    "type": "object"
                 }
             ]
+        },
+        "GradientDirection": {
+            "enum": [
+                "to bottom",
+                "to left",
+                "to left bottom",
+                "to left top",
+                "to right",
+                "to right bottom",
+                "to right top",
+                "to top"
+            ],
+            "type": "string"
         },
         "ImageElement": {
             "allOf": [

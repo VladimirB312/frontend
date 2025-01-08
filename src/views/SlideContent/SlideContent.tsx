@@ -36,19 +36,24 @@ const SlideContent = ({
             >
                 <EmptySlide/>
             </div>)
-
     }
 
     const slideStyle: CSSProperties = {
-        backgroundColor: slide.background.type == 'solid'
-            ? slide.background.color
-            : '',
-        backgroundImage: slide.background.type == 'image'
-            ? `url(${slide.background.src}`
-            : '',
         width: `${SLIDE_WIDTH * scale}px`,
         height: `${SLIDE_HEIGHT * scale}px`,
 
+    }
+
+    if (slide.background.type == 'gradient') {
+        slideStyle.background = `linear-gradient(${slide.background.direction}, ${slide.background.color1}, ${slide.background.color2})`
+    }
+
+    if (slide.background.type == 'solid') {
+        slideStyle.backgroundColor = slide.background.color
+    }
+
+    if (slide.background.type == 'image') {
+        slideStyle.backgroundImage = `url(${slide.background.src}`
     }
 
     if (isSelected) {
