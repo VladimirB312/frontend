@@ -1,8 +1,8 @@
 import classes from './TextEdit.module.css'
 import {SlideType} from "../../store/types.ts";
 import {useAppActions} from "../hooks/useAppAction.ts";
-import React from "react";
 import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts";
+import {ChangeEvent} from "react";
 
 type TextEditProps = {
     slide: SlideType | null,
@@ -21,16 +21,16 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
         )
     }
 
-    const handleFontChange = (e) => {
+    const handleFontChange = (e: ChangeEvent<HTMLSelectElement>) => {
         changeTextFont(e.target.value)
     }
 
-    const handleFontSizeChange = (e) => {
+    const handleFontSizeChange = (e: ChangeEvent<HTMLSelectElement>) => {
         changeTextSize(e.target.value)
 
     }
 
-    const handleFontColorChange = (e) => {
+    const handleFontColorChange = (e: ChangeEvent<HTMLInputElement>) => {
         changeTextColor(e.target.value)
     }
 
@@ -42,6 +42,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
         <div className={classes.textEditBar + ' ' + classes.textEditorBarVisible}>
             <form>
                 <select
+                    title='Шрифт'
                     value={element.font}
                     onChange={e => handleFontChange(e)}
                     className={classes.fontFamilySelector}
@@ -56,6 +57,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
             </form>
             <form>
                 <select
+                    title='Размер шрифта'
                     value={`${element.textSize}px`}
                     onChange={e => handleFontSizeChange(e)}
                     className={classes.fontSizeSelector}
@@ -70,6 +72,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
             </form>
             <div className={classes.colorPickerWrapper}>
                 <input
+                    title='Цвет шрифта'
                     className={classes.colorPicker}
                     id='colorInput'
                     type='color'
@@ -78,6 +81,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
                 />
             </div>
             <button
+                title='По левому краю'
                 onClick={() => handleFontAlignChange('left')}
                 className={classes.alignButton}
             >
@@ -87,6 +91,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
                 </img>
             </button>
             <button
+                title='По центру'
                 onClick={() => handleFontAlignChange('center')}
                 className={classes.alignButton}
             >
@@ -96,6 +101,7 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
                 </img>
             </button>
             <button
+                title='По правому краю'
                 onClick={() => handleFontAlignChange('right')}
                 className={classes.alignButton}
             >

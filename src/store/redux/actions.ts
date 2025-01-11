@@ -1,4 +1,4 @@
-import {EditorType, UnsplashImageType} from "../types.ts"
+import {EditorType, GradientBackground, UnsplashImageType} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -29,6 +29,10 @@ enum ActionType {
     CHANGE_TEXT_COLOR = 'changeTextColor',
     CHANGE_TEXT_ALIGN = 'changeTextAlign',
     REMOVE_ELEMENT = 'removeElement',
+    MOVE_ELEMENT_FORWARD = 'moveElementForward',
+    MOVE_ELEMENT_BACKWARD = 'moveElementBackward',
+    SEND_ELEMENT_FORWARD = 'sendElementForward',
+    SEND_ELEMENT_BACKWARD = 'sendElementBackward',
 
     SET_EDITOR = 'setEditor',
     UNDO = 'undo',
@@ -155,6 +159,22 @@ type RemoveElement = {
     type: ActionType.REMOVE_ELEMENT
 }
 
+type MoveElementForward = {
+    type: ActionType.MOVE_ELEMENT_FORWARD
+}
+
+type MoveElementBackward = {
+    type: ActionType.MOVE_ELEMENT_BACKWARD
+}
+
+type SendElementForward = {
+    type: ActionType.SEND_ELEMENT_FORWARD
+}
+
+type SendElementBacward = {
+    type: ActionType.SEND_ELEMENT_BACKWARD
+}
+
 type SetEditorAction = {
     type: ActionType.SET_EDITOR,
     payload: EditorType,
@@ -205,6 +225,10 @@ type EditorAction =
     | ChangeTextSize
     | ChangeTextColor
     | ChangeTextAlign
+    | MoveElementForward
+    | MoveElementBackward
+    | SendElementForward
+    | SendElementBacward
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
@@ -234,6 +258,10 @@ export {
     type ChangeTextSize,
     type ChangeTextColor,
     type ChangeTextAlign,
+    type MoveElementForward,
+    type MoveElementBackward,
+    type SendElementForward,
+    type SendElementBacward,
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,

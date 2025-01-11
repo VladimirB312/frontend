@@ -79,6 +79,30 @@ const removeElement = () => {
     }
 }
 
+const moveElementForward = () => {
+    return {
+        type: ActionType.MOVE_ELEMENT_FORWARD
+    }
+}
+
+const moveElementBackward = () => {
+    return {
+        type: ActionType.MOVE_ELEMENT_BACKWARD
+    }
+}
+
+const sendElementBackward = () => {
+    return {
+        type: ActionType.SEND_ELEMENT_BACKWARD
+    }
+}
+
+const sendElementForward = () => {
+    return {
+        type: ActionType.SEND_ELEMENT_FORWARD
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -91,4 +115,8 @@ export {
     changeTextColor,
     changeTextAlign,
     removeElement,
+    moveElementForward,
+    moveElementBackward,
+    sendElementBackward,
+    sendElementForward,
 }

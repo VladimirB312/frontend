@@ -4,7 +4,14 @@ import {useAppActions} from "../hooks/useAppAction.ts";
 import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
 import {Preloader} from "../../components/Preloader/Preloader.tsx";
 import {Button} from "../../components/Button/Button.tsx";
-import {addImageIcon, arrowLeftIcon, arrowRightIcon, closeIcon, searchIcon} from "../../components/icons.ts";
+import {
+    addImageIcon,
+    arrowLeftIcon,
+    arrowRightIcon,
+    backgroundImageIcon,
+    closeIcon,
+    searchIcon
+} from "../../components/icons.ts";
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
@@ -13,7 +20,7 @@ type UnsplashWindowPropsType = {
 const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
     const [searchImg, setSearchImg] = useState("cats")
 
-    const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide} = useAppActions()
+    const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide,changeBackgroundFromUnsplash} = useAppActions()
     const externalImages = useExternalImagesSelector()
 
     const unsplashImages = externalImages?.images
@@ -38,6 +45,10 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
     const onAddImage = () => {
         addUnsplashImageToSlide()
         onCloseUnsplash()
+    }
+
+    const onChangeBackground = () => {
+        changeBackgroundFromUnsplash()
     }
 
     const onSetPagePrev = () => {
@@ -87,7 +98,7 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
                         onClick={onAddImage}
                         disabled={!unsplashImageSelectedId}
                         icon={addImageIcon}
-                        title={'Добавить картинку'}
+                        text={'Добавить на слайд'}
                     />
                     <Button
                         onClick={onSetPagePrev}
@@ -100,6 +111,12 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
                         disabled={nextButtonDisabled}
                         icon={arrowRightIcon}
                         title={'Вперед'}
+                    />
+                    <Button
+                        onClick={onChangeBackground}
+                        disabled={!unsplashImageSelectedId}
+                        icon={backgroundImageIcon}
+                        text={'Задать фон'}
                     />
                     <Button onClick={onCloseUnsplash}
                             icon={closeIcon}

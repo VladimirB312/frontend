@@ -15,10 +15,12 @@
 .modalWindow {
     padding: 10px;
     background-color: rgba(240, 240, 240, 0.8);
-    border-radius: 15px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 364px;
+    /*background-color: #d6dddd;*/
 }
 
 .controlButtons {
@@ -41,7 +43,7 @@
 .labelForImageInput {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 10px 20px 20px;
     cursor: pointer;
     height: 25px;
 }

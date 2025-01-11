@@ -9,11 +9,11 @@ import {useAppActions} from "../hooks/useAppAction.ts";
 import {usePresentationSelector} from "../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
 import {
-    addSlideIcon, backgroundIcon, deleteIcon,
+    addSlideIcon, backgroundIcon, bringForwardIcon, bringFrontIcon, deleteIcon,
     deleteSlideIcon,
     generatePdfIcon,
     redoIcon,
-    saveIcon,
+    saveIcon, sendBackwardIcon, sendToBackIcon,
     slideShowIcon, textAddIcon,
     undoIcon, unsplashIcon
 } from "../../components/icons.ts";
@@ -41,21 +41,24 @@ const TopPanel = ({
                       onOpenUnsplash
                   }: TopPanelProps) => {
 
-
     const navigate = useNavigate()
     const presentation = usePresentationSelector()
 
     const title = presentation.title
 
-    const {addSlide, removeSlide, renamePresentation, removeElement, addTextElement, undo, redo} = useAppActions()
-
-    const onAddSlide = () => {
-        addSlide()
-    }
-
-    const onRemoveSlide = () => {
-        removeSlide()
-    }
+    const {
+        addSlide,
+        removeSlide,
+        renamePresentation,
+        removeElement,
+        addTextElement,
+        moveElementForward,
+        moveElementBackward,
+        sendElementForward,
+        sendElementBackward,
+        undo,
+        redo
+    } = useAppActions()
 
     const onTitleChange: React.ChangeEventHandler = (event) => {
         renamePresentation((event.target as HTMLInputElement).value);
@@ -65,14 +68,6 @@ const TopPanel = ({
         if (slide) {
             setShowBackgroundModal(true)
         }
-    }
-
-    const onRemoveElement = () => {
-        removeElement()
-    }
-
-    const onAddTextElement = () => {
-        addTextElement()
     }
 
     const onSavePresentation = () => {
@@ -92,6 +87,15 @@ const TopPanel = ({
     const disabledSlideButton: boolean = !slide
 
     const disabledElementButton: boolean = !selectedElementId
+
+    const elementIndex = slide?.objects.findIndex(element => element.id == selectedElementId)
+
+    let disabledMoveForward = false
+    const disabledMoveBackward = !selectedElementId || elementIndex == 0
+
+    if (!selectedElementId || (slide && slide.objects.length - 1 == elementIndex)) {
+        disabledMoveForward = true
+    }
 
     return (
         <div className={classes.topPanel}>
@@ -116,12 +120,12 @@ const TopPanel = ({
                 <div className={classes.slidesControls}>
                     <Button
                         text={'Добавить слайд'}
-                        onClick={onAddSlide}
+                        onClick={addSlide}
                         icon={addSlideIcon}
                     />
                     <Button
                         text={'Удалить слайд'}
-                        onClick={onRemoveSlide}
+                        onClick={removeSlide}
                         disabled={disabledSlideButton}
                         icon={deleteSlideIcon}
                     />
@@ -147,7 +151,7 @@ const TopPanel = ({
                     />
                     <Button
                         text={'Добавить текст'}
-                        onClick={onAddTextElement}
+                        onClick={addTextElement}
                         disabled={disabledSlideButton}
                         icon={textAddIcon}
                     />
@@ -161,13 +165,37 @@ const TopPanel = ({
 
                     <Button
                         text={'Удалить элемент'}
-                        onClick={onRemoveElement}
+                        onClick={removeElement}
                         disabled={disabledElementButton}
                         icon={deleteIcon}
                     />
                     <TextEdit
                         slide={slide}
                         selectedElementId={selectedElementId}
+                    />
+                    <Button
+                        text={'Переместить вперед'}
+                        onClick={moveElementForward}
+                        disabled={disabledMoveForward}
+                        icon={bringForwardIcon}
+                    />
+                    <Button
+                        text={'Переместить назад'}
+                        onClick={moveElementBackward}
+                        disabled={disabledMoveBackward}
+                        icon={sendBackwardIcon}
+                    />
+                    <Button
+                        text={'На передний план'}
+                        onClick={sendElementForward}
+                        disabled={disabledMoveForward}
+                        icon={bringFrontIcon}
+                    />
+                    <Button
+                        text={'На задний план'}
+                        onClick={sendElementBackward}
+                        disabled={disabledMoveBackward}
+                        icon={sendToBackIcon}
                     />
                 </div>
 

@@ -20,7 +20,11 @@ import searchIcon from '../assets/search_icon.svg'
 import alignLeftIcon from '../assets/align_left_icon.svg'
 import alignRightIcon from '../assets/align_right_icon.svg'
 import alignCenterIcon from '../assets/align_center_icon.svg'
-
+import backgroundImageIcon from '../assets/background_icon.png'
+import bringForwardIcon from '../assets/bringforward_icon.svg'
+import bringFrontIcon from '../assets/bringtofront_icon.svg'
+import sendBackwardIcon from '../assets/sendbackward_icon.svg'
+import sendToBackIcon from '../assets/sendtoback_icon.svg'
 
 export {
     saveIcon,
@@ -44,5 +48,10 @@ export {
     searchIcon,
     alignLeftIcon,
     alignRightIcon,
-    alignCenterIcon
+    alignCenterIcon,
+    backgroundImageIcon,
+    bringForwardIcon,
+    bringFrontIcon,
+    sendBackwardIcon,
+    sendToBackIcon
 }

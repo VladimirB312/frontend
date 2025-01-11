@@ -24,7 +24,7 @@ const loadPresentation = (editor: EditorType, action: LoadPresentation): EditorT
         }
     }
 
-    alert("invalid json scheme from file", validate.errors)
+    alert("Invalid presentation format")
     return editor
 }
 

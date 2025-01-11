@@ -8,7 +8,8 @@ type ImageBackground = {
     type: 'image',
 }
 
-type GradientDirection = 'to top'
+type GradientDirection = 'none'
+    | 'to top'
     | 'to right top'
     | 'to right'
     | 'to right bottom'
@@ -94,6 +95,8 @@ type EditorType = {
 export type {
     ColorBackground,
     ImageBackground,
+    GradientBackground,
+    GradientDirection,
     Background,
     Position,
     Size,

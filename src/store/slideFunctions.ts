@@ -72,7 +72,7 @@ const removeSlide = (editor: EditorType): EditorType => {
     }
 }
 
-const changeSlidePos = (editor: EditorType, action: ChangeSlidePosition): EditorType => {
+const changeSlidePosition = (editor: EditorType, action: ChangeSlidePosition): EditorType => {
     const targetSlideId = action.payload
 
     if (!editor.selection?.selectedSlidesId || editor.selection?.selectedSlidesId.includes(targetSlideId)) {
@@ -85,11 +85,11 @@ const changeSlidePos = (editor: EditorType, action: ChangeSlidePosition): Editor
 
     return {
         ...editor,
-        presentation: changeAllSlidePosition(editor.presentation, sortedSelectedSlidesId, targetSlideId),
+        presentation: _changeSlidePosition(editor.presentation, sortedSelectedSlidesId, targetSlideId),
     }
 }
 
-const changeAllSlidePosition = (presentation: PresentationType, slidesId: string[], newSlideId: string) => {
+const _changeSlidePosition = (presentation: PresentationType, slidesId: string[], newSlideId: string) => {
     const slideIndex: number = presentation.slides.findIndex(slide => slide.id === slidesId[0]);
     if (slideIndex === -1) {
         return presentation;
@@ -143,7 +143,7 @@ const setBackgroundGradient = (editor: EditorType, action: SetBackgroundGradient
 export {
     addSlide,
     removeSlide,
-    changeSlidePos,
+    changeSlidePosition,
     setBackground,
     setBackgroundColor,
     setBackgroundImage,

@@ -4,7 +4,7 @@ import {ActionType, EditorAction} from "./actions.ts";
 import {
     addSlide,
     removeSlide,
-    changeSlidePos,
+    changeSlidePosition,
     setBackgroundColor,
     setBackgroundImage,
     setBackgroundGradient
@@ -16,7 +16,14 @@ import {
     changePosition,
     changeSize,
     removeElement,
-    changeTextValue, changeRect, changeTextFont, changeTextSize, changeTextColor, changeTextAlign
+    changeTextValue,
+    changeRect,
+    changeTextFont,
+    changeTextSize,
+    changeTextColor,
+    changeTextAlign,
+    moveElementForward,
+    moveElementBackward, sendElementBackward, sendElementForward
 } from "../elementFunctions.ts";
 import {
     renamePresentation,
@@ -37,7 +44,7 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
         case ActionType.REMOVE_SLIDE:
             return removeSlide(editor)
         case ActionType.CHANGE_SLIDE_POSITION:
-            return changeSlidePos(editor, action)
+            return changeSlidePosition(editor, action)
         case ActionType.SET_BACKGROUND_COLOR:
             return setBackgroundColor(editor, action)
         case ActionType.SET_BACKGROUND_IMAGE:
@@ -77,6 +84,14 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
             return changeTextAlign(editor, action)
         case ActionType.REMOVE_ELEMENT:
             return removeElement(editor)
+        case ActionType.MOVE_ELEMENT_FORWARD:
+            return moveElementForward(editor)
+        case ActionType.MOVE_ELEMENT_BACKWARD:
+            return moveElementBackward(editor)
+        case ActionType.SEND_ELEMENT_BACKWARD:
+            return sendElementBackward(editor)
+        case ActionType.SEND_ELEMENT_FORWARD:
+            return sendElementForward(editor)
 
         case ActionType.SET_EDITOR:
             return action.payload

@@ -4,7 +4,7 @@ import {
     AddImageElement,
     ChangeElementPosition,
     ChangeElementRect,
-    ChangeElementSize, ChangeTextAlign,
+    ChangeElementSize, ChangeTextAlign, ChangeTextColor, ChangeTextFont, ChangeTextSize,
     ChangeTextValue
 } from "./redux/actions.ts";
 import {calculatePosition} from "../utils/calculatePosition.ts";
@@ -220,6 +220,121 @@ const removeElement = (editor: EditorType): EditorType => {
     }
 }
 
+//Выше offsetIndex == -1, ниже offsetIndex == 1
+const changeIndexElement = (elements:  Array<TextElement | ImageElement>, elementId: string, offsetIndex: number) => {
+    const elementIndex = elements.findIndex(element => element.id == elementId)
+
+    if (elementIndex == elements.length - 1 && offsetIndex == 1) {
+        return elements
+    }
+
+    if (elementIndex == 0 && offsetIndex == -1) {
+        return elements
+    }
+
+    const newElements = [...elements]
+    const [movedElement] = newElements.splice(elementIndex, 1)
+    newElements.splice(elementIndex + offsetIndex, 0, movedElement)
+
+    return newElements
+}
+
+const moveElement = (editor: EditorType, offsetIndex: number): EditorType => {
+    if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
+        return editor
+    }
+
+    const elementId = editor.selection.selectedElementId
+    const selectedSlideId = editor.selection.activeSlideId
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(
+                slide => {
+                    if (slide.id !== selectedSlideId) {
+                        return slide;
+                    }
+
+                    return {
+                        ...slide,
+                        objects: changeIndexElement(slide.objects, elementId, offsetIndex)
+                    }
+                })
+        },
+        selection: {
+            ...editor.selection,
+        }
+    }
+}
+
+const moveElementForward = (editor: EditorType): EditorType => {
+    return moveElement(editor, 1)
+}
+
+const moveElementBackward = (editor: EditorType): EditorType => {
+    return moveElement(editor, -1)
+}
+
+const changeElementIndexToStart = (elements:  Array<TextElement | ImageElement>, elementId: string) => {
+    const elementIndex = elements.findIndex(element => element.id == elementId)
+
+    const newElements = [...elements]
+    const [movedElement] = newElements.splice(elementIndex, 1)
+    newElements.unshift(movedElement)
+
+    return newElements
+}
+
+const changeElementIndexToEnd  = (elements:  Array<TextElement | ImageElement>, elementId: string) => {
+    const elementIndex = elements.findIndex(element => element.id == elementId)
+
+    const newElements = [...elements]
+    const [movedElement] = newElements.splice(elementIndex, 1)
+    newElements.push(movedElement)
+
+    return newElements
+}
+
+const sendElement = (editor: EditorType, changeIndex: (elements:  Array<TextElement | ImageElement>, elementId: string) => Array<TextElement | ImageElement>): EditorType => {
+    if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
+        return editor
+    }
+
+    const elementId = editor.selection.selectedElementId
+    const selectedSlideId = editor.selection.activeSlideId
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(
+                slide => {
+                    if (slide.id !== selectedSlideId) {
+                        return slide;
+                    }
+
+                    return {
+                        ...slide,
+                        objects: changeIndex(slide.objects,elementId)
+                    }
+                })
+        },
+        selection: {
+            ...editor.selection,
+        }
+    }
+}
+
+const sendElementBackward = (editor: EditorType): EditorType => {
+    return sendElement(editor, changeElementIndexToStart)
+}
+
+const sendElementForward = (editor: EditorType): EditorType => {
+    return sendElement(editor, changeElementIndexToEnd);
+}
+
 const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorType => {
     const newText = action.payload;
 
@@ -326,6 +441,7 @@ const changeTextColor = (editor: EditorType, action: ChangeTextColor): EditorTyp
 
 const changeTextAlign = (editor: EditorType, action: ChangeTextAlign): EditorType => {
     const newTextAlign = action.payload
+
     return {
         ...editor,
         presentation: {
@@ -360,5 +476,9 @@ export {
     changeTextFont,
     changeTextSize,
     changeTextColor,
-    changeTextAlign
+    changeTextAlign,
+    moveElementForward,
+    moveElementBackward,
+    sendElementBackward,
+    sendElementForward
 }

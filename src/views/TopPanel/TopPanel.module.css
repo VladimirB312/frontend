@@ -14,26 +14,26 @@
 .presentationToolbar {
     padding: 4px;
     display: flex;
-    gap: 5px;
+    gap: 8px;
     height: calc(var(--topPanelHeight) / 3);
 }
 
 .slidesToolbar {
     padding: 4px;
     display: flex;
-    gap: 5px;
+    gap: 8px;
     height: calc(var(--topPanelHeight) / 3);
 }
 
 .slidesControls {
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
 
 .elementControls {
     margin: 0 auto;
     justify-content: center;
     display: flex;
-    gap: 5px;
+    gap: 8px;
     position: relative;
 }
