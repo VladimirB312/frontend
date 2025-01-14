@@ -31,7 +31,6 @@ import {
 } from "../presentationFunctions.ts";
 import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 
-
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
     switch (action.type) {
         case ActionType.RENAME_PRESENTATION:

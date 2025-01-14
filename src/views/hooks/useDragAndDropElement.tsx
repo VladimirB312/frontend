@@ -1,8 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {SetStateAction, useEffect, useRef, useState} from "react";
 import {ImageElement, Position, TextElement} from "../../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
-const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, element: TextElement | ImageElement, scale: number): Position => {
+const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
+                               element: TextElement | ImageElement,
+                               scale: number,
+                               setTextEditMode?: React.Dispatch<SetStateAction<boolean>>,
+): Position => {
     const [dndPosition, setDndPosition] = useState<Position | null>(null)
     const [isDragging, setIsDragging] = useState(false)
     const [startPos, setStartPos] = useState<Position | null>(null)
@@ -13,6 +17,9 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, elem
 
     const clearTextArea = () => {
         setIsTextEditing(false)
+        if (setTextEditMode) {
+            setTextEditMode(false)
+        }
         if (textAreaRef.current) {
             textAreaRef.current.style.cursor = ''
             textAreaRef.current.setSelectionRange(textAreaRef.current.selectionStart, textAreaRef.current.selectionStart);
@@ -28,6 +35,9 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, elem
 
             if (elementRef.current && elementRef.current.contains(e.target as Node) && textAreaElement) {
                 setIsTextEditing(true)
+                if (setTextEditMode) {
+                    setTextEditMode(true)
+                }
                 textAreaRef.current = textAreaElement
                 textAreaRef.current.readOnly = false;
                 textAreaRef.current.style.cursor = 'text'
@@ -68,7 +78,7 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, elem
             elementRef.current.style.pointerEvents = 'none'
 
             const delta = {x: e.pageX - startPos.x, y: e.pageY - startPos.y}
-            const newPosition = {x: dndPosition.x + delta.x / scale , y: dndPosition.y + delta.y / scale }
+            const newPosition = {x: dndPosition.x + delta.x / scale, y: dndPosition.y + delta.y / scale}
 
             setDndPosition(newPosition)
             setStartPos({x: e.pageX, y: e.pageY})
@@ -112,4 +122,3 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>, elem
 }
 
 export {useDragAndDropElement}
-

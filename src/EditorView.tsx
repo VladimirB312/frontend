@@ -24,11 +24,12 @@ const EditorView = () => {
     const [showBackgroundModal, setShowBackgroundModal] = React.useState(false)
     const [showUnsplash, setShowUnsplash] = useState(false)
     const [showPreviewSlides, setShowPreviewSlides] = useState(false)
+    const [textEditMode, setTextEditMode] = useState(false)
 
     const {undoDisabled, redoDisabled} = useUndoRedo(showBackgroundModal, showUnsplash, showPreviewSlides)
     const selectedElementId = selection?.selectedElementId ?? null
 
-    useDelete(showBackgroundModal, showUnsplash, showPreviewSlides)
+    useDelete(showBackgroundModal, showUnsplash, showPreviewSlides, textEditMode)
 
     return (
         <div>
@@ -54,6 +55,7 @@ const EditorView = () => {
                         : activeSlide
                     }
                     selectedElementId={selectedElementId}
+                    setTextEditMode={setTextEditMode}
                 />
             </div>
             {showPreviewSlides && createPortal(

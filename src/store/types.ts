@@ -49,7 +49,7 @@ type TextElement = SlideElement & {
     textSize: number,
     font: string,
     color: string,
-    align: string,
+    align: 'left' | 'center' | 'right',
 };
 
 type ImageElement = SlideElement & { type: 'image', src: string };
@@ -69,7 +69,7 @@ type SelectionType = {
     activeSlideId?: string | null,
     selectedSlidesId?: string[] | null,
     selectedElementId?: string | null,
-    type?: 'element' | 'slide' | null
+    type?: 'element' | 'slide' | 'textEdit' | null
 }
 
 type UnsplashImageType = {

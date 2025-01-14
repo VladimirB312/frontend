@@ -1,6 +1,6 @@
 import classes from './SlideContent.module.css';
 import {ImageElement, SlideType, TextElement} from "../../store/types.ts";
-import {CSSProperties} from "react";
+import React, {CSSProperties, SetStateAction} from "react";
 import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
 import {EmptySlide} from "./EmptySlide/EmptySlide.tsx";
 
@@ -14,6 +14,7 @@ type SlideProps = {
     className?: string,
     elementStyle?: string,
     selectedElementId?: string | null,
+    setTextEditMode?: React.Dispatch<SetStateAction<boolean>>,
 }
 
 const SlideContent = ({
@@ -23,6 +24,7 @@ const SlideContent = ({
                           isSelected,
                           elementStyle,
                           selectedElementId,
+                          setTextEditMode,
                       }: SlideProps) => {
     if (!slide) {
         const emptyStyle: CSSProperties = {
@@ -74,6 +76,7 @@ const SlideContent = ({
                                           selectedElementId={selectedElementId}
                                           scale={scale}
                                           elementStyle={elementStyle}
+                                          setTextEditMode={setTextEditMode}
                 />
             })}
         </div>

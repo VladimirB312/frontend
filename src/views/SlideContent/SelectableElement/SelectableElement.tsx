@@ -2,7 +2,7 @@ import classes from './SelectableElement.module.css'
 import {ImageElement, TextElement} from "../../../store/types.ts";
 import {TextComponent} from "../TextComponent/TextComponent.tsx";
 import {ImageComponent} from "../ImageComponent/ImageComponent.tsx";
-import {CSSProperties, RefObject, useRef} from "react";
+import React, {CSSProperties, RefObject, SetStateAction, useRef} from "react";
 import {GhostElement} from "./GhostElement.tsx";
 
 type SelectableElementProps = {
@@ -11,6 +11,7 @@ type SelectableElementProps = {
     scale: number,
     elementStyle?: string,
     id: string,
+    setTextEditMode?: React.Dispatch<SetStateAction<boolean>>,
 }
 
 const SelectableElement = ({
@@ -18,7 +19,8 @@ const SelectableElement = ({
                                scale = 1,
                                elementStyle,
                                selectedElementId,
-                               id
+                               id,
+                               setTextEditMode
                            }: SelectableElementProps) => {
     const elementRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
 
@@ -63,6 +65,7 @@ const SelectableElement = ({
                           elementRef={elementRef}
                           scale={scale}
                           selectedElementId={selectedElementId}
+                          setTextEditMode={setTextEditMode}
             />
         </div>
     )

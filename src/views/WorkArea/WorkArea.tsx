@@ -1,13 +1,14 @@
 import {SlideType} from "../../store/types.ts";
 import classes from './WorkArea.module.css'
 import {SlideContent, SLIDE_HEIGHT, SLIDE_WIDTH} from "../SlideContent/SlideContent.tsx";
-import React, {RefObject, useEffect, useRef, useState} from "react";
+import React, {RefObject, SetStateAction, useEffect, useRef, useState} from "react";
 
 const WORK_AREA_PADDING = 20
 
 type WorkAreaProps = {
     slide?: SlideType | null,
     selectedElementId: string | null,
+    setTextEditMode: React.Dispatch<SetStateAction<boolean>>,
 }
 
 const useSlideScale = (elementRef: React.RefObject<HTMLDivElement>): number | null => {
@@ -43,6 +44,7 @@ const useSlideScale = (elementRef: React.RefObject<HTMLDivElement>): number | nu
 const WorkArea = ({
                       slide,
                       selectedElementId,
+                      setTextEditMode
                   }: WorkAreaProps) => {
 
     const workAreaRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
@@ -58,7 +60,9 @@ const WorkArea = ({
                 slide={slide}
                 isSelected={false}
                 selectedElementId={selectedElementId}
-                elementStyle={classes.slide}/>
+                elementStyle={classes.slide}
+                setTextEditMode={setTextEditMode}
+            />
         </div>
     )
 }

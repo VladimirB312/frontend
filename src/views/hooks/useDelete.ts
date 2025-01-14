@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {useAppActions} from "./useAppAction.ts";
 import {useSelectionSelector} from "./useAppSelector.ts";
 
-const useDelete = (showBackgroundModal: boolean, showUnsplash: boolean, showPreviewSlides: boolean) => {
+const useDelete = (showBackgroundModal: boolean, showUnsplash: boolean, showPreviewSlides: boolean, textEditMode: boolean) => {
     const {removeSlide,removeElement} = useAppActions()
     const selection = useSelectionSelector()
     const isActive = selection?.activeSlideId
@@ -19,7 +19,7 @@ const useDelete = (showBackgroundModal: boolean, showUnsplash: boolean, showPrev
                 return
             }
 
-            if (isSelected && selectionType == 'element') {
+            if (isSelected && selectionType == 'element' && !textEditMode) {
                 removeElement()
                 return
             }

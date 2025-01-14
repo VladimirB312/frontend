@@ -1,7 +1,7 @@
 import classes from "./GhostElement.module.css";
 import {ImageElement, TextElement} from "../../../store/types.ts";
 import {useResize} from "../../hooks/useResize.tsx";
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, SetStateAction} from "react";
 import {useDragAndDropElement} from "../../hooks/useDragAndDropElement.tsx";
 import {Resizers} from "./Resizers.tsx";
 
@@ -10,6 +10,7 @@ type GhostElementProps = {
     elementRef: React.RefObject<HTMLDivElement>,
     selectedElementId?: string | null,
     scale: number,
+    setTextEditMode?: React.Dispatch<SetStateAction<boolean>>,
 }
 
 const GhostElement = ({
@@ -17,10 +18,11 @@ const GhostElement = ({
                           scale = 1,
                           selectedElementId,
                           elementRef,
+                          setTextEditMode,
                       }: GhostElementProps) => {
 
     const {onResize, dndRect: dndRect} = useResize()
-    const elementPosition = useDragAndDropElement(elementRef, element, scale)
+    const elementPosition = useDragAndDropElement(elementRef, element, scale, setTextEditMode)
 
     let resizeWidth = element.size.width
     let resizeHeight = element.size.height
