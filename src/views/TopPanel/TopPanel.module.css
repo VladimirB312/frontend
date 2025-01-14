@@ -13,16 +13,14 @@
 
 .toolbarWrapper {
     height: calc(var(--topPanelHeight) / 3 * 2);
+    display: flex;
 }
 
 .presentationToolbar {
-    padding: 4px;
-    display: flex;
-    gap: 8px;
-    height: calc(var(--topPanelHeight) / 3);
+    /*padding: 4px;*/
 }
 
-.slidesToolbar {
+.presentationControls {
     padding: 4px;
     display: flex;
     gap: 8px;
@@ -30,14 +28,31 @@
 }
 
 .slidesControls {
+    padding: 4px;
     display: flex;
     gap: 8px;
+    height: calc(var(--topPanelHeight) / 3);
+}
+
+.elementToolbar {
+    margin: 0 auto;
+    justify-content: center;
+    /*display: flex;*/
+    gap: 8px;
+
+}
+
+.layerControls {
+    padding: 4px;
+    display: flex;
+    gap: 8px;
+    height: calc(var(--topPanelHeight) / 3);
 }
 
 .elementControls {
-    margin: 0 auto;
-    justify-content: center;
+    padding: 4px;
     display: flex;
     gap: 8px;
+    height: calc(var(--topPanelHeight) / 3);
     position: relative;
 }
