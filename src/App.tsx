@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from "react-router";
-import EditorView from "./EditorView.tsx";
-import PlayerView from "./PlayerView.tsx";
+import {EditorView} from "./EditorView.tsx";
+import {PlayerView} from "./PlayerView.tsx";
 
 const App = () => {
     return (

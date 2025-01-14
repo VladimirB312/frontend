@@ -11,6 +11,10 @@
     height: calc(var(--topPanelHeight) / 3);
 }
 
+.toolbarWrapper {
+    height: calc(var(--topPanelHeight) / 3 * 2);
+}
+
 .presentationToolbar {
     padding: 4px;
     display: flex;

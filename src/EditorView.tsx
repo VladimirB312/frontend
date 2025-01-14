@@ -79,4 +79,4 @@ const EditorView = () => {
     )
 }
 
-export default EditorView
+export {EditorView}

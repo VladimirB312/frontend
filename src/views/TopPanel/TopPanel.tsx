@@ -100,6 +100,9 @@ const TopPanel = ({
     return (
         <div className={classes.topPanel}>
             <Title value={title} onChange={onTitleChange}/>
+            {/*<div className={classes.toolbarWrapper}>*/}
+
+            {/*</div>*/}
             <div className={classes.presentationToolbar}>
                 <Button
                     text={'Сохранить'}

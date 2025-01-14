@@ -17,7 +17,7 @@ const getStartSlideIndex = (slides: SlideType[],  selection: SelectionType | nul
     return startSlideIndex
 }
 
-const SlidesPreview = () => {
+const PlayerView = () => {
     const slides = useSlidesSelector()
     const selection = useSelectionSelector()
 
@@ -46,4 +46,4 @@ const SlidesPreview = () => {
     )
 }
 
-export default SlidesPreview;
+export {PlayerView};
