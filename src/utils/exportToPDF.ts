@@ -1,6 +1,7 @@
 import {jsPDF} from "jspdf";
 import {PresentationType} from "../store/types.ts";
 import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
+import {createGradient} from "./createGradient.ts";
 
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
@@ -25,12 +26,12 @@ const exportToPdf = (presentation: PresentationType) => {
         if (slide.background.type == 'image') {
             doc.addImage(slide.background.src, 0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, '', 'FAST')
         }
-        // if (slide.background.type == 'gradient') {
-        //     const gradientImage = createGradient(PDF_DOC_WIDTH, PDF_DOC_HEIGHT)
-        //     if (gradientImage) {
-        //         doc.addImage(gradientImage, 0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, '', 'FAST')
-        //     }
-        // }
+        if (slide.background.type == 'gradient') {
+            const gradientImage = createGradient(PDF_DOC_WIDTH, PDF_DOC_HEIGHT, slide.background)
+            if (gradientImage) {
+                doc.addImage(gradientImage, 0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, '', 'FAST')
+            }
+        }
 
         slide.objects.map((element) => {
             if (element.type == 'text') {

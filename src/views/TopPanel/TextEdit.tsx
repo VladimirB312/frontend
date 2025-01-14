@@ -63,11 +63,15 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
                     className={classes.fontSizeSelector}
                 >
                     <option disabled>Размер</option>
+                    <option value='8px'>8px</option>
                     <option value='12px'>12px</option>
                     <option value='16px'>16px</option>
                     <option value='20px'>20px</option>
                     <option value='24px'>24px</option>
                     <option value='30px'>30px</option>
+                    <option value='36px'>36px</option>
+                    <option value='48px'>48px</option>
+                    <option value='60px'>60px</option>
                 </select>
             </form>
             <div className={classes.colorPickerWrapper}>
