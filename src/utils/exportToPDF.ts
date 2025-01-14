@@ -1,7 +1,11 @@
 import {jsPDF} from "jspdf";
 import {PresentationType} from "../store/types.ts";
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
 import {createGradient} from "./createGradient.ts";
+import './fontsForJsPDF/arial-normal.js'
+import './fontsForJsPDF/tahoma-normal.js'
+import './fontsForJsPDF/Verdana-normal.js'
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../constants/slideSize.ts";
+import {getFont} from "./getFont.ts";
 
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
@@ -17,6 +21,7 @@ const exportToPdf = (presentation: PresentationType) => {
         format: [PDF_DOC_WIDTH, PDF_DOC_HEIGHT],
         hotfixes: ['px_scaling'],
     });
+
 
     slides.map((slide, index, arr) => {
         if (slide.background.type == 'solid') {
@@ -36,8 +41,8 @@ const exportToPdf = (presentation: PresentationType) => {
         slide.objects.map((element) => {
             if (element.type == 'text') {
                 doc.setFontSize(element.textSize * scale * doc.internal.scaleFactor)
-                doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'}
-                )
+                doc.setFont(getFont(element.font))
+                doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'})
             }
             if (element.type == 'image') {
                 doc.addImage(

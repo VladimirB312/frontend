@@ -1,4 +1,4 @@
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../views/SlideContent/SlideContent.tsx";
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../constants/slideSize.ts";
 
 const calculatePosition = (height: number, width: number): {
     imageHeight: number,

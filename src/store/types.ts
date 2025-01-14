@@ -43,13 +43,15 @@ type SlideElement = {
     size: Size,
 }
 
+type AlignType = 'left' | 'center' | 'right'
+
 type TextElement = SlideElement & {
     type: 'text',
     value: string,
     textSize: number,
     font: string,
     color: string,
-    align: 'left' | 'center' | 'right',
+    align: AlignType,
 };
 
 type ImageElement = SlideElement & { type: 'image', src: string };
@@ -102,6 +104,7 @@ export type {
     Size,
     SlideElement,
     TextElement,
+    AlignType,
     ImageElement,
     SlideType,
     PresentationType,

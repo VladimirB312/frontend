@@ -1,4 +1,4 @@
-import {EditorType, GradientBackground, UnsplashImageType} from "../types.ts"
+import {AlignType, EditorType, GradientBackground, UnsplashImageType} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -152,7 +152,7 @@ type ChangeTextColor = {
 
 type ChangeTextAlign = {
     type: ActionType.CHANGE_TEXT_ALIGN,
-    payload: string,
+    payload: AlignType,
 }
 
 type RemoveElement = {

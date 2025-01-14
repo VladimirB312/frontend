@@ -3,6 +3,7 @@ import {SlideType} from "../../store/types.ts";
 import {useAppActions} from "../hooks/useAppAction.ts";
 import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts";
 import {ChangeEvent} from "react";
+import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../../constants/fonts.ts";
 
 type TextEditProps = {
     slide: SlideType | null,
@@ -48,11 +49,11 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
                     className={classes.fontFamilySelector}
                 >
                     <option disabled>Шрифт</option>
-                    <option value='Arial, sans-serif'>Arial</option>
-                    <option value='Verdana, sans-serif'>Verdana</option>
-                    <option value='Helvetica, sans-serif'>Helvetica</option>
-                    <option value='Tahoma, sans-serif'>Tahoma</option>
-                    <option value='Times New Roman, serif'>Times New Roman</option>
+                    <option value={ARIAL}>Arial</option>
+                    <option value={VERDANA}>Verdana</option>
+                    <option value={HELVETICA}>Helvetica</option>
+                    <option value={TAHOMA}>Tahoma</option>
+                    <option value={TIMES_NEW_ROMAN}>Times New Roman</option>
                 </select>
             </form>
             <form>
