@@ -3,4 +3,4 @@ import schema from "./schema.json"
 
 const ajv = new Ajv({allErrors: true})
 
-export const validate = ajv.compile(schema)
+export const validatePresentation = ajv.compile(schema)

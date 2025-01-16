@@ -1,6 +1,6 @@
 import {EditorType} from "./types.ts";
 import {LoadPresentation, RenamePresentation} from "./redux/actions.ts";
-import {validate} from "../ajvValidator.ts";
+import {validatePresentation} from "../ajvValidator.ts";
 
 const renamePresentation = (editor: EditorType, action: RenamePresentation): EditorType => {
     return {
@@ -14,13 +14,19 @@ const renamePresentation = (editor: EditorType, action: RenamePresentation): Edi
 
 const loadPresentation = (editor: EditorType, action: LoadPresentation): EditorType => {
     const loadedPresentation = action.payload
-    const valid = validate(loadedPresentation)
+    const isValid = validatePresentation(loadedPresentation)
 
-    if (loadedPresentation && valid) {
+    if (loadedPresentation && isValid) {
+        const selectedSlide = loadedPresentation.slides.length ? loadedPresentation.slides[0].id : null
+
         return {
             ...editor,
             presentation: loadedPresentation,
-            selection: null,
+            selection: {
+                selectedElementId: null,
+                selectedSlidesId: selectedSlide ? [selectedSlide] : null,
+                activeSlideId: selectedSlide
+            },
         }
     }
 

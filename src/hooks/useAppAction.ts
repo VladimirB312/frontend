@@ -1,6 +1,6 @@
 // Выведение типов `RootState` и `AppDispatch` из хранилища
 import { useDispatch } from 'react-redux'
-import ActionCreators from '../../store/redux/actionCreators'
+import ActionCreators from '../store/redux/actionCreators.ts'
 import { bindActionCreators } from 'redux'
 
 const useAppActions = () => {

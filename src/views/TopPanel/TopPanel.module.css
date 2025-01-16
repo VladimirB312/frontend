@@ -12,12 +12,8 @@
 }
 
 .toolbarWrapper {
-    height: calc(var(--topPanelHeight) / 3 * 2);
+    /*height: calc(var(--topPanelHeight) / 3 * 2);*/
     display: flex;
-}
-
-.presentationToolbar {
-    /*padding: 4px;*/
 }
 
 .presentationControls {
@@ -37,9 +33,7 @@
 .elementToolbar {
     margin: 0 auto;
     justify-content: center;
-    /*display: flex;*/
     gap: 8px;
-
 }
 
 .layerControls {

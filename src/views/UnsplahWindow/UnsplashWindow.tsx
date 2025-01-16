@@ -1,7 +1,7 @@
 import classes from './UnsplashWindow.module.css'
 import {useEffect, useState} from "react";
-import {useAppActions} from "../hooks/useAppAction.ts";
-import {useExternalImagesSelector} from "../hooks/useAppSelector.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
+import {useExternalImagesSelector} from "../../hooks/useAppSelector.ts";
 import {Preloader} from "../../components/Preloader/Preloader.tsx";
 import {Button} from "../../components/Button/Button.tsx";
 import {

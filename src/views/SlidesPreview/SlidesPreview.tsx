@@ -1,11 +1,11 @@
 import classes from './SlidesPreview.module.css'
 import {SlideContent} from "../SlideContent/SlideContent.tsx";
-import {usePresentationSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
+import {usePresentationSelector, useSlidesSelector} from "../../hooks/useAppSelector.ts";
 import {useState} from "react";
 import {Button} from "../../components/Button/Button.tsx";
 import {exportToPdf} from "../../utils/exportToPDF.ts";
 import {arrowLeftIcon, arrowRightIcon, closeIcon, generatePdfIcon} from "../../components/icons.ts";
-import {useWindowResize} from "../hooks/useWindowResize.tsx";
+import {useWindowResize} from "../../hooks/useWindowResize.tsx";
 import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts";
 
 type SlidesPreviewType = {

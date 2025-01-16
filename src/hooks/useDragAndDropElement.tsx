@@ -1,5 +1,5 @@
 import React, {SetStateAction, useEffect, useRef, useState} from "react";
-import {ImageElement, Position, TextElement} from "../../store/types.ts";
+import {ImageElement, Position, TextElement} from "../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
 const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,

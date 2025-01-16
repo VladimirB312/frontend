@@ -1,7 +1,7 @@
 import classes from './TextComponent.module.css'
 import {TextElement} from "../../../store/types.ts";
 import React, {CSSProperties} from "react";
-import {useAppActions} from "../../hooks/useAppAction.ts";
+import {useAppActions} from "../../../hooks/useAppAction.ts";
 
 type TextProps = {
     element: TextElement,

@@ -1,8 +1,9 @@
 import classes from './LoadPresentation.module.css'
-import {useRef} from "react";
-import {useAppActions} from "../../hooks/useAppAction.ts";
+import React, {useRef} from "react";
+import {useAppActions} from "../../../hooks/useAppAction.ts";
 import {PresentationType} from "../../../store/types.ts";
 import {loadIcon} from "../../../components/icons.ts";
+import {validatePresentation} from "../../../ajvValidator.ts";
 
 const LoadPresentation = () => {
     const inputRef = useRef<HTMLInputElement>(null)
@@ -21,18 +22,27 @@ const LoadPresentation = () => {
         const reader = new FileReader();
 
         reader.onload = e => {
-            if (typeof e.target?.result === "string") {
-                const data: PresentationType | null = JSON.parse(e.target.result)
-                if (!data) {
+            try {
+                if (typeof e.target?.result === "string") {
+                    const data: PresentationType = JSON.parse(e.target.result)
+                    const isValid = validatePresentation(data)
+                    if (!isValid) {
+                        return
+                    }
+
+                    loadPresentation(data)
+                } else {
+                    alert('Ошибка при загрузке презентации.')
                     return
                 }
-
-                loadPresentation(data)
+            } catch (error) {
+                console.log(error)
+                alert('Ошибка при загрузке презентации.')
             }
         }
 
         reader.onerror = (e) => {
-            console.error('Ошибка FileReader:', e);    // Обработка ошибки
+            console.error('Ошибка FileReader:', e);
         }
 
         reader.readAsText(file)

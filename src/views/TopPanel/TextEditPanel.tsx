@@ -1,6 +1,6 @@
-import classes from './TextEdit.module.css'
+import classes from './TextEditPanel.module.css'
 import {SlideType} from "../../store/types.ts";
-import {useAppActions} from "../hooks/useAppAction.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
 import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts";
 import {ChangeEvent} from "react";
 import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../../constants/fonts.ts";
@@ -10,7 +10,7 @@ type TextEditProps = {
     selectedElementId: string | null,
 }
 
-const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
+const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
     const {changeTextFont, changeTextSize, changeTextColor, changeTextAlign} = useAppActions()
 
     const element = slide?.objects.find(el => el.id == selectedElementId)
@@ -120,4 +120,4 @@ const TextEdit = ({slide, selectedElementId}: TextEditProps) => {
     )
 }
 
-export {TextEdit}
+export {TextEditPanel}

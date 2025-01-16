@@ -5,8 +5,8 @@ import React, {SetStateAction} from "react";
 import {DownloadImage} from "./CustomButtons/DownloadImage.tsx";
 import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./CustomButtons/LoadPresentation.tsx";
-import {useAppActions} from "../hooks/useAppAction.ts";
-import {usePresentationSelector} from "../hooks/useAppSelector.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
+import {usePresentationSelector} from "../../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
 import {
     addSlideIcon, backgroundIcon, bringForwardIcon, bringFrontIcon, deleteIcon,
@@ -17,7 +17,7 @@ import {
     slideShowIcon, textAddIcon,
     undoIcon, unsplashIcon
 } from "../../components/icons.ts";
-import {TextEdit} from "./TextEdit.tsx";
+import {TextEditPanel} from "./TextEditPanel.tsx";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -203,7 +203,7 @@ const TopPanel = ({
                             disabled={disabledElementButton}
                             icon={deleteIcon}
                         />
-                        <TextEdit
+                        <TextEditPanel
                             slide={slide}
                             selectedElementId={selectedElementId}
                         />

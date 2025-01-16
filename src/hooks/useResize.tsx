@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ImageElement, Position, TextElement} from "../../store/types.ts";
+import {ImageElement, Position, TextElement} from "../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
 const MIN_ELEMENT_SIZE = 15;

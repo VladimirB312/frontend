@@ -1,7 +1,7 @@
 import {ImageElement, TextElement} from "../../../store/types.ts";
 import React from "react";
 import classes from "./Resizers.module.css";
-import {Direction} from "../../hooks/useResize.tsx";
+import {Direction} from "../../../hooks/useResize.tsx";
 
 type ResizersProps = {
     element: TextElement | ImageElement,

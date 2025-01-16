@@ -1,6 +1,6 @@
 import classes from "./PlayerControls.module.css";
 import {Button} from "../../components/Button/Button.tsx";
-import {useSlidesSelector} from "../hooks/useAppSelector.ts";
+import {useSlidesSelector} from "../../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
 import {useEffect} from "react";
 import {SlideType} from "../../store/types.ts";

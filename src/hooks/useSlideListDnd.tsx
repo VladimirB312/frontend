@@ -1,5 +1,5 @@
 import {RefObject, useEffect, useState} from "react";
-import {Position, SelectionType} from "../../store/types.ts";
+import {Position, SelectionType} from "../store/types.ts";
 import {useAppActions} from "./useAppAction.ts";
 
 const getSlideId = (node: Element): string | null => {

@@ -1,4 +1,4 @@
-import {RootState, TDispatch} from "../../views/hooks/useAppSelector.ts";
+import {RootState, TDispatch} from "../../hooks/useAppSelector.ts";
 import {addImageElement} from "../redux/elementActionCreators.ts";
 import {fetchImage} from "../../utils/fetchImage.ts";
 import {convertToBase64} from "../../utils/convertToBase64.ts";

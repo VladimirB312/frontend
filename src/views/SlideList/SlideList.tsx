@@ -1,8 +1,8 @@
 import classes from './SlideList.module.css'
 import {SelectableSlide} from "./SelectableSlide.tsx";
 import {CSSProperties, useRef, } from "react";
-import {useSelectionSelector, useSlidesSelector} from "../hooks/useAppSelector.ts";
-import {useSlideListDnd} from "../hooks/useSlideListDnd.tsx";
+import {useSelectionSelector, useSlidesSelector} from "../../hooks/useAppSelector.ts";
+import {useSlideListDnd} from "../../hooks/useSlideListDnd.tsx";
 
 const SLIDE_PREVIEW_SCALE = 0.2;
 

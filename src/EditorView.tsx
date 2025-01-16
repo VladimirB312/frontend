@@ -7,10 +7,10 @@ import React, {useState} from "react";
 import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
 import {createPortal} from "react-dom";
 import {SlidesPreview} from "./views/SlidesPreview/SlidesPreview.tsx";
-import {usePresentationSelector, useSelectionSelector} from "./views/hooks/useAppSelector.ts";
-import {useUndoRedo} from "./views/hooks/useUndoRedo.ts";
+import {usePresentationSelector, useSelectionSelector} from "./hooks/useAppSelector.ts";
+import {useUndoRedo} from "./hooks/useUndoRedo.ts";
 import {BackgroundChangeModal} from "./views/BackgroundChangeModal/BackgroundChangeModal.tsx";
-import {useDelete} from "./views/hooks/useDelete.ts";
+import {useDelete} from "./hooks/useDelete.ts";
 
 const EditorView = () => {
     const presentation = usePresentationSelector()

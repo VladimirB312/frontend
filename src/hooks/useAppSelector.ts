@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useSelector } from "react-redux"
-import {undoableEditorReducer} from "../../store/redux/unduableEditor.ts";
+import {undoableEditorReducer} from "../store/redux/unduableEditor.ts";
 import {ThunkDispatch} from "redux-thunk";
 import {Action} from "redux";
 

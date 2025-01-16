@@ -1,6 +1,6 @@
 import {PresentationType, SlideType} from "./types.ts";
 import {EditorType} from "./types.ts";
-import {validate} from "../ajvValidator.ts";
+import {validatePresentation} from "../ajvValidator.ts";
 
 const slide1: SlideType = {
     id: "123123",
@@ -83,7 +83,7 @@ const getLocalEditor = () : EditorType => {
     }
 
     const localPresentationObj: PresentationType | null = JSON.parse(localPresentation)
-    const valid = validate(localPresentationObj)
+    const valid = validatePresentation(localPresentationObj)
     if (localPresentationObj && valid) {
         console.log("valid json scheme from local storage")
         const selectedSlideId = localPresentationObj.slides.length ? localPresentationObj.slides[0].id : null
@@ -96,7 +96,7 @@ const getLocalEditor = () : EditorType => {
             }
         }
     } else {
-        console.log("invalid json scheme from local storage", validate.errors)
+        console.log("invalid json scheme from local storage", validatePresentation.errors)
         return defaultEditor
     }
 

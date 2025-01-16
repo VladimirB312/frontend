@@ -2,7 +2,7 @@ import classes from './BackgroundChangeModal.module.css'
 import {Background, ImageBackground, SlideType} from "../../store/types.ts";
 import {Button} from "../../components/Button/Button.tsx";
 import React, {SetStateAction, useRef} from "react";
-import {useAppActions} from "../hooks/useAppAction.ts";
+import {useAppActions} from "../../hooks/useAppAction.ts";
 import {applyIcon, closeIcon, photoAddIcon} from "../../components/icons.ts";
 import {ColorPicker} from "./ColorPicker.tsx";
 
