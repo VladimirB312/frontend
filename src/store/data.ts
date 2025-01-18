@@ -63,8 +63,8 @@ const slide2: SlideType = {
 const presentation: PresentationType = {
     title: "Presentation title",
     slides: [
-        slide1,
-        slide2
+        // slide1,
+        // slide2
     ]
 }
 

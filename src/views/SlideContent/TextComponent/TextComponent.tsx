@@ -30,8 +30,8 @@ const TextComponent = ({
         textAlign: `${element.align}`,
     }
 
-    const onTextValueChange: React.ChangeEventHandler = (event) => {
-        changeTextValue((event.target as HTMLInputElement).value)
+    const onTextValueChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        changeTextValue(event.target.value, element.id)
     }
 
     return (

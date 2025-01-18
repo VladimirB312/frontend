@@ -132,7 +132,10 @@ type ChangeElementRect = {
 
 type ChangeTextValue = {
     type: ActionType.CHANGE_TEXT_VALUE,
-    payload: string,
+    payload: {
+        newText: string,
+        elementId: string,
+    },
 }
 
 type ChangeTextFont = {

@@ -2,22 +2,25 @@ import classes from './TopPanel.module.css'
 import {Button} from "../../components/Button/Button.tsx";
 import {Background, SlideType} from "../../store/types.ts";
 import React, {SetStateAction} from "react";
-import {DownloadImage} from "./CustomButtons/DownloadImage.tsx";
 import {Title} from "./Title.tsx";
 import {LoadPresentation} from "./CustomButtons/LoadPresentation.tsx";
 import {useAppActions} from "../../hooks/useAppAction.ts";
 import {usePresentationSelector} from "../../hooks/useAppSelector.ts";
 import {useNavigate} from "react-router";
 import {
-    addSlideIcon, backgroundIcon, bringForwardIcon, bringFrontIcon, deleteIcon,
-    deleteSlideIcon,
+    backgroundIcon,
+    bringForwardIcon,
+    bringFrontIcon,
     generatePdfIcon,
-    redoIcon,
-    saveIcon, sendBackwardIcon, sendToBackIcon,
-    slideShowIcon, textAddIcon,
-    undoIcon, unsplashIcon
+    saveIcon,
+    sendBackwardIcon,
+    sendToBackIcon,
+    slideShowIcon,
 } from "../../components/icons.ts";
 import {TextEditPanel} from "./TextEditPanel.tsx";
+import {SlidesControlsPanel} from "./Panels/SlidesControlsPanel.tsx";
+import {UndoRedoControlsPanel} from "./Panels/UndoRedoControlsPanel.tsx";
+import {ElementControlsPanel} from "./Panels/ElementControlsPanel.tsx";
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -47,22 +50,12 @@ const TopPanel = ({
     const title = presentation.title
 
     const {
-        addSlide,
-        removeSlide,
-        renamePresentation,
-        removeElement,
-        addTextElement,
         moveElementForward,
         moveElementBackward,
         sendElementForward,
         sendElementBackward,
-        undo,
-        redo
     } = useAppActions()
 
-    const onTitleChange: React.ChangeEventHandler = (event) => {
-        renamePresentation((event.target as HTMLInputElement).value);
-    }
 
     const onShowBackgroundModal = () => {
         if (slide) {
@@ -97,118 +90,69 @@ const TopPanel = ({
         disabledMoveForward = true
     }
 
-    const slideShowButtonStyle = {
-        backgroundColor: 'rgba(11,87,208,0.44)'
-    }
-
     return (
         <div className={classes.topPanel}>
-            <Title value={title} onChange={onTitleChange}/>
-            <div className={classes.toolbarWrapper}>
-                <div className={classes.presentationToolbar}>
-                    <div className={classes.presentationControls}>
-                        <Button
-                            text={'Сохранить'}
-                            onClick={onSavePresentation}
-                            icon={saveIcon}
-                        />
-                        <LoadPresentation/>
-                        <Button text={'Экспорт в PDF'}
-                                onClick={() => setShowPreviewsSlides(true)}
-                                icon={generatePdfIcon}
-                        />
-                        <Button text={'Слайд-шоу'}
-                                onClick={onOpenPlayerView}
-                                icon={slideShowIcon}
-                                customStyle={slideShowButtonStyle}
-                        />
-                    </div>
-                    <div className={classes.slidesControls}>
-                        <Button
-                            text={'Добавить слайд'}
-                            onClick={addSlide}
-                            icon={addSlideIcon}
-                        />
-                        <Button
-                            text={'Удалить слайд'}
-                            onClick={removeSlide}
-                            disabled={disabledSlideButton}
-                            icon={deleteSlideIcon}
-                        />
-                        <Button
-                            title={'Отменить'}
-                            onClick={undo}
-                            disabled={undoDisabled}
-                            icon={undoIcon}
-                        />
-                        <Button
-                            title={'Повторить'}
-                            onClick={redo}
-                            disabled={redoDisabled}
-                            icon={redoIcon}
-                        />
-                    </div>
-                </div>
-                <div className={classes.elementToolbar}>
-                    <div className={classes.layerControls}>
-                        <Button
-                            text={'Переместить вперед'}
-                            onClick={moveElementForward}
-                            disabled={disabledMoveForward}
-                            icon={bringForwardIcon}
-                        />
-                        <Button
-                            text={'Переместить назад'}
-                            onClick={moveElementBackward}
-                            disabled={disabledMoveBackward}
-                            icon={sendBackwardIcon}
-                        />
-                        <Button
-                            text={'На передний план'}
-                            onClick={sendElementForward}
-                            disabled={disabledMoveForward}
-                            icon={bringFrontIcon}
-                        />
-                        <Button
-                            text={'На задний план'}
-                            onClick={sendElementBackward}
-                            disabled={disabledMoveBackward}
-                            icon={sendToBackIcon}
-                        />
-                    </div>
-                    <div className={classes.elementControls}>
-                        <Button
-                            text={'Изменить фон'}
-                            onClick={onShowBackgroundModal}
-                            disabled={disabledSlideButton}
-                            icon={backgroundIcon}
-                        />
-                        <Button
-                            text={'Добавить текст'}
-                            onClick={addTextElement}
-                            disabled={disabledSlideButton}
-                            icon={textAddIcon}
-                        />
-                        <DownloadImage disabled={disabledSlideButton}/>
-                        <Button
-                            text={'Unsplash'}
-                            onClick={onOpenUnsplash}
-                            disabled={disabledSlideButton}
-                            icon={unsplashIcon}
-                        />
-
-                        <Button
-                            text={'Удалить элемент'}
-                            onClick={removeElement}
-                            disabled={disabledElementButton}
-                            icon={deleteIcon}
-                        />
-                        <TextEditPanel
-                            slide={slide}
-                            selectedElementId={selectedElementId}
-                        />
-                    </div>
-                </div>
+            <Title value={title}/>
+            <div className={classes.presentationControls}>
+                <Button
+                    text={'Сохранить'}
+                    onClick={onSavePresentation}
+                    icon={saveIcon}
+                />
+                <LoadPresentation/>
+                <Button text={'Экспорт в PDF'}
+                        onClick={() => setShowPreviewsSlides(true)}
+                        icon={generatePdfIcon}
+                />
+                <Button text={'Слайд-шоу'}
+                        onClick={onOpenPlayerView}
+                        icon={slideShowIcon}
+                />
+            </div>
+            <div className={classes.slidesControls}>
+                <SlidesControlsPanel disabledSlideButton={disabledSlideButton}/>
+                <UndoRedoControlsPanel
+                    undoDisabled={undoDisabled}
+                    redoDisabled={redoDisabled}
+                />
+                <Button
+                    text={'Переместить вперед'}
+                    onClick={moveElementForward}
+                    disabled={disabledMoveForward}
+                    icon={bringForwardIcon}
+                />
+                <Button
+                    text={'Переместить назад'}
+                    onClick={moveElementBackward}
+                    disabled={disabledMoveBackward}
+                    icon={sendBackwardIcon}
+                />
+                <Button
+                    text={'На передний план'}
+                    onClick={sendElementForward}
+                    disabled={disabledMoveForward}
+                    icon={bringFrontIcon}
+                />
+                <Button
+                    text={'На задний план'}
+                    onClick={sendElementBackward}
+                    disabled={disabledMoveBackward}
+                    icon={sendToBackIcon}
+                />
+                <Button
+                    text={'Изменить фон'}
+                    onClick={onShowBackgroundModal}
+                    disabled={disabledSlideButton}
+                    icon={backgroundIcon}
+                />
+                <ElementControlsPanel
+                    disabledSlideButton={disabledSlideButton}
+                    disabledElementButton={disabledElementButton}
+                    onOpenUnsplash={onOpenUnsplash}/>
+                <TextEditPanel
+                    slide={slide}
+                    selectedElementId={selectedElementId}
+                />
             </div>
         </div>
     )

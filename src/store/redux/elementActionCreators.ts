@@ -38,10 +38,13 @@ const changeElementRect = (newRect: { position: Position, size: Size }) => {
     }
 }
 
-const changeTextValue = (newText: string) => {
+const changeTextValue = (newText: string, elementId: string) => {
     return {
         type: ActionType.CHANGE_TEXT_VALUE,
-        payload: newText,
+        payload: {
+            newText,
+            elementId,
+        },
     }
 }
 

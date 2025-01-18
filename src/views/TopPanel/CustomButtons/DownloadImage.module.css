@@ -1,28 +1,28 @@
 .button {
-    background-color: #d6dddd;
-    border-radius: 3px;
-    box-shadow: 0 2px 3px 0 #979CA5;
+    background-color: #F0F4F9;
+    /*border-radius: 3px;*/
+    /*box-shadow: 0 2px 3px 0 #979CA5;*/
     transition: 0.5s;
     min-width: 40px;
 }
 
 .button:hover {
-    transform: translate(0, -2px);
-    box-shadow: 0 4px 7px 0 #91A1BA;
-    background-color: #a1b3b3;
+    /*transform: translate(0, -2px);*/
+    /*box-shadow: 0 4px 7px 0 #91A1BA;*/
+    /*background-color: #a1b3b3;*/
 }
 
 .buttonDisabled:hover {
     transform: none;
-    box-shadow: 0 2px 3px 0 #979CA5;
-    background-color: #d6dddd;
+    /*box-shadow: 0 2px 3px 0 #979CA5;*/
+    /*background-color: #d6dddd;*/
 }
 
 .label {
+    padding: 3px 11px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3px;
     cursor: pointer;
     height: 25px;
     gap: 3px;

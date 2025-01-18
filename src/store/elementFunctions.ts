@@ -336,7 +336,8 @@ const sendElementForward = (editor: EditorType): EditorType => {
 }
 
 const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorType => {
-    const newText = action.payload;
+    const newText = action.payload.newText
+    const elementId = action.payload.elementId
 
     return {
         ...editor,
@@ -347,7 +348,7 @@ const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorTyp
                 : {
                     ...slide,
                     objects: slide.objects.map(obj => {
-                        if (obj.id != editor.selection?.selectedElementId) {
+                        if (obj.id != elementId) {
                             return obj;
                         }
 
