@@ -1,6 +1,7 @@
-import {Button} from "../../../components/Button/Button.tsx";
-import {redoIcon, undoIcon} from "../../../components/icons.ts";
-import {useAppActions} from "../../../hooks/useAppAction.ts";
+import {Button} from '../../../components/Button/Button.tsx';
+import {redoIcon, undoIcon} from '../../../components/icons.ts';
+import {useAppActions} from '../../../hooks/useAppAction.ts';
+import classes from './UndoRedoControlsPanel.module.css'
 
 type UndoRedoControlsPanelProps = {
     undoDisabled: boolean,
@@ -13,7 +14,7 @@ const UndoRedoControlsPanel = ({
     const {undo, redo} = useAppActions()
 
     return (
-        <>
+        <div className={classes.undoRedoControls}>
             <Button
                 title={'Отменить'}
                 onClick={undo}
@@ -26,7 +27,7 @@ const UndoRedoControlsPanel = ({
                 disabled={redoDisabled}
                 icon={redoIcon}
             />
-        </>
+        </div>
     )
 }
 
