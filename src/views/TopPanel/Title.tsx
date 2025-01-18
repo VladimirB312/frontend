@@ -1,5 +1,5 @@
 import classes from "./TopPanel.module.css";
-import React, {useState} from "react";
+import React, {CSSProperties, useState} from "react";
 import {useAppActions} from "../../hooks/useAppAction.ts";
 
 type TitleProps = {
@@ -18,12 +18,17 @@ function Title({ value}: TitleProps) {
         renamePresentation(title);
     }
 
+    const inputStyle: CSSProperties = {
+        width: `${(title.length + 1) * 9}px`
+    }
+
     return (
         <input className={classes.title}
                type="text"
                defaultValue={title}
                onChange={handleTitleChange}
                onBlur={handleTitleBlur}
+               style={inputStyle}
         />
     );
 }

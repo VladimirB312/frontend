@@ -51,7 +51,7 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
             const slideContentId = target.closest('[data-slide-content-id]')
             const selectedTextArea = target.closest('textarea')
 
-            if (textAreaRef.current != selectedTextArea) {
+            if (textAreaRef.current && textAreaRef.current != selectedTextArea) {
                 clearTextArea()
             }
 
