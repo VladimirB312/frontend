@@ -1,21 +1,17 @@
 .button {
-    background-color: #F0F4F9;
-    /*border-radius: 3px;*/
-    /*box-shadow: 0 2px 3px 0 #979CA5;*/
+    background-color: transparent;
+    border-radius: 3px;
     transition: 0.5s;
     min-width: 40px;
 }
 
 .button:hover {
-    /*transform: translate(0, -2px);*/
-    /*box-shadow: 0 4px 7px 0 #91A1BA;*/
-    /*background-color: #a1b3b3;*/
+    background-color: #d2d8df;
 }
 
 .buttonDisabled:hover {
     transform: none;
-    /*box-shadow: 0 2px 3px 0 #979CA5;*/
-    /*background-color: #d6dddd;*/
+
 }
 
 .label {

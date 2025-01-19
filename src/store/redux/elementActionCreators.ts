@@ -106,6 +106,13 @@ const sendElementForward = () => {
     }
 }
 
+const changeImageOpacity = (newOpacity: number) => {
+    return {
+        type: ActionType.CHANGE_IMAGE_OPACITY,
+        payload: newOpacity,
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -122,4 +129,5 @@ export {
     moveElementBackward,
     sendElementBackward,
     sendElementForward,
+    changeImageOpacity,
 }

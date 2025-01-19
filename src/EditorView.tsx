@@ -11,6 +11,7 @@ import {usePresentationSelector, useSelectionSelector} from "./hooks/useAppSelec
 import {useUndoRedo} from "./hooks/useUndoRedo.ts";
 import {BackgroundChangeModal} from "./views/BackgroundChangeModal/BackgroundChangeModal.tsx";
 import {useDelete} from "./hooks/useDelete.ts";
+import {SideBar} from "./views/SideBar/SideBar.tsx";
 
 const EditorView = () => {
     const presentation = usePresentationSelector()
@@ -35,7 +36,6 @@ const EditorView = () => {
         <div>
             <TopPanel
                 slide={activeSlide}
-                selectedElementId={selectedElementId}
                 previewUserBackground={previewUserBackground}
                 undoDisabled={undoDisabled}
                 redoDisabled={redoDisabled}
@@ -56,6 +56,10 @@ const EditorView = () => {
                     }
                     selectedElementId={selectedElementId}
                     setTextEditMode={setTextEditMode}
+                />
+                <SideBar
+                    slide={activeSlide}
+                    selectedElementId={selectedElementId}
                 />
             </div>
             {showPreviewSlides && createPortal(

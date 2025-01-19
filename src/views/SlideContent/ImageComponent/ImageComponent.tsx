@@ -21,6 +21,7 @@ const ImageComponent = ({
         left: `${scale * element.position.x}px`,
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
+        opacity: `${element.opacity}`,
     }
 
     return (

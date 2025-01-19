@@ -1,6 +1,9 @@
 import {EditorType} from "../types.ts";
 import {getLocalEditor} from "../data.ts";
 import {ActionType, EditorAction} from "./actions.ts";
+import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelectionSlide} from "../selectionFunctions.ts";
+import {renamePresentation, loadPresentation,} from "../presentationFunctions.ts";
+import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 import {
     addSlide,
     removeSlide,
@@ -9,7 +12,6 @@ import {
     setBackgroundImage,
     setBackgroundGradient
 } from "../slideFunctions.ts";
-import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelectionSlide} from "../selectionFunctions.ts";
 import {
     addImageElement,
     addTextElement,
@@ -23,13 +25,11 @@ import {
     changeTextColor,
     changeTextAlign,
     moveElementForward,
-    moveElementBackward, sendElementBackward, sendElementForward
+    moveElementBackward,
+    sendElementBackward,
+    sendElementForward,
+    changeImageOpacity
 } from "../elementFunctions.ts";
-import {
-    renamePresentation,
-    loadPresentation,
-} from "../presentationFunctions.ts";
-import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
 
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
     switch (action.type) {
@@ -91,6 +91,8 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
             return sendElementBackward(editor)
         case ActionType.SEND_ELEMENT_FORWARD:
             return sendElementForward(editor)
+        case ActionType.CHANGE_IMAGE_OPACITY:
+            return changeImageOpacity(editor, action)
 
         case ActionType.SET_EDITOR:
             return action.payload

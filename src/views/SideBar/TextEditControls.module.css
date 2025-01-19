@@ -1,14 +1,12 @@
 .textEditBar {
-    position: absolute;
+    /*position: absolute;*/
     top: 33px;
     display: flex;
-    background-color: #d6dddd;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    align-items: center;
     padding: 3px;
     gap: 8px;
-    border-radius: 3px;
-    box-shadow: 0 2px 3px 0 #979CA5;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease-in;
@@ -20,21 +18,21 @@
 }
 
 .fontFamilySelector {
-    background-color: #ACB7B7;
+    background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
 }
 
 .fontFamilySelector option {
-    background-color: #DEEAEA;
+    background-color: rgba(177, 193, 200, 0.46);
 }
 
 .fontSizeSelector {
-    background-color: #ACB7B7;
+    background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
 }
 
 .fontSizeSelector option {
-    background-color:  #DEEAEA;
+    background-color: rgba(177, 193, 200, 0.46);
 }
 
 .colorPickerWrapper {
@@ -47,6 +45,10 @@
     height: 23px;
     width: 33px;
     cursor: pointer;
+}
+
+.alignControls {
+    /*display: flex;*/
 }
 
 .alignButton {

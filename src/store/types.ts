@@ -54,7 +54,18 @@ type TextElement = SlideElement & {
     align: AlignType,
 };
 
-type ImageElement = SlideElement & { type: 'image', src: string };
+type ImageElement = SlideElement &
+    {
+        type: 'image',
+        src: string,
+        opacity: number,
+        brightness: number,
+        contrast: number,
+        saturate: number,
+        sepia: number,
+        grayscale: number,
+        blur: number,
+    };
 
 type SlideType = {
     id: string,

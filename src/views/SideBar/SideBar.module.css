@@ -1,0 +1,28 @@
+.sideBarWrapper {
+    width: 400px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.sideBar {
+    position: absolute;
+    right: 0;
+    opacity: 1;
+    width: 274px;
+    margin-top: 21px;
+    background-color: #F0F4F9;
+    border-radius: 15px 0 0 15px;
+    padding: 15px 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+    height: fit-content;
+    transition: 0.5s;
+}
+
+.emptySideBar {
+    right: -500px;
+    opacity: 0;
+    background-color: transparent;
+}

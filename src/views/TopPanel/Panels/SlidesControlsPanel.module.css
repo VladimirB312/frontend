@@ -1,12 +1,14 @@
 .slidesControls {
     display: flex;
+    position: relative;
 }
 
 .slidesControls:after {
+    position: absolute;
     content: '';
-    top: 3px;
+    top: 2px;
     right: 0;
     width: 1px;
-    height: 25px;
+    height: 23px;
     background-color: rgba(0, 0, 0, 0.35);
 }

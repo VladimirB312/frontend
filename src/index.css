@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font: 12px Arial, Helvetica, sans-serif;
+    font: 500 13px "Google sans", Roboto, Arial, Helvetica, sans-serif;
 }
 
 :root {

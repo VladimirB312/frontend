@@ -27,7 +27,8 @@ const slide1: SlideType = {
             position: {x: 160, y: 160},
             size: {width: 150, height: 150},
             type: "image",
-            src: "./src/assets/image1.png"
+            src: "./src/assets/image1.png",
+            opacity: 1,
         },
     ]
 }
@@ -55,7 +56,8 @@ const slide2: SlideType = {
             position: {x: 150, y: 150},
             size: {width: 150, height: 150},
             type: "image",
-            src: "./src/assets/testImage.png"
+            src: "./src/assets/testImage.png",
+            opacity: 1,
         },
     ]
 }

@@ -1,6 +1,8 @@
 .selectableSlide {
-    margin-left: 8px;
-    position: relative;
+    /*margin-left: 15px;*/
+    /*position: relative;*/
+    display:flex;
+    justify-content: flex-end;
 }
 
 .selectableSlide:hover > div {
@@ -10,9 +12,10 @@
 .slideIndex {
     pointer-events: none;
     user-select: none;
-    position: absolute;
-    top: 3px;
-    left: -8px;
+    /*position: absolute;*/
+    /*top: 3px;*/
+    /*left: -8px;*/
+    padding-top: 7px;
     color: #444746;
     font-size: 14px;
     font-weight: 500;

@@ -1,16 +1,16 @@
-import classes from './TextEditPanel.module.css'
+import classes from './TextEditControls.module.css'
 import {SlideType} from "../../store/types.ts";
 import {useAppActions} from "../../hooks/useAppAction.ts";
 import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts";
 import {ChangeEvent} from "react";
 import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../../constants/fonts.ts";
 
-type TextEditProps = {
+type TextEditControlsProps = {
     slide: SlideType | null,
     selectedElementId: string | null,
 }
 
-const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
+const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => {
     const {changeTextFont, changeTextSize, changeTextColor, changeTextAlign} = useAppActions()
 
     const element = slide?.objects.find(el => el.id == selectedElementId)
@@ -42,6 +42,7 @@ const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
     return (
         <div className={classes.textEditBar + ' ' + classes.textEditorBarVisible}>
             <form>
+                <span>Шрифт</span>
                 <select
                     title='Шрифт'
                     value={element.font}
@@ -57,6 +58,7 @@ const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
                 </select>
             </form>
             <form>
+                <span>Размер</span>
                 <select
                     title='Размер шрифта'
                     value={`${element.textSize}px`}
@@ -76,6 +78,7 @@ const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
                 </select>
             </form>
             <div className={classes.colorPickerWrapper}>
+                <span>Цвет</span>
                 <input
                     title='Цвет шрифта'
                     className={classes.colorPicker}
@@ -85,39 +88,42 @@ const TextEditPanel = ({slide, selectedElementId}: TextEditProps) => {
                     onChange={e => handleFontColorChange(e)}
                 />
             </div>
-            <button
-                title='По левому краю'
-                onClick={() => handleFontAlignChange('left')}
-                className={classes.alignButton}
-            >
-                <img
-                    src={alignLeftIcon}
+            <div className={classes.alignControls}>
+                <span>Выравнивание</span>
+                <button
+                    title='По левому краю'
+                    onClick={() => handleFontAlignChange('left')}
+                    className={classes.alignButton}
                 >
-                </img>
-            </button>
-            <button
-                title='По центру'
-                onClick={() => handleFontAlignChange('center')}
-                className={classes.alignButton}
-            >
-                <img
-                    src={alignCenterIcon}
+                    <img
+                        src={alignLeftIcon}
+                    >
+                    </img>
+                </button>
+                <button
+                    title='По центру'
+                    onClick={() => handleFontAlignChange('center')}
+                    className={classes.alignButton}
                 >
-                </img>
-            </button>
-            <button
-                title='По правому краю'
-                onClick={() => handleFontAlignChange('right')}
-                className={classes.alignButton}
-            >
-                <img
-                    src={alignRightIcon}
+                    <img
+                        src={alignCenterIcon}
+                    >
+                    </img>
+                </button>
+                <button
+                    title='По правому краю'
+                    onClick={() => handleFontAlignChange('right')}
+                    className={classes.alignButton}
                 >
-                </img>
-            </button>
+                    <img
+                        src={alignRightIcon}
+                    >
+                    </img>
+                </button>
+            </div>
         </div>
 
     )
 }
 
-export {TextEditPanel}
+export {TextEditControls}

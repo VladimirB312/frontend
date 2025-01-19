@@ -6,7 +6,7 @@ type TitleProps = {
     value: string;
 }
 
-function Title({ value}: TitleProps) {
+function Title({value}: TitleProps) {
     const [title, setTitle] = useState(value)
     const {renamePresentation} = useAppActions()
 
@@ -30,7 +30,7 @@ function Title({ value}: TitleProps) {
                onBlur={handleTitleBlur}
                style={inputStyle}
         />
-    );
+    )
 }
 
 export {Title}

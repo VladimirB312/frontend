@@ -33,6 +33,7 @@ enum ActionType {
     MOVE_ELEMENT_BACKWARD = 'moveElementBackward',
     SEND_ELEMENT_FORWARD = 'sendElementForward',
     SEND_ELEMENT_BACKWARD = 'sendElementBackward',
+    CHANGE_IMAGE_OPACITY = 'changeImageOpacity',
 
     SET_EDITOR = 'setEditor',
     UNDO = 'undo',
@@ -174,8 +175,13 @@ type SendElementForward = {
     type: ActionType.SEND_ELEMENT_FORWARD
 }
 
-type SendElementBacward = {
+type SendElementBackward = {
     type: ActionType.SEND_ELEMENT_BACKWARD
+}
+
+type ChangeImageOpacity = {
+    type: ActionType.CHANGE_IMAGE_OPACITY,
+    payload: number,
 }
 
 type SetEditorAction = {
@@ -231,7 +237,8 @@ type EditorAction =
     | MoveElementForward
     | MoveElementBackward
     | SendElementForward
-    | SendElementBacward
+    | SendElementBackward
+    | ChangeImageOpacity
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
@@ -264,7 +271,8 @@ export {
     type MoveElementForward,
     type MoveElementBackward,
     type SendElementForward,
-    type SendElementBacward,
+    type SendElementBackward,
+    type ChangeImageOpacity,
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,

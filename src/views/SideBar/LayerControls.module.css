@@ -1,0 +1,17 @@
+.layerControls {
+    display:flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.layerControls:after {
+    content: '';
+    bottom: 0;
+    left: 5px;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.11);
+}

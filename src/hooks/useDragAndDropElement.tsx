@@ -59,7 +59,6 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
                 setIsDragging(true)
                 setDndPosition(element.position)
                 setStartPos({x: e.pageX, y: e.pageY})
-
                 setSelectionElement(element.id)
             } else if (!elementId && !resizerId && slideContentId) {
                 clearTextArea()
@@ -68,11 +67,11 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
         }
 
         const onMouseMove = (e: MouseEvent) => {
-            e.preventDefault()
-
             if (isTextEditing || !isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition || !scale) {
                 return;
             }
+
+            e.preventDefault()
 
             elementRef.current.style.userSelect = 'none'
             elementRef.current.style.pointerEvents = 'none'

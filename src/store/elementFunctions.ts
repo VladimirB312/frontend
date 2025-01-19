@@ -4,7 +4,7 @@ import {
     AddImageElement,
     ChangeElementPosition,
     ChangeElementRect,
-    ChangeElementSize, ChangeTextAlign, ChangeTextColor, ChangeTextFont, ChangeTextSize,
+    ChangeElementSize, ChangeImageOpacity, ChangeTextAlign, ChangeTextColor, ChangeTextFont, ChangeTextSize,
     ChangeTextValue
 } from "./redux/actions.ts";
 import {calculatePosition} from "../utils/calculatePosition.ts";
@@ -66,7 +66,14 @@ const addImageElement = (editor: EditorType, action: AddImageElement) => {
             position: {x: imageX, y: imageY},
             size: {width: imageWidth, height: imageHeight},
             type: "image",
-            src: action.payload.src
+            src: action.payload.src,
+            opacity: 1,
+            brightness: 100,
+            contrast: 100,
+            saturate: 100,
+            sepia: 0,
+            grayscale: 0,
+            blur: 0,
         }
 
     return addElement(editor, newImageElement)
@@ -466,6 +473,32 @@ const changeTextAlign = (editor: EditorType, action: ChangeTextAlign): EditorTyp
     }
 }
 
+const changeImageOpacity = (editor: EditorType, action: ChangeImageOpacity): EditorType => {
+    const newOpacity = action.payload
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            opacity: newOpacity,
+                        }
+                    })
+                })
+        }
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -481,5 +514,6 @@ export {
     moveElementForward,
     moveElementBackward,
     sendElementBackward,
-    sendElementForward
+    sendElementForward,
+    changeImageOpacity
 }
