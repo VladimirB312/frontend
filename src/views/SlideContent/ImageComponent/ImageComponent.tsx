@@ -22,6 +22,14 @@ const ImageComponent = ({
         width: `${scale * element.size.width}px`,
         height: `${scale * element.size.height}px`,
         opacity: `${element.opacity}`,
+        filter: ` 
+            brightness(${element.brightness}%) 
+            contrast(${element.contrast}%) 
+            saturate(${element.saturate}%) 
+            sepia(${element.sepia}%) 
+            grayscale(${element.grayscale}%) 
+            blur(${element.blur}px)
+        `.trim(),
     }
 
     return (

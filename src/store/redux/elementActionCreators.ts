@@ -1,5 +1,5 @@
 import {ActionType} from "./actions.ts";
-import {Position, Size} from "../types.ts";
+import {ImageFilterName, Position, Size} from "../types.ts";
 
 const addTextElement = () => {
     return {
@@ -113,6 +113,16 @@ const changeImageOpacity = (newOpacity: number) => {
     }
 }
 
+const changeImageFilter = (filterName: ImageFilterName, newValue: number) => {
+    return {
+        type: ActionType.CHANGE_IMAGE_FILTER,
+        payload: {
+            filterName,
+            newValue,
+        }
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -130,4 +140,5 @@ export {
     sendElementBackward,
     sendElementForward,
     changeImageOpacity,
+    changeImageFilter
 }

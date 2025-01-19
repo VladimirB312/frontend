@@ -54,6 +54,8 @@ type TextElement = SlideElement & {
     align: AlignType,
 };
 
+type ImageFilterName = 'brightness' | 'contrast' | 'saturate' | 'sepia' | 'grayscale' | 'blur'
+
 type ImageElement = SlideElement &
     {
         type: 'image',
@@ -65,7 +67,7 @@ type ImageElement = SlideElement &
         sepia: number,
         grayscale: number,
         blur: number,
-    };
+    }
 
 type SlideType = {
     id: string,
@@ -117,6 +119,7 @@ export type {
     TextElement,
     AlignType,
     ImageElement,
+    ImageFilterName,
     SlideType,
     PresentationType,
     SelectionType,

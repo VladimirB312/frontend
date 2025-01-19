@@ -4,7 +4,13 @@ import {
     AddImageElement,
     ChangeElementPosition,
     ChangeElementRect,
-    ChangeElementSize, ChangeImageOpacity, ChangeTextAlign, ChangeTextColor, ChangeTextFont, ChangeTextSize,
+    ChangeElementSize,
+    ChangeImageFilter,
+    ChangeImageOpacity,
+    ChangeTextAlign,
+    ChangeTextColor,
+    ChangeTextFont,
+    ChangeTextSize,
     ChangeTextValue
 } from "./redux/actions.ts";
 import {calculatePosition} from "../utils/calculatePosition.ts";
@@ -37,7 +43,7 @@ const addTextElement = (editor: EditorType) => {
     const newTextElement: TextElement =
         {
             id: uniqueId,
-            position: {x: 300, y: 300},
+            position: {x: 300, y: 250},
             size: {width: 200, height: 50},
             type: "text",
             value: "",
@@ -499,6 +505,33 @@ const changeImageOpacity = (editor: EditorType, action: ChangeImageOpacity): Edi
     }
 }
 
+const changeImageFilter = (editor: EditorType, action: ChangeImageFilter): EditorType => {
+    const filterName = action.payload.filterName
+    const newValue = action.payload.newValue
+
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            [filterName]: newValue,
+                        }
+                    })
+                })
+        }
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -515,5 +548,6 @@ export {
     moveElementBackward,
     sendElementBackward,
     sendElementForward,
-    changeImageOpacity
+    changeImageOpacity,
+    changeImageFilter
 }

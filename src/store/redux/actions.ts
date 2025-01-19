@@ -1,4 +1,4 @@
-import {AlignType, EditorType, GradientBackground, UnsplashImageType} from "../types.ts"
+import {AlignType, EditorType, GradientBackground, ImageFilterName, UnsplashImageType} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -34,6 +34,7 @@ enum ActionType {
     SEND_ELEMENT_FORWARD = 'sendElementForward',
     SEND_ELEMENT_BACKWARD = 'sendElementBackward',
     CHANGE_IMAGE_OPACITY = 'changeImageOpacity',
+    CHANGE_IMAGE_FILTER = 'changeImageFilter',
 
     SET_EDITOR = 'setEditor',
     UNDO = 'undo',
@@ -184,6 +185,14 @@ type ChangeImageOpacity = {
     payload: number,
 }
 
+type ChangeImageFilter = {
+    type: ActionType.CHANGE_IMAGE_FILTER,
+    payload: {
+        filterName: ImageFilterName,
+        newValue: number,
+    }
+}
+
 type SetEditorAction = {
     type: ActionType.SET_EDITOR,
     payload: EditorType,
@@ -239,6 +248,7 @@ type EditorAction =
     | SendElementForward
     | SendElementBackward
     | ChangeImageOpacity
+    | ChangeImageFilter
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
@@ -273,6 +283,7 @@ export {
     type SendElementForward,
     type SendElementBackward,
     type ChangeImageOpacity,
+    type ChangeImageFilter,
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,
