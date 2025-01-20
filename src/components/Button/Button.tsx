@@ -1,5 +1,4 @@
 import classes from "./Button.module.css";
-import {CSSProperties} from "react";
 
 type ButtonProps = {
     text?: string,
@@ -7,7 +6,8 @@ type ButtonProps = {
     disabled?: boolean,
     icon?: string,
     title?: string,
-    customStyle?: CSSProperties,
+    className?: string,
+    hoverClassName?: string,
 }
 
 const Button = ({
@@ -16,14 +16,14 @@ const Button = ({
                     disabled = false,
                     icon,
                     title,
-                    customStyle
+                    className,
+                    hoverClassName,
                 }: ButtonProps) => {
     return (
-        <button className={`${classes.button} ${disabled ? classes.buttonDisabled : '' }`}
+        <button className={`${classes.button} ${disabled ? classes.buttonDisabled : ''} ${className} ${hoverClassName}`}
                 onClick={onClick}
                 disabled={disabled}
                 title={title}
-                style={customStyle}
         >
             {icon &&
                 <img

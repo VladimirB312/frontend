@@ -129,9 +129,9 @@ const ColorPicker = ({
                     </select>
                 </form>
             </div>
-            <div >
+            <div className={classes.selectorsWrapper}>
                 <span className={classes.colorSelectorsLabel}>Цвет</span>
-                <div className={classes.colorSelectorsWrapper}>
+                <div className={classes.inputWrapper}>
                     <input
                         className={classes.colorSelector}
                         onChange={e => onChangeColorOne(e)}

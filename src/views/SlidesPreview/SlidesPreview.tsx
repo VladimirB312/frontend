@@ -42,34 +42,33 @@ const SlidesPreview = ({
 
     return (
         <div className={classes.modalWrapper}>
-            <div>
+            <div className={classes.slideWrapper}>
                 <SlideContent
                     scale={windowScale * 0.8}
                     className={classes.slide}
                     slide={slides[activeSlideIndex]}
                     isSelected={false}/>
-            </div>
-            <div className={classes.controlsButtons}>
-                <Button
-                    onClick={onPrevSlide}
-                    disabled={buttonPrevDisabled}
-                    icon={arrowLeftIcon}
-                />
-                <Button
-                    onClick={onNextSlide}
-                    disabled={buttonNextDisabled}
-                    icon={arrowRightIcon}
-                />
-                <Button
-                    onClick={onExportClick}
-                    icon={generatePdfIcon}
+                <div className={classes.controlsButtons}>
+                    <Button
+                        onClick={onClosePreview}
+                        icon={closeIcon}
+                    />
+                    <Button
+                        onClick={onPrevSlide}
+                        disabled={buttonPrevDisabled}
+                        icon={arrowLeftIcon}
+                    />
+                    <Button
+                        onClick={onNextSlide}
+                        disabled={buttonNextDisabled}
+                        icon={arrowRightIcon}
+                    />
+                    <Button
+                        onClick={onExportClick}
+                        icon={generatePdfIcon}
+                    />
 
-                />
-                <Button
-                    onClick={onClosePreview}
-                    icon={closeIcon}
-                />
-
+                </div>
             </div>
 
 

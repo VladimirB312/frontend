@@ -5,6 +5,7 @@ import {RangeSlider} from "../../components/RangeSlider/RangeSlider.tsx";
 import {IMAGE_FILTERS} from "../../constants/imageFilters.ts";
 import {Button} from "../../components/Button/Button.tsx";
 import classes from './ImageEditControls.module.css'
+import {resetIcon} from "../../components/icons.ts";
 
 type ImageEditControlsProps = {
     slide: SlideType | null,
@@ -56,6 +57,7 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
             ))}
             <Button text={'Сбросить фильтры'}
                     onClick={resetImageFilters}
+                    icon={resetIcon}
             />
         </div>
     )

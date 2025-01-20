@@ -1,20 +1,36 @@
 .textEditBar {
-    /*position: absolute;*/
-    top: 33px;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 3px;
-    gap: 8px;
+    padding: 5px 21px;
+    gap: 15px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease-in;
+    visibility: hidden;
 }
 
 .textEditorBarVisible {
     opacity: 1;
+    display: flex;
+    visibility: visible;
     pointer-events: auto;
+}
+
+.fontLabel, .sizeLabel, .colorLabel {
+    display: inline-block;
+    width: 43px;
+    color: #616161;
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.alignLabel {
+    color: #616161;
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    font-size: 12px;
 }
 
 .fontFamilySelector {
@@ -22,6 +38,11 @@
     border-radius: 5px;
     background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.fontFamilySelector:hover {
+    background-color: #BDC3C3;
 }
 
 .fontFamilySelector option {
@@ -33,6 +54,11 @@
     border-radius: 5px;
     background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.fontSizeSelector:hover {
+    background-color: #BDC3C3;
 }
 
 .fontSizeSelector option {
@@ -52,23 +78,30 @@
     height: 23px;
     width: 33px;
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.colorPicker:hover {
+    background-color: #BDC3C3;
 }
 
 .alignControls {
-    /*display: flex;*/
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .alignButton {
     padding: 3px;
     cursor: pointer;
     border: 1px solid gray;
-    background-color: #d6dddd;
+    background-color: rgba(177, 193, 200, 0.46);
     min-width: 33px;
     height: 23px;
     border-radius: 3px;
-    transition: 0.5s;
+    transition: 0.3s ease;
 }
 
 .alignButton:hover {
-    background-color: #bdc3c3;
+    background-color: #BDC3C3;
 }

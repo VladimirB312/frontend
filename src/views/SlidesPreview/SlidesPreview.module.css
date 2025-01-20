@@ -13,17 +13,23 @@
     justify-content: center;
 }
 
+.slideWrapper {
+    position: relative;
+}
+
 .slide {
     overflow: hidden;
     pointer-events: none;
 }
 
 .controlsButtons {
-    background-color: rgba(92, 104, 104, 70);
-    border-radius: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    position: absolute;
+    top: -1px;
+    right: -62px;
+    background-color: #F0F4F9;
+    border-radius: 0 10px 10px 0;
     padding: 5px 10px 7px;
     display: flex;
-    gap: 3px;
+    flex-direction: column;
+    gap: 10px;
 }

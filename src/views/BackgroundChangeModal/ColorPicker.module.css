@@ -1,37 +1,56 @@
 .colorPicker {
     padding: 10px;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .gradientSelectorWrapper {
     display: flex;
-    gap: 20px;
+    gap: 9px;
     align-items: center;
     padding: 14px 10px;
     font-size: 30px;
 }
 
 .gradientSelector {
-    border: 1px solid #8C8F8F;
-    border-radius: 3px;
-    background-color: #ACB7B7;
     height: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+    background-color: rgba(177, 193, 200, 0.46);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.gradientSelector:hover {
+    background-color: #BDC3C3;
 }
 
 .colorSelectorsLabel {
-    padding-left: 6px;
 }
 
-.colorSelectorsWrapper {
+.selectorsWrapper {
+    gap: 30px;
+    padding-inline: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.inputWrapper {
     padding: 5px;
     display: flex;
     gap: 10px;
 }
 
 .colorSelector {
-    background-color: #ACB7B7;
     height: 25px;
-    border: 1px solid #8C8F8F;
-    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+    background-color: rgba(177, 193, 200, 0.46);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.colorSelector:hover {
+    background-color: #BDC3C3;
 }

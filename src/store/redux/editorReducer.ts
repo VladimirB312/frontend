@@ -10,7 +10,8 @@ import {
     changeSlidePosition,
     setBackgroundColor,
     setBackgroundImage,
-    setBackgroundGradient
+    setBackgroundGradient,
+    setAllSlidesBackground
 } from "../slideFunctions.ts";
 import {
     addImageElement,
@@ -28,7 +29,9 @@ import {
     moveElementBackward,
     sendElementBackward,
     sendElementForward,
-    changeImageOpacity, changeImageFilter, resetImageFilters
+    changeImageOpacity,
+    changeImageFilter,
+    resetImageFilters
 } from "../elementFunctions.ts";
 
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
@@ -50,6 +53,8 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
             return setBackgroundImage(editor, action)
         case ActionType.SET_BACKGROUND_GRADIENT:
             return setBackgroundGradient(editor, action)
+        case ActionType.SET_ALL_SLIDES_BACKGROUND:
+            return setAllSlidesBackground(editor, action)
 
         case ActionType.SET_SELECTION_SLIDE:
             return setSelectionSlide(editor, action)

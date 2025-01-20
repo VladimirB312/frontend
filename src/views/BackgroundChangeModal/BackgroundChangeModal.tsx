@@ -1,9 +1,9 @@
 import classes from './BackgroundChangeModal.module.css'
 import {Background, ImageBackground, SlideType} from "../../store/types.ts";
 import {Button} from "../../components/Button/Button.tsx";
-import React, {SetStateAction, useRef} from "react";
+import React, {SetStateAction, useEffect, useRef} from "react";
 import {useAppActions} from "../../hooks/useAppAction.ts";
-import {applyIcon, closeIcon, photoAddIcon} from "../../components/icons.ts";
+import {closeIcon, photoAddIcon} from "../../components/icons.ts";
 import {ColorPicker} from "./ColorPicker.tsx";
 
 type BackgroundChangeModalProps = {
@@ -21,9 +21,14 @@ const BackgroundChangeModal = ({
                                    setPreviewUserBackground,
                                }: BackgroundChangeModalProps) => {
 
-    const {setBackgroundColor, setBackgroundImage, setBackgroundGradient} = useAppActions()
+    const {setBackgroundColor, setBackgroundImage, setBackgroundGradient, setAllSlidesBackground} = useAppActions()
     const inputRef = useRef<HTMLInputElement>(null)
 
+    useEffect(() => {
+        if (!previewUserBackground && slide)
+        setPreviewUserBackground(slide.background) 
+    }, [previewUserBackground, setPreviewUserBackground, slide]);
+    
     if (!slide) {
         return <p>Цвет фона</p>
     }
@@ -53,7 +58,7 @@ const BackgroundChangeModal = ({
         })
     }
 
-    const onSave = () => {
+    const onApply = () => {
         if (!previewUserBackground) {
             return
         }
@@ -67,6 +72,19 @@ const BackgroundChangeModal = ({
         if (previewUserBackground.type == 'gradient') {
             setBackgroundGradient(previewUserBackground)
         }
+
+        setPreviewUserBackground(null)
+        onCloseBackgroundModal()
+    }
+
+    const onApplyAll = () => {
+        if (!previewUserBackground) {
+            return
+        }
+
+        setAllSlidesBackground(previewUserBackground)
+        setPreviewUserBackground(null)
+        onCloseBackgroundModal()
     }
 
     const onClose = () => {
@@ -77,6 +95,15 @@ const BackgroundChangeModal = ({
     return (
         <div className={classes.modalWrapper}>
             <div className={classes.modalWindow}>
+                <div className={classes.windowHeader}>
+                    <span className={classes.windowLabel}>Фон</span>
+                    <Button
+                        icon={closeIcon}
+                        text='Закрыть'
+                        onClick={onClose}
+                        className={classes.closeButton}
+                    />
+                </div>
                 <ColorPicker
                     slide={slide}
                     previewUserBackground={previewUserBackground}
@@ -87,11 +114,11 @@ const BackgroundChangeModal = ({
                         className={classes.labelForImageInput}
                         htmlFor='imageInput'
                     >
+                        Выбрать фоновое изображение
                         <img
                             className={classes.iconForImageInput}
                             src={photoAddIcon}>
                         </img>
-                        Выбрать фоновое изображение
                     </label>
                     <input
                         ref={inputRef}
@@ -103,14 +130,15 @@ const BackgroundChangeModal = ({
                 </div>
                 <div className={classes.controlButtons}>
                     <Button
-                        icon={closeIcon}
-                        text='Закрыть'
-                        onClick={onClose}
+                        text='Применить ко всем'
+                        onClick={onApplyAll}
+                        className={classes.applyAllButton}
                     />
                     <Button
-                        icon={applyIcon}
                         text='Применить'
-                        onClick={onSave}
+                        onClick={onApply}
+                        className={classes.applyButton}
+                        hoverClassName={classes.applyButtonHover}
                     />
                 </div>
             </div>

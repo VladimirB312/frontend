@@ -1,4 +1,4 @@
-import {AlignType, EditorType, GradientBackground, ImageFilterName, UnsplashImageType} from "../types.ts"
+import {AlignType, Background, EditorType, GradientBackground, ImageFilterName, UnsplashImageType} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -11,6 +11,7 @@ enum ActionType {
     SET_BACKGROUND_COLOR = 'setBackgroundColor',
     SET_BACKGROUND_IMAGE = 'setBackgroundImage',
     SET_BACKGROUND_GRADIENT = 'setBackgroundGradient',
+    SET_ALL_SLIDES_BACKGROUND = 'setAllSlidesBackground',
 
     SET_SELECTION_SLIDE = 'setSelectionSlide',
     SET_ACTIVE_SLIDE = 'setActiveSlide',
@@ -82,6 +83,11 @@ type SetBackgroundImage = {
 type SetBackgroundGradient = {
     type: ActionType.SET_BACKGROUND_GRADIENT,
     payload: GradientBackground,
+}
+
+type SetAllSlidesBackground = {
+    type: ActionType.SET_ALL_SLIDES_BACKGROUND,
+    payload: Background
 }
 
 type SetSelectionSlideAction = {
@@ -259,6 +265,7 @@ type EditorAction =
     | SetBackgroundColor
     | SetBackgroundImage
     | SetBackgroundGradient
+    | SetAllSlidesBackground
     | RemoveElement
     | ChangeSlidePosition
     | LoadPresentation
@@ -295,6 +302,7 @@ export {
     type SetBackgroundColor,
     type SetBackgroundImage,
     type SetBackgroundGradient,
+    type SetAllSlidesBackground,
     type RemoveElement,
     type ChangeSlidePosition,
     type LoadPresentation,

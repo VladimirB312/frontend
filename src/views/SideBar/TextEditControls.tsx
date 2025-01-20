@@ -42,7 +42,7 @@ const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => 
     return (
         <div className={classes.textEditBar + ' ' + classes.textEditorBarVisible}>
             <form>
-                <span>Шрифт</span>
+                <span className={classes.fontLabel}>Шрифт</span>
                 <select
                     title='Шрифт'
                     value={element.font}
@@ -58,7 +58,7 @@ const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => 
                 </select>
             </form>
             <form>
-                <span>Размер</span>
+                <span className={classes.sizeLabel}>Размер</span>
                 <select
                     title='Размер шрифта'
                     value={`${element.textSize}px`}
@@ -78,7 +78,7 @@ const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => 
                 </select>
             </form>
             <div className={classes.colorPickerWrapper}>
-                <span>Цвет</span>
+                <span className={classes.colorLabel}>Цвет</span>
                 <input
                     title='Цвет шрифта'
                     className={classes.colorPicker}
@@ -89,7 +89,7 @@ const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => 
                 />
             </div>
             <div className={classes.alignControls}>
-                <span>Выравнивание</span>
+                <span className={classes.alignLabel}>Выравнивание</span>
                 <button
                     title='По левому краю'
                     onClick={() => handleFontAlignChange('left')}

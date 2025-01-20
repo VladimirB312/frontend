@@ -26,6 +26,7 @@ import bringFrontIcon from '../assets/bringtofront_icon.svg'
 import sendBackwardIcon from '../assets/sendbackward_icon.svg'
 import sendToBackIcon from '../assets/sendtoback_icon.svg'
 import googleSlidesIcon from '../assets/google_slides.svg'
+import resetIcon from '../assets/reset.svg'
 
 export {
     saveIcon,
@@ -55,5 +56,6 @@ export {
     bringFrontIcon,
     sendBackwardIcon,
     sendToBackIcon,
-    googleSlidesIcon
+    googleSlidesIcon,
+    resetIcon
 }

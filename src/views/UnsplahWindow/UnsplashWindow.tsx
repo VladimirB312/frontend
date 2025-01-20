@@ -18,7 +18,7 @@ type UnsplashWindowPropsType = {
 }
 
 const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
-    const [searchImg, setSearchImg] = useState("cats")
+    const [searchImg, setSearchImg] = useState("nature")
 
     const {requestImages, setUnsplashPage, setExternalImageSelection, addUnsplashImageToSlide,changeBackgroundFromUnsplash} = useAppActions()
     const externalImages = useExternalImagesSelector()

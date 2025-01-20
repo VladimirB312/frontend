@@ -14,12 +14,28 @@
 
 .modalWindow {
     padding: 10px;
-    background-color: rgba(240, 240, 240, 0.8);
+    background-color: rgb(255 255 255);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 364px;
+    width: 343px;
+}
+
+.windowHeader {
+    padding: 20px 20px 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.windowLabel {
+    color: #202124;
+    font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 28px;
 }
 
 .controlButtons {
@@ -48,14 +64,39 @@
 }
 
 .iconForImageInput {
-    background-color: rgba(245, 245, 245, 0.51);
-    min-width: 40px;
+    background-color: rgba(177, 193, 200, 0.46);
+    min-width: 53px;
     height: 25px;
-    border: 1px solid rgba(245, 245, 245);
+    border: 1px solid rgba(0, 0, 0, 0.16);
     border-radius: 4px;
-    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.iconForImageInput:hover {
+    background-color: #BDC3C3;
 }
 
 .imageInput {
     display: none;
+}
+
+.applyButton {
+    background-color: #FBC117;
+    height: 30px;
+    transition: 0.1s ease;
+    border: none;
+}
+
+.applyButtonHover:hover {
+    transform: scale(0.99);
+    background-color: rgba(251, 193, 23, 0.8);
+}
+
+.applyAllButton {
+    height: 30px;
+    border: 1px solid #DADCE0;
+}
+
+.closeButton {
+    height: 30px;
 }

@@ -1,5 +1,5 @@
 import {ActionType} from "./actions.ts";
-import {ColorBackground, GradientBackground, ImageBackground} from "../types.ts";
+import {Background, ColorBackground, GradientBackground, ImageBackground} from "../types.ts";
 
 const addSlide = () => {
     return {
@@ -34,6 +34,13 @@ const setBackgroundGradient = (newBackground: GradientBackground) => {
     }
 }
 
+const setAllSlidesBackground = (newBackground: Background) => {
+    return {
+        type: ActionType.SET_ALL_SLIDES_BACKGROUND,
+        payload: newBackground
+    }
+}
+
 const changeSlidePosition = (targetSlide: string) => {
     return {
         type: ActionType.CHANGE_SLIDE_POSITION,
@@ -47,5 +54,6 @@ export {
     setBackgroundColor,
     setBackgroundImage,
     setBackgroundGradient,
+    setAllSlidesBackground,
     changeSlidePosition
 }
