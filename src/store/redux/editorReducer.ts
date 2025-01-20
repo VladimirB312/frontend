@@ -28,7 +28,7 @@ import {
     moveElementBackward,
     sendElementBackward,
     sendElementForward,
-    changeImageOpacity, changeImageFilter
+    changeImageOpacity, changeImageFilter, resetImageFilters
 } from "../elementFunctions.ts";
 
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
@@ -95,6 +95,8 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
             return changeImageOpacity(editor, action)
         case ActionType.CHANGE_IMAGE_FILTER:
             return changeImageFilter(editor, action)
+        case ActionType.RESET_IMAGE_FILTERS:
+            return resetImageFilters(editor)
 
         case ActionType.SET_EDITOR:
             return action.payload

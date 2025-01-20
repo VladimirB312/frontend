@@ -29,8 +29,8 @@ const PlayerView = () => {
         : height / SLIDE_HEIGHT
 
     return (
-        <div className={classes['preview-wrapper']}>
-            <div>
+        <div className={classes.previewWrapper}>
+            <div className={classes.slideWrapper}>
                 <SlideContent
                     scale={windowScale}
                     className={classes.slide}

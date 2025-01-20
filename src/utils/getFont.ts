@@ -5,15 +5,15 @@ const getFont = (font: string) => {
         case ARIAL:
             return 'arial'
         case TAHOMA:
-            return 'tahoma'
+            return 'Tahoma Regular'
         case VERDANA:
             return 'Verdana'
         case HELVETICA:
-            return 'helvetica'
+            return 'HelveticaRegular'
         case TIMES_NEW_ROMAN:
-            return 'times'
+            return 'timesnrcyrmt'
         default:
-            return 'helvetica'
+            return 'arial'
     }
 }
 

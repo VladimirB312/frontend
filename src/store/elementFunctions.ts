@@ -532,6 +532,36 @@ const changeImageFilter = (editor: EditorType, action: ChangeImageFilter): Edito
     }
 }
 
+const resetImageFilters = (editor: EditorType): EditorType => {
+    return {
+        ...editor,
+        presentation: {
+            ...editor.presentation,
+            slides: editor.presentation.slides.map(slide => slide.id !== editor.selection?.activeSlideId
+                ? slide
+                : {
+                    ...slide,
+                    objects: slide.objects.map(obj => {
+                        if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
+                            return obj;
+                        }
+
+                        return {
+                            ...obj,
+                            opacity: 1,
+                            brightness: 100,
+                            contrast: 100,
+                            saturate: 100,
+                            sepia: 0,
+                            grayscale: 0,
+                            blur: 0,
+                        }
+                    })
+                })
+        }
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -549,5 +579,6 @@ export {
     sendElementBackward,
     sendElementForward,
     changeImageOpacity,
-    changeImageFilter
+    changeImageFilter,
+    resetImageFilters
 }

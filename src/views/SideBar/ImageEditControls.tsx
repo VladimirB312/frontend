@@ -3,6 +3,7 @@ import {useAppActions} from "../../hooks/useAppAction.ts";
 import {ChangeEvent} from "react";
 import {RangeSlider} from "../../components/RangeSlider/RangeSlider.tsx";
 import {IMAGE_FILTERS} from "../../constants/imageFilters.ts";
+import {Button} from "../../components/Button/Button.tsx";
 
 type ImageEditControlsProps = {
     slide: SlideType | null,
@@ -12,7 +13,7 @@ type ImageEditControlsProps = {
 const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) => {
     const element = slide?.objects.find(el => el.id == selectedElementId)
 
-    const {changeImageOpacity, changeImageFilter } = useAppActions()
+    const {changeImageOpacity, changeImageFilter, resetImageFilters} = useAppActions()
 
     if (!element || element.type != 'image') {
         return (
@@ -41,6 +42,7 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
             />
             {IMAGE_FILTERS.map(filter => (
                 <RangeSlider
+                    key={filter.name}
                     value={element[filter.name]}
                     minValue={filter.minValue}
                     maxValue={filter.maxValue}
@@ -49,6 +51,9 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
                     name={filter.label}
                 />
             ))}
+            <Button text={'Сбросить фильтры'}
+                    onClick={resetImageFilters}
+            />
         </div>
     )
 }

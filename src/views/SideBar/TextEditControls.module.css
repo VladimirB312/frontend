@@ -18,6 +18,8 @@
 }
 
 .fontFamilySelector {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
     background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
 }
@@ -27,6 +29,8 @@
 }
 
 .fontSizeSelector {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
     background-color: rgba(177, 193, 200, 0.46);
     cursor: pointer;
 }
@@ -42,6 +46,9 @@
 }
 
 .colorPicker {
+    background-color: rgba(177, 193, 200, 0.46);
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
     height: 23px;
     width: 33px;
     cursor: pointer;
@@ -59,11 +66,9 @@
     min-width: 33px;
     height: 23px;
     border-radius: 3px;
-    box-shadow: 0 2px 3px 0 #979CA5;
     transition: 0.5s;
 }
 
 .alignButton:hover {
-    box-shadow: 0 4px 7px 0 #91A1BA;
     background-color: #bdc3c3;
 }

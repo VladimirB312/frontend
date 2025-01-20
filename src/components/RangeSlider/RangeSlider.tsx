@@ -17,7 +17,6 @@ const RangeSlider = ({
                          onChange,
                          name
                      }: RangeSliderProps) => {
-
     return (
         <div>
             <label htmlFor={name}>{name}</label>
@@ -27,7 +26,7 @@ const RangeSlider = ({
                 name={name}
                 min={minValue}
                 max={maxValue}
-                defaultValue={value}
+                value={value}
                 step={step}
                 onChange={onChange}
             />

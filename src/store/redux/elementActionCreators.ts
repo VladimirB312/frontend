@@ -123,6 +123,12 @@ const changeImageFilter = (filterName: ImageFilterName, newValue: number) => {
     }
 }
 
+const resetImageFilters = () => {
+    return {
+        type: ActionType.RESET_IMAGE_FILTERS
+    }
+}
+
 export {
     addTextElement,
     addImageElement,
@@ -140,5 +146,6 @@ export {
     sendElementBackward,
     sendElementForward,
     changeImageOpacity,
-    changeImageFilter
+    changeImageFilter,
+    resetImageFilters
 }

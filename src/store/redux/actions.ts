@@ -35,6 +35,7 @@ enum ActionType {
     SEND_ELEMENT_BACKWARD = 'sendElementBackward',
     CHANGE_IMAGE_OPACITY = 'changeImageOpacity',
     CHANGE_IMAGE_FILTER = 'changeImageFilter',
+    RESET_IMAGE_FILTERS = 'resetImageFilters',
 
     SET_EDITOR = 'setEditor',
     UNDO = 'undo',
@@ -193,6 +194,10 @@ type ChangeImageFilter = {
     }
 }
 
+type ResetImageFilters = {
+    type: ActionType.RESET_IMAGE_FILTERS
+}
+
 type SetEditorAction = {
     type: ActionType.SET_EDITOR,
     payload: EditorType,
@@ -249,6 +254,7 @@ type EditorAction =
     | SendElementBackward
     | ChangeImageOpacity
     | ChangeImageFilter
+    | ResetImageFilters
     | RenamePresentation
     | SetBackgroundColor
     | SetBackgroundImage
@@ -284,6 +290,7 @@ export {
     type SendElementBackward,
     type ChangeImageOpacity,
     type ChangeImageFilter,
+    type ResetImageFilters,
     type RenamePresentation,
     type SetBackgroundColor,
     type SetBackgroundImage,

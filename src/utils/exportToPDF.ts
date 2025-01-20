@@ -2,15 +2,18 @@ import {jsPDF} from "jspdf";
 import {PresentationType} from "../store/types.ts";
 import {createGradient} from "./createGradient.ts";
 import './fontsForJsPDF/arial-normal.js'
-import './fontsForJsPDF/tahoma-normal.js'
 import './fontsForJsPDF/Verdana-normal.js'
+import './fontsForJsPDF/Tahoma Regular-normal.js'
+import './fontsForJsPDF/HelveticaRegular-normal.js'
+import './fontsForJsPDF/timesnrcyrmt-normal.js'
 import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../constants/slideSize.ts";
 import {getFont} from "./getFont.ts";
+import {createImage} from "./createImage.ts";
 
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
 
-const exportToPdf = (presentation: PresentationType) => {
+const exportToPdf = async (presentation: PresentationType) => {
     const presentationTitle = presentation.title
     const slides = presentation.slides
     const scale = PDF_DOC_WIDTH / SLIDE_WIDTH
@@ -23,7 +26,7 @@ const exportToPdf = (presentation: PresentationType) => {
     });
 
 
-    slides.map((slide, index, arr) => {
+    for (const[index, slide] of slides.entries()) {
         if (slide.background.type == 'solid') {
             doc.setFillColor(slide.background.color)
             doc.rect(0, 0, PDF_DOC_WIDTH, PDF_DOC_HEIGHT, 'F')
@@ -38,23 +41,30 @@ const exportToPdf = (presentation: PresentationType) => {
             }
         }
 
-        slide.objects.map((element) => {
+        for (const element of slide.objects) {
             if (element.type == 'text') {
                 doc.setFontSize(element.textSize * scale * doc.internal.scaleFactor)
                 doc.setFont(getFont(element.font))
                 doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'})
             }
             if (element.type == 'image') {
-                doc.addImage(
-                    element.src, element.position.x * scale, element.position.y * scale, element.size.width * scale, element.size.height * scale, '', 'FAST'
-                )
+                try {
+                    const base64Image = await createImage(element)
+                    if (base64Image) {
+                        doc.addImage(base64Image, element.position.x * scale, element.position.y * scale, element.size.width * scale, element.size.height * scale, '', 'FAST')
+                    } else {
+                        console.error('Не удалось создать изображение')
+                    }
+                } catch (error) {
+                    console.error('Ошибка при создании изображения:', error)
+                }
             }
-        })
+        }
 
-        if (index != arr.length - 1) {
+        if (index != slides.length - 1) {
             doc.addPage()
         }
-    })
+    }
 
     doc.save(presentationTitle);
 }
