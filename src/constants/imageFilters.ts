@@ -6,6 +6,7 @@ type Filter = {
     maxValue: number,
     step: number,
     label: string,
+    unit: string,
 }
 
 const IMAGE_FILTERS: Filter[] = [
@@ -15,6 +16,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 200,
         step: 5,
+        unit: ' %',
     },
     {
         name: 'contrast',
@@ -22,6 +24,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 200,
         step: 5,
+        unit: ' %',
     },
     {
         name: 'saturate',
@@ -29,6 +32,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 200,
         step: 5,
+        unit: ' %',
     },
     {
         name: 'sepia',
@@ -36,6 +40,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 100,
         step: 5,
+        unit: ' %',
     },
     {
         name: 'grayscale',
@@ -43,6 +48,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 100,
         step: 5,
+        unit: ' %',
     },
     {
         name: 'blur',
@@ -50,6 +56,7 @@ const IMAGE_FILTERS: Filter[] = [
         minValue: 0,
         maxValue: 10,
         step: 1,
+        unit: ' px',
     },
 ]
 

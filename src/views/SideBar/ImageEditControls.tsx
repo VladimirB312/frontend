@@ -4,6 +4,7 @@ import {ChangeEvent} from "react";
 import {RangeSlider} from "../../components/RangeSlider/RangeSlider.tsx";
 import {IMAGE_FILTERS} from "../../constants/imageFilters.ts";
 import {Button} from "../../components/Button/Button.tsx";
+import classes from './ImageEditControls.module.css'
 
 type ImageEditControlsProps = {
     slide: SlideType | null,
@@ -31,7 +32,7 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
     }
 
     return (
-        <div>
+        <div className={classes.slidersWrapper}>
             <RangeSlider
                 value={element.opacity}
                 minValue={0}
@@ -39,6 +40,7 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
                 step={0.05}
                 onChange={handleImageOpacityChange}
                 name={'Opacity'}
+                unit={''}
             />
             {IMAGE_FILTERS.map(filter => (
                 <RangeSlider
@@ -49,6 +51,7 @@ const ImageEditControls = ({slide, selectedElementId}: ImageEditControlsProps) =
                     step={filter.step}
                     onChange={(event) => handleChangeImageFilter(event, filter.name)}
                     name={filter.label}
+                    unit={filter.unit}
                 />
             ))}
             <Button text={'Сбросить фильтры'}

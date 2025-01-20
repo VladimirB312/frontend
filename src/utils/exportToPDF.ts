@@ -43,9 +43,20 @@ const exportToPdf = async (presentation: PresentationType) => {
 
         for (const element of slide.objects) {
             if (element.type == 'text') {
-                doc.setFontSize(element.textSize * scale * doc.internal.scaleFactor)
-                doc.setFont(getFont(element.font))
-                doc.text(element.value, element.position.x * scale, element.position.y * scale, {baseline: 'top'})
+                const {value, position, size, align, textSize, font} = element
+                doc.setFontSize(textSize * scale * doc.internal.scaleFactor)
+                doc.setFont(getFont(font))
+
+                const textWidth = doc.getStringUnitWidth(element.value) * doc.internal.scaleFactor
+
+                let xPos = position.x * scale
+                if (align === 'center') {
+                    xPos = position.x * scale + (size.width - textWidth) / 2
+                } else if (align === 'right') {
+                    xPos = position.x * scale + (size.width - textWidth)
+                }
+
+                doc.text(value, xPos, position.y * scale, { align: align, baseline: 'top' })
             }
             if (element.type == 'image') {
                 try {
