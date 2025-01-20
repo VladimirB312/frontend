@@ -1,6 +1,7 @@
 .slidesControls {
     display: flex;
     position: relative;
+    gap: 5px;
 }
 
 .slidesControls:after {

@@ -31,7 +31,7 @@ import {
     sendElementForward,
     changeImageOpacity,
     changeImageFilter,
-    resetImageFilters
+    resetImageFilters, pasteElement,
 } from "../elementFunctions.ts";
 
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
@@ -66,6 +66,8 @@ const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorActi
         case ActionType.RESET_SELECTION_ELEMENT:
             return resetSelectionElement(editor)
 
+        case ActionType.PASTE_ELEMENT:
+            return pasteElement(editor, action)
         case ActionType.ADD_TEXT_ELEMENT:
             return addTextElement(editor)
         case ActionType.ADD_IMAGE_ELEMENT:

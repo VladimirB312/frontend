@@ -1,4 +1,12 @@
-import {AlignType, Background, EditorType, GradientBackground, ImageFilterName, UnsplashImageType} from "../types.ts"
+import {
+    AlignType,
+    Background,
+    EditorType,
+    GradientBackground,
+    ImageElement,
+    ImageFilterName, TextElement,
+    UnsplashImageType
+} from "../types.ts"
 import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
 
 enum ActionType {
@@ -19,6 +27,7 @@ enum ActionType {
     SET_SELECTION_ELEMENT = 'setSelectionElement',
     RESET_SELECTION_ELEMENT = 'resetSelectionElement',
 
+    PASTE_ELEMENT = 'pasteElement',
     ADD_TEXT_ELEMENT = 'addTextElement',
     ADD_IMAGE_ELEMENT = 'addImageElement',
     CHANGE_ELEMENT_POSITION = 'changeElementPosition',
@@ -107,6 +116,11 @@ type SetSelectionElement = {
 
 type ResetSelectionElement = {
     type: ActionType.RESET_SELECTION_ELEMENT,
+}
+
+type PasteElement = {
+    type: ActionType.PASTE_ELEMENT,
+    payload: ImageElement | TextElement
 }
 
 type AddTextElement = {
@@ -244,6 +258,7 @@ type EditorAction =
     | SetEditorAction
     | SetSelectionElement
     | ResetSelectionElement
+    | PasteElement
     | AddTextElement
     | AddImageElement
     | ChangeElementPosition
@@ -282,6 +297,7 @@ export {
     type EditorAction,
     type SetSelectionElement,
     type ResetSelectionElement,
+    type PasteElement,
     type AddImageElement,
     type ChangeElementPosition,
     type ChangeElementSize,

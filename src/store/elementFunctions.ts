@@ -11,7 +11,7 @@ import {
     ChangeTextColor,
     ChangeTextFont,
     ChangeTextSize,
-    ChangeTextValue
+    ChangeTextValue, PasteElement
 } from "./redux/actions.ts";
 import {calculatePosition} from "../utils/calculatePosition.ts";
 
@@ -33,8 +33,19 @@ const addElement = (editor: EditorType, newElement: ImageElement | TextElement) 
         selection: {
             ...editor.selection,
             selectedElementId: newElement.id,
+            type: "element",
         }
     }
+}
+
+const pasteElement = (editor: EditorType, action: PasteElement) => {
+    const uniqueId: string = crypto.randomUUID()
+    const element = {
+        ...action.payload,
+        id: uniqueId,
+        position: {x: 300, y: 200},
+    }
+    return addElement(editor, element)
 }
 
 const addTextElement = (editor: EditorType) => {
@@ -43,7 +54,7 @@ const addTextElement = (editor: EditorType) => {
     const newTextElement: TextElement =
         {
             id: uniqueId,
-            position: {x: 300, y: 250},
+            position: {x: 300, y: 200},
             size: {width: 200, height: 50},
             type: "text",
             value: "",
@@ -565,6 +576,7 @@ const resetImageFilters = (editor: EditorType): EditorType => {
 export {
     addTextElement,
     addImageElement,
+    pasteElement,
     changePosition,
     changeSize,
     changeRect,

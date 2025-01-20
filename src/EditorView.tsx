@@ -2,8 +2,8 @@ import classes from './EditorView.module.css'
 import {TopPanel} from "./views/TopPanel/TopPanel.tsx";
 import {SlideList} from "./views/SlideList/SlideList.tsx";
 import {WorkArea} from "./views/WorkArea/WorkArea.tsx";
-import {Background} from "./store/types.ts";
-import React, {useState} from "react";
+import {Background, ImageElement, SlideType, TextElement} from "./store/types.ts";
+import React, {useEffect, useState} from "react";
 import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
 import {createPortal} from "react-dom";
 import {SlidesPreview} from "./views/SlidesPreview/SlidesPreview.tsx";
@@ -12,6 +12,50 @@ import {useUndoRedo} from "./hooks/useUndoRedo.ts";
 import {BackgroundChangeModal} from "./views/BackgroundChangeModal/BackgroundChangeModal.tsx";
 import {useDelete} from "./hooks/useDelete.ts";
 import {SideBar} from "./views/SideBar/SideBar.tsx";
+import {useAppActions} from "./hooks/useAppAction.ts";
+
+const useCopyPasteElement = (activeSlide: SlideType | null, selectedElementId: string | null) => {
+    const [elementBuffer, setElementBuffer] = useState<TextElement | ImageElement | null>(null)
+
+    const {pasteElement} = useAppActions()
+    
+    useEffect(() => {
+        const onCopy = () => {
+            if (activeSlide && selectedElementId) {
+                const selectedElement = activeSlide.objects.find(
+                    element => element.id == selectedElementId
+                )
+                if (selectedElement) {
+                    setElementBuffer(selectedElement)   
+                }                
+            }
+        }
+
+        const onPaste = () => {
+            if (!elementBuffer || !activeSlide) {
+                return
+            }
+            
+            pasteElement(elementBuffer)
+        }
+        
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.code == 'KeyC' && (e.altKey)) {
+                onCopy()
+            }
+
+            if (e.code == 'KeyV' && (e.altKey)) {
+                onPaste()
+            }
+        }
+
+        document.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [activeSlide, elementBuffer, pasteElement, selectedElementId]);
+}
 
 const EditorView = () => {
     const presentation = usePresentationSelector()
@@ -30,6 +74,7 @@ const EditorView = () => {
     const {undoDisabled, redoDisabled} = useUndoRedo(showBackgroundModal, showUnsplash, showPreviewSlides)
     const selectedElementId = selection?.selectedElementId ?? null
 
+    useCopyPasteElement(activeSlide, selectedElementId)
     useDelete(showBackgroundModal, showUnsplash, showPreviewSlides, textEditMode)
 
     return (

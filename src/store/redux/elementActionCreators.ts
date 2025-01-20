@@ -1,5 +1,5 @@
 import {ActionType} from "./actions.ts";
-import {ImageFilterName, Position, Size} from "../types.ts";
+import {ImageElement, ImageFilterName, Position, Size, TextElement} from "../types.ts";
 
 const addTextElement = () => {
     return {
@@ -14,6 +14,13 @@ const addImageElement = (src: string, size: Size) => {
             src,
             size
         },
+    }
+}
+
+const pasteElement = (element: ImageElement | TextElement) => {
+    return {
+        type: ActionType.PASTE_ELEMENT,
+        payload: element
     }
 }
 
@@ -132,6 +139,7 @@ const resetImageFilters = () => {
 export {
     addTextElement,
     addImageElement,
+    pasteElement,
     changeElementPosition,
     changeElementSize,
     changeElementRect,
