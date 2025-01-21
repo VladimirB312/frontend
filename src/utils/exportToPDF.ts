@@ -46,13 +46,11 @@ const exportToPdf = async (presentation: PresentationType) => {
                 doc.setFontSize(textSize * scale * doc.internal.scaleFactor)
                 doc.setFont(getFont(font))
 
-                const textWidth = doc.getStringUnitWidth(element.value) * doc.internal.scaleFactor
-
                 let xPos = position.x * scale
                 if (align === 'center') {
-                    xPos = position.x * scale + (size.width - textWidth) / 2
+                    xPos = position.x * scale + size.width / 2
                 } else if (align === 'right') {
-                    xPos = position.x * scale + (size.width - textWidth)
+                    xPos = position.x * scale + size.width
                 }
 
                 doc.text(value, xPos, position.y * scale, { align: align, baseline: 'top' })
