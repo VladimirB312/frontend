@@ -1,7 +1,7 @@
 import classes from './SelectableSlide.module.css'
-import {SlideContent} from "../SlideContent/SlideContent.tsx";
-import {SlideType} from "../../store/types.ts";
-import {useEffect, useRef} from "react";
+import {SlideContent} from "../SlideContent/SlideContent.tsx"
+import {SlideType} from "../../store/types.ts"
+import {useEffect, useRef} from "react"
 
 type SlideProps = {
     slide: SlideType,

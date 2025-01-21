@@ -1,8 +1,8 @@
 import classes from './SideBar.module.css'
-import {SlideType} from "../../store/types.ts";
-import {LayerControls} from "./LayerControls.tsx";
-import {TextEditControls} from "./TextEditControls.tsx";
-import {ImageEditControls} from "./ImageEditControls.tsx";
+import {SlideType} from "../../store/types.ts"
+import {LayerControls} from "./LayerControls.tsx"
+import {TextEditControls} from "./TextEditControls.tsx"
+import {ImageEditControls} from "./ImageEditControls.tsx"
 
 type SideBarProps = {
     slide: SlideType | null,

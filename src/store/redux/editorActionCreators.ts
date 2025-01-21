@@ -1,5 +1,5 @@
-import {UnsplashImageType} from "../types.ts";
-import {ActionType} from "./actions";
+import {UnsplashImageType} from "../types.ts"
+import {ActionType} from "./actions"
 
 const setExternalImages = (images: [UnsplashImageType] | [], totalPages: number, currentPage: number | null) => {
     return {

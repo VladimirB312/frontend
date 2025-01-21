@@ -1,10 +1,10 @@
-import classes from "./PlayerControls.module.css";
-import {Button} from "../../components/Button/Button.tsx";
-import {useSlidesSelector} from "../../hooks/useAppSelector.ts";
-import {useNavigate} from "react-router";
-import {useEffect} from "react";
-import {SlideType} from "../../store/types.ts";
-import {arrowLeftIcon, arrowRightIcon, closeIcon} from "../../components/icons.ts";
+import classes from "./PlayerControls.module.css"
+import {Button} from "../../../components/Button/Button.tsx"
+import {useSlidesSelector} from "../../../hooks/useAppSelector.ts"
+import {useNavigate} from "react-router"
+import {useEffect} from "react"
+import {SlideType} from "../../../store/types.ts"
+import {arrowLeftIcon, arrowRightIcon, closeIcon} from "../../../components/icons.ts"
 
 const EDITOR_URL = '/'
 
@@ -86,7 +86,7 @@ type PlayerControlsPropsType = {
     setActiveSlideIndex: (x: number) => void,
 }
 
-function PlayerControls({slides, activeSlideIndex, setActiveSlideIndex}: PlayerControlsPropsType) {
+const PlayerControls = ({slides, activeSlideIndex, setActiveSlideIndex}: PlayerControlsPropsType) => {
     useEffect(() => {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen().catch((err) => console.log(err))

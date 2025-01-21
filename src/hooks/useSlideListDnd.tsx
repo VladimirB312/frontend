@@ -1,14 +1,14 @@
-import {RefObject, useEffect, useState} from "react";
-import {Position, SelectionType} from "../store/types.ts";
-import {useAppActions} from "./useAppAction.ts";
+import {RefObject, useEffect, useState} from "react"
+import {Position, SelectionType} from "../store/types.ts"
+import {useAppActions} from "./useAppAction.ts"
 
 const getSlideId = (node: Element): string | null => {
-    const element: Element | null = node;
+    const element: Element | null = node
     if (element.getAttribute('data-slide-id')) {
-        return element.getAttribute('data-slide-id');
+        return element.getAttribute('data-slide-id')
     }
 
-    return null;
+    return null
 }
 
 const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: SelectionType | null): {
@@ -26,7 +26,7 @@ const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: Sel
     const handleClick = (event: MouseEvent, slideId: string) => {
         if (event.ctrlKey) {
             setSelectionSlide(slideId)
-            return;
+            return
         }
 
         setActiveSlide(slideId)
@@ -93,9 +93,9 @@ const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: Sel
             setStartPosition(null)
             setSlideRect(null)
 
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown)
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
         }
 
         document.addEventListener('mousedown', onMouseDown)
@@ -103,9 +103,9 @@ const useSlideListDnd = (slideListRef: RefObject<HTMLDivElement>, selection: Sel
         document.addEventListener('mouseup', onMouseUp)
 
         return () => {
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown)
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
         }
 
     }, [dndPosition, isDragging, startPosition, draggedSlideId, selection?.selectedSlidesId, slideListRef])

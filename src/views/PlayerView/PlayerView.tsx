@@ -1,17 +1,17 @@
 import classes from './PlayerView.module.css'
-import {useState} from "react";
-import {useSelectionSelector, useSlidesSelector} from "./hooks/useAppSelector.ts";
-import {SlideContent} from "./views/SlideContent/SlideContent.tsx";
-import {useWindowResize} from "./hooks/useWindowResize.tsx";
-import {PlayerControls} from "./views/PlayerControls/PlayerControls.tsx";
-import {SelectionType, SlideType} from "./store/types.ts";
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "./constants/slideSize.ts";
+import {useState} from "react"
+import {useSelectionSelector, useSlidesSelector} from "../../hooks/useAppSelector.ts"
+import {SlideContent} from "../SlideContent/SlideContent.tsx"
+import {useWindowResize} from "../../hooks/useWindowResize.tsx"
+import {PlayerControls} from "./PlayerControls/PlayerControls.tsx"
+import {SelectionType, SlideType} from "../../store/types.ts"
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts"
 
 const getStartSlideIndex = (slides: SlideType[],  selection: SelectionType | null) => {
     const activeSlideId = selection?.activeSlideId
     let startSlideIndex = slides.findIndex(slide => slide.id == activeSlideId)
     if (startSlideIndex == -1) {
-        startSlideIndex = 0;
+        startSlideIndex = 0
     }
 
     return startSlideIndex
@@ -46,4 +46,4 @@ const PlayerView = () => {
     )
 }
 
-export {PlayerView};
+export {PlayerView}

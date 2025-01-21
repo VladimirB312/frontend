@@ -1,12 +1,12 @@
-import {EditorType} from "./types.ts";
-import {Background, PresentationType, SlideType} from "./types.ts";
+import {EditorType} from "./types.ts"
+import {Background, PresentationType, SlideType} from "./types.ts"
 import {
     ChangeSlidePosition,
     SetAllSlidesBackground,
     SetBackgroundColor,
     SetBackgroundGradient,
     SetBackgroundImage
-} from "./redux/actions.ts";
+} from "./redux/actions.ts"
 
 const addSlide = (editor: EditorType): EditorType => {
     const uniqueId: string = crypto.randomUUID()
@@ -36,7 +36,7 @@ const _addSlide = (slides: SlideType[], newSlide: SlideType, selectedSlidesId: s
         return [newSlide]
     }
 
-    const newSlides: SlideType[] = [];
+    const newSlides: SlideType[] = []
     slides.forEach(slide => {
         newSlides.push(slide)
         if (slide.id == lastSelectedSlideId) {
@@ -87,7 +87,7 @@ const changeSlidePosition = (editor: EditorType, action: ChangeSlidePosition): E
 
     const sortedSelectedSlidesId = editor.presentation.slides
         .filter(slide => editor.selection?.selectedSlidesId?.includes(slide.id))
-        .map(slide => slide.id);
+        .map(slide => slide.id)
 
     return {
         ...editor,
@@ -96,18 +96,18 @@ const changeSlidePosition = (editor: EditorType, action: ChangeSlidePosition): E
 }
 
 const _changeSlidePosition = (presentation: PresentationType, slidesId: string[], newSlideId: string) => {
-    const slideIndex: number = presentation.slides.findIndex(slide => slide.id === slidesId[0]);
+    const slideIndex: number = presentation.slides.findIndex(slide => slide.id === slidesId[0])
     if (slideIndex === -1) {
-        return presentation;
+        return presentation
     }
 
-    const shift = slideIndex < presentation.slides.findIndex(slide => slide.id === newSlideId) ? 1 : 0;
+    const shift = slideIndex < presentation.slides.findIndex(slide => slide.id === newSlideId) ? 1 : 0
 
-    let newSlides: SlideType[] = [...presentation.slides];
-    const movedSlides = newSlides.filter(slide => slidesId.includes(slide.id));
-    newSlides = newSlides.filter(slide => !slidesId.includes(slide.id));
+    let newSlides: SlideType[] = [...presentation.slides]
+    const movedSlides = newSlides.filter(slide => slidesId.includes(slide.id))
+    newSlides = newSlides.filter(slide => !slidesId.includes(slide.id))
     const newPosition = newSlides.findIndex(slide => slide.id === newSlideId)
-    newSlides.splice(newPosition + shift, 0, ...movedSlides);
+    newSlides.splice(newPosition + shift, 0, ...movedSlides)
 
     return {
         ...presentation,
@@ -135,15 +135,15 @@ const setBackground = (editor: EditorType, newBackground: Background): EditorTyp
 }
 
 const setBackgroundColor = (editor: EditorType, action: SetBackgroundColor): EditorType => {
-    return setBackground(editor, action.payload);
+    return setBackground(editor, action.payload)
 }
 
 const setBackgroundImage = (editor: EditorType, action: SetBackgroundImage): EditorType => {
-    return setBackground(editor, action.payload);
+    return setBackground(editor, action.payload)
 }
 
 const setBackgroundGradient = (editor: EditorType, action: SetBackgroundGradient): EditorType => {
-    return setBackground(editor, action.payload);
+    return setBackground(editor, action.payload)
 }
 
 const setAllSlidesBackground = (editor: EditorType, action: SetAllSlidesBackground): EditorType => {

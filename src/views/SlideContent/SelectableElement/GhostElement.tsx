@@ -1,9 +1,9 @@
-import classes from "./GhostElement.module.css";
-import {ImageElement, TextElement} from "../../../store/types.ts";
-import {useResize} from "../../../hooks/useResize.tsx";
-import React, {CSSProperties, SetStateAction} from "react";
-import {useDragAndDropElement} from "../../../hooks/useDragAndDropElement.tsx";
-import {Resizers} from "./Resizers.tsx";
+import classes from "./GhostElement.module.css"
+import {ImageElement, TextElement} from "../../../store/types.ts"
+import {useResize} from "../../../hooks/useResize.tsx"
+import React, {CSSProperties, SetStateAction} from "react"
+import {useDragAndDropElement} from "../../../hooks/useDragAndDropElement.tsx"
+import {Resizers} from "./Resizers.tsx"
 
 type GhostElementProps = {
     element: TextElement | ImageElement,

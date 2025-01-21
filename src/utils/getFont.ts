@@ -1,4 +1,4 @@
-import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../constants/fonts.ts";
+import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../constants/fonts.ts"
 
 const getFont = (font: string) => {
     switch (font) {

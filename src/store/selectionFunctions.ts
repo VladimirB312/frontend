@@ -1,5 +1,5 @@
-import {EditorType} from "./types.ts";
-import {SetSelectionSlideAction, SetActiveSlideAction, SetSelectionElement} from "./redux/actions.ts";
+import {EditorType} from "./types.ts"
+import {SetSelectionSlideAction, SetActiveSlideAction, SetSelectionElement} from "./redux/actions.ts"
 
 const setActiveSlide = (editor: EditorType, action: SetActiveSlideAction): EditorType => {
     const slideId = action.payload
@@ -20,7 +20,7 @@ const setSelectionSlide = (editor: EditorType, action: SetSelectionSlideAction):
     const slideId = action.payload
 
     if (slideId == editor.selection?.activeSlideId) {
-        return editor;
+        return editor
     }
 
     if (editor.selection?.selectedSlidesId && editor.selection?.selectedSlidesId.includes(slideId)) {

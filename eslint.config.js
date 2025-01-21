@@ -23,6 +23,15 @@ export default tseslint.config(
                 'warn',
                 {allowConstantExport: true},
             ],
+            "semi": ["error", "never"],
+            "no-multiple-empty-lines": [
+                "error",
+                {
+                    "max": 1,
+                    "maxEOF": 0,
+                    "maxBOF": 0
+                }
+            ]
         },
     },
 )

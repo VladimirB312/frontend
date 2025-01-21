@@ -1,4 +1,4 @@
-import {ChangeEvent} from "react";
+import {ChangeEvent} from "react"
 import classes from './RangeSlider.module.css'
 
 type RangeSliderProps = {
@@ -40,8 +40,6 @@ const RangeSlider = ({
                 />
                 <span className={classes.inputUnit}>{value + unit}</span>
             </div>
-
-
         </div>
     )
 }

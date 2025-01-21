@@ -1,5 +1,5 @@
 import classes from './EmptySlide.module.css'
-import {useAppActions} from "../../../hooks/useAppAction.ts";
+import {useAppActions} from "../../../hooks/useAppAction.ts"
 
 const EmptySlide = () => {
 

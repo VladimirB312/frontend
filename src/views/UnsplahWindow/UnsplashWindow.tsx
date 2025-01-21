@@ -1,9 +1,9 @@
 import classes from './UnsplashWindow.module.css'
-import {useEffect, useState} from "react";
-import {useAppActions} from "../../hooks/useAppAction.ts";
-import {useExternalImagesSelector} from "../../hooks/useAppSelector.ts";
-import {Preloader} from "../../components/Preloader/Preloader.tsx";
-import {Button} from "../../components/Button/Button.tsx";
+import {useEffect, useState} from "react"
+import {useAppActions} from "../../hooks/useAppAction.ts"
+import {useExternalImagesSelector} from "../../hooks/useAppSelector.ts"
+import {Preloader} from "../../components/Preloader/Preloader.tsx"
+import {Button} from "../../components/Button/Button.tsx"
 import {
     addImageIcon,
     arrowLeftIcon,
@@ -11,7 +11,7 @@ import {
     backgroundImageIcon,
     closeIcon,
     searchIcon
-} from "../../components/icons.ts";
+} from "../../components/icons.ts"
 
 type UnsplashWindowPropsType = {
     onCloseUnsplash: () => void
@@ -31,7 +31,7 @@ const UnsplashWindow = ({onCloseUnsplash}: UnsplashWindowPropsType) => {
 
     useEffect(() => {
         requestImages(searchImg)
-    }, [searchImg]);
+    }, [searchImg])
 
     const Submit = () => {
         requestImages(searchImg)

@@ -1,20 +1,20 @@
 import classes from './TopPanel.module.css'
-import {Button} from "../../components/Button/Button.tsx";
-import {Background, SlideType} from "../../store/types.ts";
-import React, {SetStateAction} from "react";
-import {Title} from "./Title.tsx";
-import {LoadPresentation} from "./CustomButtons/LoadPresentation.tsx";
-import {usePresentationSelector} from "../../hooks/useAppSelector.ts";
-import {useNavigate} from "react-router";
+import {Button} from "../../components/Button/Button.tsx"
+import {Background, SlideType} from "../../store/types.ts"
+import React, {SetStateAction} from "react"
+import {Title} from "./Title.tsx"
+import {LoadPresentation} from "./CustomButtons/LoadPresentation.tsx"
+import {usePresentationSelector} from "../../hooks/useAppSelector.ts"
+import {useNavigate} from "react-router"
 import {
     backgroundIcon,
     generatePdfIcon,
     saveIcon,
     slideShowIcon,
-} from "../../components/icons.ts";
-import {SlidesControlsPanel} from "./Panels/SlidesControlsPanel.tsx";
-import {UndoRedoControlsPanel} from "./Panels/UndoRedoControlsPanel.tsx";
-import {ElementControlsPanel} from "./Panels/ElementControlsPanel.tsx";
+} from "../../components/icons.ts"
+import {SlidesControlsPanel} from "./Panels/SlidesControlsPanel.tsx"
+import {UndoRedoControlsPanel} from "./Panels/UndoRedoControlsPanel.tsx"
+import {ElementControlsPanel} from "./Panels/ElementControlsPanel.tsx"
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -52,7 +52,8 @@ const TopPanel = ({
         const file = new Blob([jsonEditor], {type: "application/json"})
         const a = document.createElement('a')
         a.href = URL.createObjectURL(file)
-        a.download = `${title}.json`
+        const fileName = title || 'presentation'
+        a.download = `${fileName}.json`
         a.click()
         URL.revokeObjectURL(a.href)
     }
@@ -96,8 +97,8 @@ const TopPanel = ({
                 />
                 <ElementControlsPanel
                     disabledSlideButton={disabledSlideButton}
-                    onOpenUnsplash={onOpenUnsplash}/>
-
+                    onOpenUnsplash={onOpenUnsplash}
+                />
             </div>
         </div>
     )

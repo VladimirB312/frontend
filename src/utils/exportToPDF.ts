@@ -1,14 +1,14 @@
-import {jsPDF} from "jspdf";
-import {PresentationType} from "../store/types.ts";
-import {createGradient} from "./createGradient.ts";
+import {jsPDF} from "jspdf"
+import {PresentationType} from "../store/types.ts"
+import {createGradient} from "./createGradient.ts"
 import './fontsForJsPDF/arial-normal.js'
 import './fontsForJsPDF/Verdana-normal.js'
 import './fontsForJsPDF/Tahoma Regular-normal.js'
 import './fontsForJsPDF/HelveticaRegular-normal.js'
 import './fontsForJsPDF/timesnrcyrmt-normal.js'
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../constants/slideSize.ts";
-import {getFont} from "./getFont.ts";
-import {createImage} from "./createImage.ts";
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../constants/slideSize.ts"
+import {getFont} from "./getFont.ts"
+import {createImage} from "./createImage.ts"
 
 const PDF_DOC_WIDTH = SLIDE_WIDTH
 const PDF_DOC_HEIGHT = SLIDE_HEIGHT
@@ -23,8 +23,7 @@ const exportToPdf = async (presentation: PresentationType) => {
         unit: "px",
         format: [PDF_DOC_WIDTH, PDF_DOC_HEIGHT],
         hotfixes: ['px_scaling'],
-    });
-
+    })
 
     for (const[index, slide] of slides.entries()) {
         if (slide.background.type == 'solid') {
@@ -77,7 +76,7 @@ const exportToPdf = async (presentation: PresentationType) => {
         }
     }
 
-    doc.save(presentationTitle);
+    doc.save(presentationTitle)
 }
 
 export {exportToPdf}

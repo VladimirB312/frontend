@@ -1,9 +1,9 @@
-import {useEffect} from "react";
-import {useAppActions} from "./useAppAction.ts";
-import {useSelectionSelector} from "./useAppSelector.ts";
+import {useEffect} from "react"
+import {useAppActions} from "./useAppAction.ts"
+import {useSelectionSelector} from "./useAppSelector.ts"
 
 const useDelete = (showBackgroundModal: boolean, showUnsplash: boolean, showPreviewSlides: boolean, textEditMode: boolean) => {
-    const {removeSlide,removeElement} = useAppActions()
+    const {removeSlide, removeElement} = useAppActions()
     const selection = useSelectionSelector()
     const isActive = selection?.activeSlideId
     const isSelected = selection?.selectedElementId

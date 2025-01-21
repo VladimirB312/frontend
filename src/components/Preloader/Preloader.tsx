@@ -1,4 +1,4 @@
-import preloader from "../../assets/tube-spinner.svg";
+import preloader from "../../assets/tube-spinner.svg"
 
 const Preloader = () => {
     return <div>

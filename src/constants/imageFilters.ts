@@ -1,4 +1,4 @@
-import {ImageFilterName} from "../store/types.ts";
+import {ImageFilterName} from "../store/types.ts"
 
 type Filter = {
     name: ImageFilterName,

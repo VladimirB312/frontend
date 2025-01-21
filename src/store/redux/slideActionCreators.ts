@@ -1,5 +1,5 @@
-import {ActionType} from "./actions.ts";
-import {Background, ColorBackground, GradientBackground, ImageBackground} from "../types.ts";
+import {ActionType} from "./actions.ts"
+import {Background, ColorBackground, GradientBackground, ImageBackground} from "../types.ts"
 
 const addSlide = () => {
     return {

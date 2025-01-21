@@ -1,11 +1,11 @@
-import {RootState, TDispatch} from "../../hooks/useAppSelector.ts";
-import {addImageElement} from "../redux/elementActionCreators.ts";
-import {fetchImage} from "../../utils/fetchImage.ts";
-import {convertToBase64} from "../../utils/convertToBase64.ts";
-import {fetchRequest} from "../../api/unsplashApi.ts";
-import {setExternalImages, toggleExternalImagesFetching} from "../redux/editorActionCreators.ts";
-import {ImageBackground} from "../types.ts";
-import {setBackgroundImage} from "../redux/slideActionCreators.ts";
+import {RootState, TDispatch} from "../../hooks/useAppSelector.ts"
+import {addImageElement} from "../redux/elementActionCreators.ts"
+import {fetchImage} from "../../utils/fetchImage.ts"
+import {convertToBase64} from "../../utils/convertToBase64.ts"
+import {fetchRequest} from "../../api/unsplashApi.ts"
+import {setExternalImages, toggleExternalImagesFetching} from "../redux/editorActionCreators.ts"
+import {ImageBackground} from "../types.ts"
+import {setBackgroundImage} from "../redux/slideActionCreators.ts"
 
 const requestToApi = async (query: string, currentPage: number) => {
     const data = await fetchRequest(query, currentPage)
@@ -111,7 +111,6 @@ const changeBackgroundFromUnsplash = () => {
         }
     }
 }
-
 
 export {
     requestImages,

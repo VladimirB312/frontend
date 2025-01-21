@@ -1,9 +1,9 @@
 import classes from './TextEditControls.module.css'
-import {SlideType} from "../../store/types.ts";
-import {useAppActions} from "../../hooks/useAppAction.ts";
-import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts";
-import {ChangeEvent} from "react";
-import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../../constants/fonts.ts";
+import {SlideType} from "../../store/types.ts"
+import {useAppActions} from "../../hooks/useAppAction.ts"
+import {alignCenterIcon, alignLeftIcon, alignRightIcon} from "../../components/icons.ts"
+import {ChangeEvent} from "react"
+import {ARIAL, HELVETICA, TAHOMA, TIMES_NEW_ROMAN, VERDANA} from "../../constants/fonts.ts"
 
 type TextEditControlsProps = {
     slide: SlideType | null,

@@ -1,4 +1,4 @@
-import {PresentationType} from "./types.ts";
+import {PresentationType} from "./types.ts"
 
 const setToLocalStorage = (newPresentation: PresentationType) => {
     localStorage.setItem('presentationData', JSON.stringify(newPresentation))

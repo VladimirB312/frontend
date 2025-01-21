@@ -1,9 +1,9 @@
 import classes from './SelectableElement.module.css'
-import {ImageElement, TextElement} from "../../../store/types.ts";
-import {TextComponent} from "../TextComponent/TextComponent.tsx";
-import {ImageComponent} from "../ImageComponent/ImageComponent.tsx";
-import React, {CSSProperties, RefObject, SetStateAction, useRef} from "react";
-import {GhostElement} from "./GhostElement.tsx";
+import {ImageElement, TextElement} from "../../../store/types.ts"
+import {TextComponent} from "../TextComponent/TextComponent.tsx"
+import {ImageComponent} from "../ImageComponent/ImageComponent.tsx"
+import React, {CSSProperties, RefObject, SetStateAction, useRef} from "react"
+import {GhostElement} from "./GhostElement.tsx"
 
 type SelectableElementProps = {
     element: TextElement | ImageElement,
@@ -47,7 +47,7 @@ const SelectableElement = ({
                                     scale={scale}
                                     elementStyle={elementStyle}
                                 />
-                            );
+                            )
                         case 'image':
                             return (
                                 <ImageComponent
@@ -55,7 +55,7 @@ const SelectableElement = ({
                                     scale={scale}
                                     elementStyle={elementStyle}
                                 />
-                            );
+                            )
                         default:
                             console.log("error type of object")
                     }

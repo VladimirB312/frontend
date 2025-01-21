@@ -1,8 +1,8 @@
-import {SlideType} from "../../store/types.ts";
+import {SlideType} from "../../store/types.ts"
 import classes from './WorkArea.module.css'
-import {SlideContent} from "../SlideContent/SlideContent.tsx";
-import React, {RefObject, SetStateAction, useEffect, useRef, useState} from "react";
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts";
+import {SlideContent} from "../SlideContent/SlideContent.tsx"
+import React, {RefObject, SetStateAction, useEffect, useRef, useState} from "react"
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts"
 
 const WORK_AREA_PADDING = 20
 

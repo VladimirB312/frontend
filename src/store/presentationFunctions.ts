@@ -1,6 +1,6 @@
-import {EditorType} from "./types.ts";
-import {LoadPresentation, RenamePresentation} from "./redux/actions.ts";
-import {validatePresentation} from "../ajvValidator.ts";
+import {EditorType} from "./types.ts"
+import {LoadPresentation, RenamePresentation} from "./redux/actions.ts"
+import {validatePresentation} from "../utils/ajvValidator.ts"
 
 const renamePresentation = (editor: EditorType, action: RenamePresentation): EditorType => {
     return {

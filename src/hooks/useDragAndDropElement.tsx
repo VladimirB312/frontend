@@ -1,6 +1,6 @@
-import React, {SetStateAction, useEffect, useRef, useState} from "react";
-import {ImageElement, Position, TextElement} from "../store/types.ts";
-import {useAppActions} from "./useAppAction.ts";
+import React, {SetStateAction, useEffect, useRef, useState} from "react"
+import {ImageElement, Position, TextElement} from "../store/types.ts"
+import {useAppActions} from "./useAppAction.ts"
 
 const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
                                element: TextElement | ImageElement,
@@ -22,15 +22,15 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
         }
         if (textAreaRef.current) {
             textAreaRef.current.style.cursor = ''
-            textAreaRef.current.setSelectionRange(textAreaRef.current.selectionStart, textAreaRef.current.selectionStart);
-            textAreaRef.current.readOnly = true;
+            textAreaRef.current.setSelectionRange(textAreaRef.current.selectionStart, textAreaRef.current.selectionStart)
+            textAreaRef.current.readOnly = true
             textAreaRef.current = null
         }
     }
 
     useEffect(() => {
         const onDoubleClick = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
+            const target = e.target as HTMLElement
             const textAreaElement = target.closest('textarea')
 
             if (elementRef.current && elementRef.current.contains(e.target as Node) && textAreaElement) {
@@ -39,14 +39,14 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
                     setTextEditMode(true)
                 }
                 textAreaRef.current = textAreaElement
-                textAreaRef.current.readOnly = false;
+                textAreaRef.current.readOnly = false
                 textAreaRef.current.style.cursor = 'text'
             }
         }
 
         const onMouseDown = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const elementId = target.closest('[data-element-id]');
+            const target = e.target as HTMLElement
+            const elementId = target.closest('[data-element-id]')
             const resizerId = target.closest('[data-resizer-id]')
             const slideContentId = target.closest('[data-slide-content-id]')
             const selectedTextArea = target.closest('textarea')
@@ -68,7 +68,7 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
 
         const onMouseMove = (e: MouseEvent) => {
             if (isTextEditing || !isDragging || !elementRef.current?.offsetParent || !startPos || !dndPosition || !scale) {
-                return;
+                return
             }
 
             e.preventDefault()
@@ -92,14 +92,14 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
             elementRef.current.style.userSelect = ''
             elementRef.current.style.pointerEvents = ''
 
-            changeElementPosition(dndPosition);
+            changeElementPosition(dndPosition)
             setIsDragging(false)
             setStartPos(null)
             setDndPosition(null)
 
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown)
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
             document.removeEventListener('dblclick', onDoubleClick)
         }
 
@@ -109,15 +109,15 @@ const useDragAndDropElement = (elementRef: React.RefObject<HTMLDivElement>,
         document.addEventListener('mouseup', onMouseUp)
 
         return () => {
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousedown', onMouseDown)
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
             document.removeEventListener('dblclick', onDoubleClick)
         }
 
-    }, [dndPosition, isDragging, startPos, elementRef, element.position, element.id, isTextEditing, textAreaRef]);
+    }, [dndPosition, isDragging, startPos, elementRef, element.position, element.id, isTextEditing, textAreaRef])
 
-    return dndPosition ?? element.position;
+    return dndPosition ?? element.position
 }
 
 export {useDragAndDropElement}

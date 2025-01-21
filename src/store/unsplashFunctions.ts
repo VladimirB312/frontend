@@ -1,5 +1,5 @@
-import {EditorType} from "./types.ts";
-import {SetExternalImages, SetExternalImageSelection, ToggleExternalImagesFetching} from "./redux/actions.ts";
+import {EditorType} from "./types.ts"
+import {SetExternalImages, SetExternalImageSelection, ToggleExternalImagesFetching} from "./redux/actions.ts"
 
 const setExternalImages = (editor: EditorType, action: SetExternalImages) => {
     return {
@@ -39,4 +39,3 @@ export {
     setUnsplashImageSelection,
     toggleUnsplashFetching,
 }
-

@@ -1,35 +1,58 @@
-import classes from "./TopPanel.module.css";
-import React, {CSSProperties, useState} from "react";
-import {useAppActions} from "../../hooks/useAppAction.ts";
+import classes from "./Title.module.css"
+import React, {CSSProperties, useEffect, useRef, useState} from "react"
+import {useAppActions} from "../../hooks/useAppAction.ts"
 
 type TitleProps = {
-    value: string;
+    value: string,
 }
 
 function Title({value}: TitleProps) {
     const [title, setTitle] = useState(value)
     const {renamePresentation} = useAppActions()
+    const titleBufferRef = useRef<HTMLDivElement>(null)
+    const [inputWidth, setInputWidth] = useState(value.length * 9)
+    const defaultTitle = 'Новая презентация'
+
+    useEffect(() => {
+        if (titleBufferRef.current) {
+            setInputWidth(titleBufferRef.current.offsetWidth + 10)
+        }
+    }, [title])
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value);
+        setTitle(event.target.value)
     }
 
     const handleTitleBlur = () => {
-        renamePresentation(title);
+        if (!title.trim()) {
+            renamePresentation(defaultTitle)
+            setTitle(defaultTitle)
+        } else {
+            renamePresentation(title)
+        }
     }
 
     const inputStyle: CSSProperties = {
-        width: `${(title.length + 1) * 9}px`
+        width: `${inputWidth}px`
     }
 
     return (
-        <input className={classes.title}
-               type="text"
-               defaultValue={title}
-               onChange={handleTitleChange}
-               onBlur={handleTitleBlur}
-               style={inputStyle}
-        />
+        <div>
+            <input className={classes.title}
+                   type="text"
+                   value={title}
+                   onChange={handleTitleChange}
+                   onBlur={handleTitleBlur}
+                   style={inputStyle}
+            />
+            <div
+                ref={titleBufferRef}
+                className={classes.titleBuffer}
+            >
+                {title || defaultTitle}
+            </div>
+        </div>
+
     )
 }
 

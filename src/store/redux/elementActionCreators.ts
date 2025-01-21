@@ -1,5 +1,5 @@
-import {ActionType} from "./actions.ts";
-import {ImageElement, ImageFilterName, Position, Size, TextElement} from "../types.ts";
+import {ActionType} from "./actions.ts"
+import {ImageElement, ImageFilterName, Position, Size, TextElement} from "../types.ts"
 
 const addTextElement = () => {
     return {

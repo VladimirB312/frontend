@@ -1,18 +1,18 @@
 import classes from './EditorView.module.css'
-import {TopPanel} from "./views/TopPanel/TopPanel.tsx";
-import {SlideList} from "./views/SlideList/SlideList.tsx";
-import {WorkArea} from "./views/WorkArea/WorkArea.tsx";
-import {Background, ImageElement, SlideType, TextElement} from "./store/types.ts";
-import React, {useEffect, useState} from "react";
-import {UnsplashWindow} from "./views/UnsplahWindow/UnsplashWindow.tsx";
-import {createPortal} from "react-dom";
-import {SlidesPreview} from "./views/SlidesPreview/SlidesPreview.tsx";
-import {usePresentationSelector, useSelectionSelector} from "./hooks/useAppSelector.ts";
-import {useUndoRedo} from "./hooks/useUndoRedo.ts";
-import {BackgroundChangeModal} from "./views/BackgroundChangeModal/BackgroundChangeModal.tsx";
-import {useDelete} from "./hooks/useDelete.ts";
-import {SideBar} from "./views/SideBar/SideBar.tsx";
-import {useAppActions} from "./hooks/useAppAction.ts";
+import {TopPanel} from "../TopPanel/TopPanel.tsx"
+import {SlideList} from "../SlideList/SlideList.tsx"
+import {WorkArea} from "../WorkArea/WorkArea.tsx"
+import {Background, ImageElement, SlideType, TextElement} from "../../store/types.ts"
+import React, {useEffect, useState} from "react"
+import {UnsplashWindow} from "../UnsplahWindow/UnsplashWindow.tsx"
+import {createPortal} from "react-dom"
+import {SlidesPreview} from "../SlidesPreview/SlidesPreview.tsx"
+import {usePresentationSelector, useSelectionSelector} from "../../hooks/useAppSelector.ts"
+import {useUndoRedo} from "../../hooks/useUndoRedo.ts"
+import {BackgroundChangeModal} from "../BackgroundChangeModal/BackgroundChangeModal.tsx"
+import {useDelete} from "../../hooks/useDelete.ts"
+import {SideBar} from "../SideBar/SideBar.tsx"
+import {useAppActions} from "../../hooks/useAppAction.ts"
 
 const useCopyPasteElement = (activeSlide: SlideType | null, selectedElementId: string | null) => {
     const [elementBuffer, setElementBuffer] = useState<TextElement | ImageElement | null>(null)
@@ -54,7 +54,7 @@ const useCopyPasteElement = (activeSlide: SlideType | null, selectedElementId: s
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [activeSlide, elementBuffer, pasteElement, selectedElementId]);
+    }, [activeSlide, elementBuffer, pasteElement, selectedElementId])
 }
 
 const EditorView = () => {

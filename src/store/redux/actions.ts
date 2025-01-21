@@ -7,7 +7,7 @@ import {
     ImageFilterName, TextElement,
     UnsplashImageType
 } from "../types.ts"
-import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts";
+import {ColorBackground, ImageBackground, Position, PresentationType, Size} from "../types.ts"
 
 enum ActionType {
     RENAME_PRESENTATION = 'renamePresentation',

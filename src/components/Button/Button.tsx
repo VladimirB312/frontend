@@ -1,4 +1,4 @@
-import classes from "./Button.module.css";
+import classes from "./Button.module.css"
 
 type ButtonProps = {
     text?: string,

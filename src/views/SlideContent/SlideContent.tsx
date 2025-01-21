@@ -1,9 +1,9 @@
-import classes from './SlideContent.module.css';
-import {ImageElement, SlideType, TextElement} from "../../store/types.ts";
-import React, {CSSProperties, SetStateAction} from "react";
-import {SelectableElement} from "./SelectableElement/SelectableElement.tsx";
-import {EmptySlide} from "./EmptySlide/EmptySlide.tsx";
-import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts";
+import classes from './SlideContent.module.css'
+import {ImageElement, SlideType, TextElement} from "../../store/types.ts"
+import React, {CSSProperties, SetStateAction} from "react"
+import {SelectableElement} from "./SelectableElement/SelectableElement.tsx"
+import {EmptySlide} from "./EmptySlide/EmptySlide.tsx"
+import {SLIDE_HEIGHT, SLIDE_WIDTH} from "../../constants/slideSize.ts"
 
 type SlideProps = {
     slide?: SlideType | null,
@@ -57,7 +57,7 @@ const SlideContent = ({
     }
 
     if (isSelected) {
-        slideStyle.outline = '3px solid #0b57d0';
+        slideStyle.outline = '3px solid #0b57d0'
     }
 
     const elements: Array<TextElement | ImageElement> = slide.objects

@@ -1,9 +1,9 @@
-import {EditorType} from "../types.ts";
-import {getLocalEditor} from "../data.ts";
-import {ActionType, EditorAction} from "./actions.ts";
-import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelectionSlide} from "../selectionFunctions.ts";
-import {renamePresentation, loadPresentation,} from "../presentationFunctions.ts";
-import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts";
+import {EditorType} from "../types.ts"
+import {getLocalEditor} from "../data.ts"
+import {ActionType, EditorAction} from "./actions.ts"
+import {resetSelectionElement, setActiveSlide, setSelectionElement, setSelectionSlide} from "../selectionFunctions.ts"
+import {renamePresentation, loadPresentation,} from "../presentationFunctions.ts"
+import {setExternalImages, setUnsplashImageSelection, toggleUnsplashFetching} from "../unsplashFunctions.ts"
 import {
     addSlide,
     removeSlide,
@@ -12,7 +12,7 @@ import {
     setBackgroundImage,
     setBackgroundGradient,
     setAllSlidesBackground
-} from "../slideFunctions.ts";
+} from "../slideFunctions.ts"
 import {
     addImageElement,
     addTextElement,
@@ -32,7 +32,7 @@ import {
     changeImageOpacity,
     changeImageFilter,
     resetImageFilters, pasteElement,
-} from "../elementFunctions.ts";
+} from "../elementFunctions.ts"
 
 const editorReducer = (editor: EditorType = getLocalEditor(), action: EditorAction): EditorType => {
     switch (action.type) {

@@ -1,8 +1,8 @@
 import classes from './DownloadImage.module.css'
-import {useRef} from "react";
-import {useAppActions} from "../../../hooks/useAppAction.ts";
-import {Size} from "../../../store/types.ts";
-import {photoAddIcon} from "../../../components/icons.ts";
+import {useRef} from "react"
+import {useAppActions} from "../../../hooks/useAppAction.ts"
+import {Size} from "../../../store/types.ts"
+import {photoAddIcon} from "../../../components/icons.ts"
 
 type DownloadImageProps = {
     disabled: boolean

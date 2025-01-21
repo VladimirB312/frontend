@@ -2,27 +2,6 @@
     height: var(--topPanelHeight);
 }
 
-.title {
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    max-width: 80%;
-    min-width: 20px;
-    overflow: hidden;
-    height: calc(var(--topPanelHeight) / 3);
-    padding: 5px;
-}
-
-.title:hover {
-    outline: 2px solid rgba(0, 0, 0, 0.27);
-    border-radius: 3px;
-}
-
-.title:focus {
-    outline: 2px solid #0B57D0;
-    border-radius: 3px;
-}
-
 .presentationControls {
     padding: 4px;
     display: flex;

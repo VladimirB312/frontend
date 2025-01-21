@@ -1,8 +1,8 @@
-import {EditorType} from "../types.ts";
-import {ActionType, EditorAction} from "./actions.ts";
-import {getLocalEditor} from "../data.ts";
-import {editorReducer} from "./editorReducer.ts";
-import {setToLocalStorage} from "../setToLocalStorage.ts";
+import {EditorType} from "../types.ts"
+import {ActionType, EditorAction} from "./actions.ts"
+import {getLocalEditor} from "../data.ts"
+import {editorReducer} from "./editorReducer.ts"
+import {setToLocalStorage} from "../setToLocalStorage.ts"
 
 const HISTORY_LENGTH = 50
 

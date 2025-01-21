@@ -1,85 +1,10 @@
-import {PresentationType} from "./types.ts";
-import {EditorType} from "./types.ts";
-import {validatePresentation} from "../ajvValidator.ts";
-
-// const slide1: SlideType = {
-//     id: "123123",
-//     background: {
-//         type: "gradient",
-//         direction: 'to right',
-//         color1: '#00FF00',
-//         color2: '#30578a'
-//     },
-//     objects: [
-//         {
-//             id: '311',
-//             position: {x: 40, y: 40},
-//             size: {width: 200, height: 200},
-//             type: "text",
-//             value: "Slide 1 text",
-//             textSize: 30,
-//             font: "Arial, sans-serif",
-//             color: '#000000',
-//             align: 'center',
-//         },
-//         {
-//             id: "241",
-//             position: {x: 160, y: 160},
-//             size: {width: 150, height: 150},
-//             type: "image",
-//             src: "./src/assets/image1.png",
-//             opacity: 1,
-//             brightness: 100,
-//             contrast: 100,
-//             saturate: 100,
-//             sepia: 0,
-//             grayscale: 0,
-//             blur: 0,
-//         },
-//     ]
-// }
-//
-// const slide2: SlideType = {
-//     id: "5235235",
-//     background: {
-//         src: "./src/assets/testBackground.jpg",
-//         type: "image"
-//     },
-//     objects: [
-//         {
-//             id: "135",
-//             position: {x: 50, y: 150},
-//             size: {width: 200, height: 50},
-//             type: "text",
-//             value: "Slide 2 text",
-//             textSize: 20,
-//             font: "Arial, sans-serif",
-//             color: '#000000',
-//             align: 'center',
-//         },
-//         {
-//             id: "182",
-//             position: {x: 150, y: 150},
-//             size: {width: 150, height: 150},
-//             type: "image",
-//             src: "./src/assets/testImage.png",
-//             opacity: 1,
-//             brightness: 100,
-//             contrast: 100,
-//             saturate: 100,
-//             sepia: 0,
-//             grayscale: 0,
-//             blur: 0,
-//         },
-//     ]
-// }
+import {PresentationType} from "./types.ts"
+import {EditorType} from "./types.ts"
+import {validatePresentation} from "../utils/ajvValidator.ts"
 
 const presentation: PresentationType = {
-    title: "Presentation title",
-    slides: [
-        // slide1,
-        // slide2
-    ]
+    title: "Новая презентация",
+    slides: []
 }
 
 const defaultEditor: EditorType = {
@@ -90,7 +15,7 @@ const defaultEditor: EditorType = {
     }
 }
 
-const getLocalEditor = () : EditorType => {
+const getLocalEditor = (): EditorType => {
     const localPresentation = localStorage.getItem('presentationData')
     if (!localPresentation) {
         return defaultEditor
@@ -99,7 +24,6 @@ const getLocalEditor = () : EditorType => {
     const localPresentationObj: PresentationType | null = JSON.parse(localPresentation)
     const valid = validatePresentation(localPresentationObj)
     if (localPresentationObj && valid) {
-        console.log("valid json scheme from local storage")
         const selectedSlideId = localPresentationObj.slides.length ? localPresentationObj.slides[0].id : null
         return {
             presentation: localPresentationObj,
@@ -110,10 +34,8 @@ const getLocalEditor = () : EditorType => {
             }
         }
     } else {
-        console.log("invalid json scheme from local storage", validatePresentation.errors)
         return defaultEditor
     }
-
 }
 
 export {

@@ -1,6 +1,6 @@
-import {useAppSelector} from "./useAppSelector.ts";
-import {useEffect} from "react";
-import {useAppActions} from "./useAppAction.ts";
+import {useAppSelector} from "./useAppSelector.ts"
+import {useEffect} from "react"
+import {useAppActions} from "./useAppAction.ts"
 
 const useUndoRedo = (showBackgroundModal: boolean, showUnsplash: boolean, showPreviewSlides: boolean): { undoDisabled: boolean, redoDisabled: boolean } => {
     const undoDisabled = !useAppSelector(state => state.past.length)

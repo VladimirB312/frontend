@@ -1,4 +1,4 @@
-import {GradientBackground, GradientDirection} from "../store/types.ts";
+import {GradientBackground, GradientDirection} from "../store/types.ts"
 
 const getDirection = (direction: GradientDirection, width: number, height: number) => {
     switch (direction) {

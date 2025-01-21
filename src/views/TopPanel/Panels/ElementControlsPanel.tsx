@@ -1,7 +1,7 @@
-import {Button} from "../../../components/Button/Button.tsx";
-import {textAddIcon, unsplashIcon} from "../../../components/icons.ts";
-import {DownloadImage} from "../CustomButtons/DownloadImage.tsx";
-import {useAppActions} from "../../../hooks/useAppAction.ts";
+import {Button} from "../../../components/Button/Button.tsx"
+import {textAddIcon, unsplashIcon} from "../../../components/icons.ts"
+import {DownloadImage} from "../CustomButtons/DownloadImage.tsx"
+import {useAppActions} from "../../../hooks/useAppAction.ts"
 
 type ElementControlsPanelProps = {
     disabledSlideButton: boolean,

@@ -1,9 +1,9 @@
 import classes from './LoadPresentation.module.css'
-import React, {useRef} from "react";
-import {useAppActions} from "../../../hooks/useAppAction.ts";
-import {PresentationType} from "../../../store/types.ts";
-import {loadIcon} from "../../../components/icons.ts";
-import {validatePresentation} from "../../../ajvValidator.ts";
+import React, {useRef} from "react"
+import {useAppActions} from "../../../hooks/useAppAction.ts"
+import {PresentationType} from "../../../store/types.ts"
+import {loadIcon} from "../../../components/icons.ts"
+import {validatePresentation} from "../../../utils/ajvValidator.ts"
 
 const LoadPresentation = () => {
     const inputRef = useRef<HTMLInputElement>(null)
@@ -19,7 +19,7 @@ const LoadPresentation = () => {
             return
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
 
         reader.onload = e => {
             try {
@@ -42,7 +42,7 @@ const LoadPresentation = () => {
         }
 
         reader.onerror = (e) => {
-            console.error('Ошибка FileReader:', e);
+            console.error('Ошибка FileReader:', e)
         }
 
         reader.readAsText(file)
@@ -71,4 +71,3 @@ const LoadPresentation = () => {
 }
 
 export {LoadPresentation}
-

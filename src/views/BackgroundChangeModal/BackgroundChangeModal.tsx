@@ -1,10 +1,10 @@
 import classes from './BackgroundChangeModal.module.css'
-import {Background, ImageBackground, SlideType} from "../../store/types.ts";
-import {Button} from "../../components/Button/Button.tsx";
-import React, {SetStateAction, useEffect, useRef} from "react";
-import {useAppActions} from "../../hooks/useAppAction.ts";
-import {closeIcon, photoAddIcon} from "../../components/icons.ts";
-import {ColorPicker} from "./ColorPicker.tsx";
+import {Background, ImageBackground, SlideType} from "../../store/types.ts"
+import {Button} from "../../components/Button/Button.tsx"
+import React, {SetStateAction, useEffect, useRef} from "react"
+import {useAppActions} from "../../hooks/useAppAction.ts"
+import {closeIcon, photoAddIcon} from "../../components/icons.ts"
+import {ColorPicker} from "./ColorPicker.tsx"
 
 type BackgroundChangeModalProps = {
     slide: SlideType | null,
@@ -12,7 +12,6 @@ type BackgroundChangeModalProps = {
     previewUserBackground: null | Background,
     setPreviewUserBackground: React.Dispatch<SetStateAction<Background | null>>,
 }
-
 
 const BackgroundChangeModal = ({
                                    slide,
@@ -27,7 +26,7 @@ const BackgroundChangeModal = ({
     useEffect(() => {
         if (!previewUserBackground && slide)
         setPreviewUserBackground(slide.background) 
-    }, [previewUserBackground, setPreviewUserBackground, slide]);
+    }, [previewUserBackground, setPreviewUserBackground, slide])
     
     if (!slide) {
         return <p>Цвет фона</p>
@@ -40,7 +39,7 @@ const BackgroundChangeModal = ({
     }
 
     const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        const file = event.target.files?.[0];
+        const file = event.target.files?.[0]
         if (inputRef.current) {
             inputRef.current.value = ''
         }

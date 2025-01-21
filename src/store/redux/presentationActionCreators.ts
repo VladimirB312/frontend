@@ -1,5 +1,5 @@
-import {ActionType} from "./actions.ts";
-import {PresentationType} from "../types.ts";
+import {ActionType} from "./actions.ts"
+import {PresentationType} from "../types.ts"
 
 const renamePresentation = (newTitle: string) => {
     return {
@@ -26,7 +26,6 @@ const redo = () => {
         type: ActionType.REDO
     }
 }
-
 
 export {
     renamePresentation,

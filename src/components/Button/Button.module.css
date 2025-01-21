@@ -17,7 +17,11 @@
     background-color: #D2D8DF;
 }
 
-.buttonDisabled:hover  {
+.button:focus-visible {
+    outline: none;
+}
+
+.buttonDisabled:hover {
     background-color: transparent;
 }
 

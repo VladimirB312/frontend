@@ -1,13 +1,13 @@
-import {Button} from "../../components/Button/Button.tsx";
+import {Button} from "../../components/Button/Button.tsx"
 import {
     bringForwardIcon,
     bringFrontIcon,
     deleteIcon,
     sendBackwardIcon,
     sendToBackIcon
-} from "../../components/icons.ts";
-import {useAppActions} from "../../hooks/useAppAction.ts";
-import {SlideType} from "../../store/types.ts";
+} from "../../components/icons.ts"
+import {useAppActions} from "../../hooks/useAppAction.ts"
+import {SlideType} from "../../store/types.ts"
 import classes from './LayerControls.module.css'
 
 type LayerControlsProps = {

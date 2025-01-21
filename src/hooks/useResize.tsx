@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {ImageElement, Position, TextElement} from "../store/types.ts";
-import {useAppActions} from "./useAppAction.ts";
+import React, {useEffect, useState} from "react"
+import {ImageElement, Position, TextElement} from "../store/types.ts"
+import {useAppActions} from "./useAppAction.ts"
 
-const MIN_ELEMENT_SIZE = 15;
+const MIN_ELEMENT_SIZE = 15
 
 type Direction = null | "right" | "left" | "top" | "bottom" | "leftTop" | "leftBottom" | "rightTop" | "rightBottom"
 
@@ -210,20 +210,19 @@ const useResize = () => {
             setDndRect(null)
             setDirection(null)
 
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
         }
-
 
         document.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
 
         return () => {
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('mousemove', onMouseMove)
+            document.removeEventListener('mouseup', onMouseUp)
         }
 
-    }, [changeElementPosition, changeElementRect, changeElementSize, direction, dndRect, isDragging, startPos]);
+    }, [changeElementPosition, changeElementRect, changeElementSize, direction, dndRect, isDragging, startPos])
 
     return {onResize, dndRect}
 }

@@ -1,6 +1,6 @@
 import classes from './ColorPicker.module.css'
-import React, {ChangeEvent, SetStateAction, useEffect, useState} from "react";
-import {Background, ColorBackground, GradientBackground, GradientDirection, SlideType} from "../../store/types.ts";
+import React, {ChangeEvent, SetStateAction, useEffect, useState} from "react"
+import {Background, ColorBackground, GradientBackground, GradientDirection, SlideType} from "../../store/types.ts"
 
 type ColorPickerProps = {
     slide: SlideType | null,

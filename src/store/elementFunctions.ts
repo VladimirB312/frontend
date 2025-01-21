@@ -1,5 +1,5 @@
-import {ImageElement, Position, PresentationType, Size, TextElement} from "./types.ts";
-import {EditorType} from "./types.ts";
+import {ImageElement, Position, PresentationType, Size, TextElement} from "./types.ts"
+import {EditorType} from "./types.ts"
 import {
     AddImageElement,
     ChangeElementPosition,
@@ -12,8 +12,8 @@ import {
     ChangeTextFont,
     ChangeTextSize,
     ChangeTextValue, PasteElement
-} from "./redux/actions.ts";
-import {calculatePosition} from "../utils/calculatePosition.ts";
+} from "./redux/actions.ts"
+import {calculatePosition} from "../utils/calculatePosition.ts"
 
 const addElement = (editor: EditorType, newElement: ImageElement | TextElement) => {
     return {
@@ -21,7 +21,7 @@ const addElement = (editor: EditorType, newElement: ImageElement | TextElement) 
             ...editor.presentation,
             slides: editor.presentation.slides.map(slide => {
                 if (slide.id !== editor.selection?.activeSlideId) {
-                    return slide;
+                    return slide
                 }
 
                 return {
@@ -64,7 +64,7 @@ const addTextElement = (editor: EditorType) => {
             align: 'left',
         }
 
-    return addElement(editor, newTextElement);
+    return addElement(editor, newTextElement)
 }
 
 const addImageElement = (editor: EditorType, action: AddImageElement) => {
@@ -150,7 +150,7 @@ const changeElementPosition = (presentation: PresentationType, slideId: string, 
                 ...slide,
                 objects: slide.objects.map(obj => {
                     if (obj.id !== slideElementId) {
-                        return obj;
+                        return obj
                     }
 
                     return {
@@ -175,7 +175,7 @@ const changeElementSize = (presentation: PresentationType, slideId: string, slid
                 ...slide,
                 objects: slide.objects.map(obj => {
                     if (obj.id != slideElementId) {
-                        return obj;
+                        return obj
                     }
 
                     return {
@@ -200,7 +200,7 @@ const changeElementRect = (presentation: PresentationType, slideId: string, slid
                 ...slide,
                 objects: slide.objects.map(obj => {
                     if (obj.id != slideElementId) {
-                        return obj;
+                        return obj
                     }
 
                     return {
@@ -228,7 +228,7 @@ const removeElement = (editor: EditorType): EditorType => {
             slides: editor.presentation.slides.map(
                 slide => {
                     if (slide.id !== selectedSlideId) {
-                        return slide;
+                        return slide
                     }
 
                     return {
@@ -278,7 +278,7 @@ const moveElement = (editor: EditorType, offsetIndex: number): EditorType => {
             slides: editor.presentation.slides.map(
                 slide => {
                     if (slide.id !== selectedSlideId) {
-                        return slide;
+                        return slide
                     }
 
                     return {
@@ -336,7 +336,7 @@ const sendElement = (editor: EditorType, changeIndex: (elements:  Array<TextElem
             slides: editor.presentation.slides.map(
                 slide => {
                     if (slide.id !== selectedSlideId) {
-                        return slide;
+                        return slide
                     }
 
                     return {
@@ -356,7 +356,7 @@ const sendElementBackward = (editor: EditorType): EditorType => {
 }
 
 const sendElementForward = (editor: EditorType): EditorType => {
-    return sendElement(editor, changeElementIndexToEnd);
+    return sendElement(editor, changeElementIndexToEnd)
 }
 
 const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorType => {
@@ -373,7 +373,7 @@ const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorTyp
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != elementId) {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -387,7 +387,7 @@ const changeTextValue = (editor: EditorType, action: ChangeTextValue): EditorTyp
 }
 
 const changeTextFont = (editor: EditorType, action: ChangeTextFont): EditorType => {
-    const newTextFont = action.payload;
+    const newTextFont = action.payload
 
     return {
         ...editor,
@@ -399,7 +399,7 @@ const changeTextFont = (editor: EditorType, action: ChangeTextFont): EditorType 
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId) {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -425,7 +425,7 @@ const changeTextSize = (editor: EditorType, action: ChangeTextSize): EditorType 
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId) {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -451,7 +451,7 @@ const changeTextColor = (editor: EditorType, action: ChangeTextColor): EditorTyp
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId) {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -477,7 +477,7 @@ const changeTextAlign = (editor: EditorType, action: ChangeTextAlign): EditorTyp
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId) {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -503,7 +503,7 @@ const changeImageOpacity = (editor: EditorType, action: ChangeImageOpacity): Edi
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -530,7 +530,7 @@ const changeImageFilter = (editor: EditorType, action: ChangeImageFilter): Edito
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
-                            return obj;
+                            return obj
                         }
 
                         return {
@@ -554,7 +554,7 @@ const resetImageFilters = (editor: EditorType): EditorType => {
                     ...slide,
                     objects: slide.objects.map(obj => {
                         if (obj.id != editor.selection?.selectedElementId || obj.type != 'image') {
-                            return obj;
+                            return obj
                         }
 
                         return {

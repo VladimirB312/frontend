@@ -1,11 +1,11 @@
-import {ImageFilterName, SlideType} from "../../store/types.ts";
-import {useAppActions} from "../../hooks/useAppAction.ts";
-import {ChangeEvent} from "react";
-import {RangeSlider} from "../../components/RangeSlider/RangeSlider.tsx";
-import {IMAGE_FILTERS} from "../../constants/imageFilters.ts";
-import {Button} from "../../components/Button/Button.tsx";
+import {ImageFilterName, SlideType} from "../../store/types.ts"
+import {useAppActions} from "../../hooks/useAppAction.ts"
+import {ChangeEvent} from "react"
+import {RangeSlider} from "../../components/RangeSlider/RangeSlider.tsx"
+import {IMAGE_FILTERS} from "../../constants/imageFilters.ts"
+import {Button} from "../../components/Button/Button.tsx"
 import classes from './ImageEditControls.module.css'
-import {resetIcon} from "../../components/icons.ts";
+import {resetIcon} from "../../components/icons.ts"
 
 type ImageEditControlsProps = {
     slide: SlideType | null,

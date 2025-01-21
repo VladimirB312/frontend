@@ -1,4 +1,4 @@
-import {ActionType} from "./actions.ts";
+import {ActionType} from "./actions.ts"
 
 const setSelectionSlide = (slideId: string) => {
     return {
