@@ -45,12 +45,12 @@ function Title({value}: TitleProps) {
                    onBlur={handleTitleBlur}
                    style={inputStyle}
             />
-            <div
+            <span
                 ref={titleBufferRef}
                 className={classes.titleBuffer}
             >
                 {title || defaultTitle}
-            </div>
+            </span>
         </div>
 
     )

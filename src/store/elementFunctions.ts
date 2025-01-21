@@ -11,11 +11,12 @@ import {
     ChangeTextColor,
     ChangeTextFont,
     ChangeTextSize,
-    ChangeTextValue, PasteElement
+    ChangeTextValue,
+    PasteElement
 } from "./redux/actions.ts"
 import {calculatePosition} from "../utils/calculatePosition.ts"
 
-const addElement = (editor: EditorType, newElement: ImageElement | TextElement) => {
+const addElement = (editor: EditorType, newElement: ImageElement | TextElement): EditorType => {
     return {
         presentation: {
             ...editor.presentation,
@@ -33,7 +34,7 @@ const addElement = (editor: EditorType, newElement: ImageElement | TextElement) 
         selection: {
             ...editor.selection,
             selectedElementId: newElement.id,
-            type: "element",
+            type: 'element',
         }
     }
 }
@@ -141,7 +142,7 @@ const changeRect = (editor: EditorType, action: ChangeElementRect): EditorType =
 const changeElementPosition = (presentation: PresentationType, slideId: string, slideElementId: string, newPosition: { //
     x: number,
     y: number
-})=> {
+}) => {
     return {
         ...presentation,
         slides: presentation.slides.map(slide => slide.id !== slideId
@@ -244,8 +245,7 @@ const removeElement = (editor: EditorType): EditorType => {
     }
 }
 
-//Выше offsetIndex == -1, ниже offsetIndex == 1
-const changeIndexElement = (elements:  Array<TextElement | ImageElement>, elementId: string, offsetIndex: number) => {
+const changeIndexElement = (elements: Array<TextElement | ImageElement>, elementId: string, offsetIndex: number) => {
     const elementIndex = elements.findIndex(element => element.id == elementId)
 
     if (elementIndex == elements.length - 1 && offsetIndex == 1) {
@@ -301,7 +301,7 @@ const moveElementBackward = (editor: EditorType): EditorType => {
     return moveElement(editor, -1)
 }
 
-const changeElementIndexToStart = (elements:  Array<TextElement | ImageElement>, elementId: string) => {
+const changeElementIndexToStart = (elements: Array<TextElement | ImageElement>, elementId: string) => {
     const elementIndex = elements.findIndex(element => element.id == elementId)
 
     const newElements = [...elements]
@@ -311,7 +311,7 @@ const changeElementIndexToStart = (elements:  Array<TextElement | ImageElement>,
     return newElements
 }
 
-const changeElementIndexToEnd  = (elements:  Array<TextElement | ImageElement>, elementId: string) => {
+const changeElementIndexToEnd = (elements: Array<TextElement | ImageElement>, elementId: string) => {
     const elementIndex = elements.findIndex(element => element.id == elementId)
 
     const newElements = [...elements]
@@ -321,7 +321,7 @@ const changeElementIndexToEnd  = (elements:  Array<TextElement | ImageElement>, 
     return newElements
 }
 
-const sendElement = (editor: EditorType, changeIndex: (elements:  Array<TextElement | ImageElement>, elementId: string) => Array<TextElement | ImageElement>): EditorType => {
+const sendElement = (editor: EditorType, changeIndex: (elements: Array<TextElement | ImageElement>, elementId: string) => Array<TextElement | ImageElement>): EditorType => {
     if (!editor.selection?.activeSlideId || !editor.selection.selectedElementId) {
         return editor
     }
@@ -341,7 +341,7 @@ const sendElement = (editor: EditorType, changeIndex: (elements:  Array<TextElem
 
                     return {
                         ...slide,
-                        objects: changeIndex(slide.objects,elementId)
+                        objects: changeIndex(slide.objects, elementId)
                     }
                 })
         },

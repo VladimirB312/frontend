@@ -15,6 +15,7 @@ import {
 import {SlidesControlsPanel} from "./Panels/SlidesControlsPanel.tsx"
 import {UndoRedoControlsPanel} from "./Panels/UndoRedoControlsPanel.tsx"
 import {ElementControlsPanel} from "./Panels/ElementControlsPanel.tsx"
+import {savePresentation} from "../../utils/savePresentation.ts"
 
 type TopPanelProps = {
     slide: SlideType | null,
@@ -48,14 +49,7 @@ const TopPanel = ({
     }
 
     const onSavePresentation = () => {
-        const jsonEditor = JSON.stringify(presentation)
-        const file = new Blob([jsonEditor], {type: "application/json"})
-        const a = document.createElement('a')
-        a.href = URL.createObjectURL(file)
-        const fileName = title || 'presentation'
-        a.download = `${fileName}.json`
-        a.click()
-        URL.revokeObjectURL(a.href)
+        savePresentation(presentation, title)
     }
 
     const onOpenPlayerView = () => {
