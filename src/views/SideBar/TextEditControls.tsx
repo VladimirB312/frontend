@@ -75,6 +75,7 @@ const TextEditControls = ({slide, selectedElementId}: TextEditControlsProps) => 
                     <option value='36px'>36px</option>
                     <option value='48px'>48px</option>
                     <option value='60px'>60px</option>
+                    <option value='72px'>72px</option>
                 </select>
             </form>
             <div className={classes.colorPickerWrapper}>
